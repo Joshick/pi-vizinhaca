@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Login() {
     return (
         <div>
@@ -23,7 +25,8 @@ export default function Login() {
 
                 <br /><br />
 
-                <button class="btn btn-outline-success" type="submit">Entrar</button>
+                <Link  href= "/principal" ><button class="btn btn-outline-success" type="submit">Entrar</button> </Link>
+                <Link href= "/" ><button type="button" class="btn btn-secondary">Cancelar</button></Link>
 
             </form>
 
