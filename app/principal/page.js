@@ -1,4 +1,6 @@
+import Link from "next/link"
 import "./principal.css"
+import Login from "../login/page"
 
 export default function Principal() {
     return (
@@ -20,9 +22,15 @@ export default function Principal() {
             
                 {/* PERFIL INFERIOR */}
                 <div class="text-center">
+
                     <div>
                         <button> <img src="https://placehold.co/25"></img> Perfil </button>
+
+                        <Link href="/"><button>Sair</button></Link>
+                        
                     </div>
+
+                    
                 </div>
             </div>
 
