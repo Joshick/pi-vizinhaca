@@ -1,10 +1,8 @@
-import Image from "next/image";
-import Pq_usar from "./tela_inicial/pq_usar";
-import Como_usar from "./tela_inicial/Como_usar";
-import "./tela_inicial/Home.css"
+import Como_usar from "./Como_usar"
+import "./page.css"
+import Pq_usar from "./pq_usar"
 
-
-export default function Home() {
+export default function tela_inicial() {
     return (
         <div>
 
