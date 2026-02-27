@@ -2,6 +2,7 @@ import Image from "next/image";
 import Pq_usar from "./tela_inicial/pq_usar";
 import Como_usar from "./tela_inicial/Como_usar";
 import "./tela_inicial/Home.css"
+import Link from "next/link";
 
 
 export default function Home() {
@@ -12,8 +13,8 @@ export default function Home() {
 
                 <h1>Amigo da Vizinhança 🕷 </h1>
                 <p>Ajude a melhorar o seu bairro.</p>
-                <button class="btn btn-outline-success btn-sm me-2">LOGIN</button>
-                <button class="btn btn-outline-secondary btn-sm ms-2">CADASTRAR</button>
+                <Link href="/login"><button class="btn btn-outline-success btn-sm me-2">LOGIN</button></Link> 
+                <Link href="/cadastrar"><button class="btn btn-outline-secondary btn-sm ms-2">CADASTRAR</button></Link>
 
             </div>
 
