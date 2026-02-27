@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Cadastro() {
     return (
         <div>
@@ -71,8 +73,8 @@ export default function Cadastro() {
 
                 <br /><br />
 
-                <button class="btn btn-outline-success me-2" type="submit">Salvar</button>
-                <button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button>
+                <Link href= "/login" ><button class="btn btn-outline-success me-2" type="submit">Salvar</button></Link>
+                <Link href= "/" > <button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
 
