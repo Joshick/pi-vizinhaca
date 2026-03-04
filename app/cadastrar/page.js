@@ -74,7 +74,7 @@ export default function Cadastro() {
                 <br /><br />
 
                 <Link href= "/login" ><button class="btn btn-outline-success me-2" type="submit">Salvar</button></Link>
-                <Link href= "/" > <button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+                <Link href= "/" ><button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
 

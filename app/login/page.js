@@ -25,8 +25,8 @@ export default function Login() {
 
                 <br /><br />
 
-                <Link  href= "/principal" ><button class="btn btn-outline-success" type="submit">Entrar</button> </Link>
-                <Link href= "/" ><button type="button" class="btn btn-secondary">Cancelar</button></Link>
+                <Link href= "/principal" ><button class="btn btn-outline-success me-2" type="submit">Entrar</button></Link>
+                <Link href= "/" ><button type="button" class="btn btn-secondary ms-2">Cancelar</button></Link>
 
             </form>
 
