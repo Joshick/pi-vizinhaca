@@ -1,7 +1,6 @@
-export default function usuarios() {
+export default function Home() {
+
   return (
-
-
     <div>
       <div class="container-fluid">
         <div class="row">
@@ -9,13 +8,13 @@ export default function usuarios() {
 
           <aside class="col-2 border-end min-vh-100 p-3">
             <div class="text-center">
-             
+              <img src="https://placehold.co/100" class="rounded mb-2" />
               <h5>Amigo da Vizinhança</h5>
             </div>
 
             <div class="list-group list-group-flush mt-4">
 
-              <a href="./" class="list-group-item list-group-item-action">
+              <a href="./responsavel.html" class="list-group-item list-group-item-action">
                 Home
               </a>
 
@@ -24,48 +23,41 @@ export default function usuarios() {
                 Criar solicitação
               </button>
 
-              <a href="./solicitacoes" class="list-group-item list-group-item-action">
+              <a href="./solicitacoes.html" class="list-group-item list-group-item-action active">
                 Solicitações
               </a>
 
-              <a href="./usuarios" class="list-group-item list-group-item-action active">
+              <a href="./usuarios.html" class="list-group-item list-group-item-action">
                 Usuários
               </a>
 
             </div>
           </aside>
 
-
           <main class="col-10 p-4">
-            <h2>👥 Usuários</h2>
+            <h2>📌 Solicitações</h2>
 
-            <div class="table-responsive mt-4">
-              <table class="table table-striped table-bordered">
-                <thead class="table-dark">
-                  <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Ação</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>João Silva</td>
-                    <td>joao@email.com</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-danger">
-                        Desativar
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="row mt-4">
+
+              <div class="col-md-4">
+                <div class="card">
+                  <img src="https://placehold.co/600x300" class="card-img-top" />
+                  <div class="card-body">
+                    <h5 class="card-title">Buraco na rua</h5>
+                    <p class="card-text">
+                      Tem um buraco grande na rua X, perto do número 123.
+                    </p>
+                    <span class="badge bg-primary">Infraestrutura</span>
+                    <span class="badge bg-warning text-dark">Média</span>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between">
+                    <small class="text-muted">02/03/2026</small>
+                    <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
-
           </main>
 
         </div>
@@ -124,7 +116,7 @@ export default function usuarios() {
               </div>
 
               <div class="text-muted" style="font-size: 0.9rem;">
-
+                * campos obrigatórios
               </div>
             </div>
 
@@ -136,8 +128,8 @@ export default function usuarios() {
         </div>
       </div>
 
-    </div>
 
+    </div>
 
 
   )
