@@ -17,7 +17,7 @@ export default function administrador() {
 
                         <div class="list-group list-group-flush mt-4">
 
-                            <a href="./" class="list-group-item list-group-item-action active">
+                            <a href="./administrador" class="list-group-item list-group-item-action active">
                                 Home
                             </a>
 
@@ -27,11 +27,11 @@ export default function administrador() {
                                 Criar solicitação
                             </button>
 
-                            <a href="./solicitacoes.html" class="list-group-item list-group-item-action">
+                            <a href="./solicitacoes" class="list-group-item list-group-item-action">
                                 Solicitações
                             </a>
 
-                            <a href="./usuarios.html" class="list-group-item list-group-item-action">
+                            <a href="./usuarios" class="list-group-item list-group-item-action">
                                 Usuários
                             </a>
 
