@@ -17,7 +17,7 @@ export default function administrador() {
 
                         <div class="list-group list-group-flush mt-4">
 
-                            <a href="./responsavel.html" class="list-group-item list-group-item-action active">
+                            <a href="./" class="list-group-item list-group-item-action active">
                                 Home
                             </a>
 

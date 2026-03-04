@@ -9,13 +9,13 @@ export default function usuarios() {
 
           <aside class="col-2 border-end min-vh-100 p-3">
             <div class="text-center">
-              <img src="https://placehold.co/100" class="rounded mb-2" />
+             
               <h5>Amigo da Vizinhança</h5>
             </div>
 
             <div class="list-group list-group-flush mt-4">
 
-              <a href="./responsavel.html" class="list-group-item list-group-item-action">
+              <a href="./" class="list-group-item list-group-item-action">
                 Home
               </a>
 
@@ -24,11 +24,11 @@ export default function usuarios() {
                 Criar solicitação
               </button>
 
-              <a href="./solicitacoes.html" class="list-group-item list-group-item-action">
+              <a href="./solicitacoes" class="list-group-item list-group-item-action">
                 Solicitações
               </a>
 
-              <a href="./usuarios.html" class="list-group-item list-group-item-action active">
+              <a href="./usuarios" class="list-group-item list-group-item-action active">
                 Usuários
               </a>
 
