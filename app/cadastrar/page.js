@@ -19,9 +19,9 @@ export default function Cadastro() {
                 <br /><br />
 
                 <label>
-                    Digite o e-mail:
+                    Digite o CPF:
                     <br />
-                    <input required type="email" class="inputEmail" />
+                    <input required type="email" class="inputcpf" />
                 </label>
 
                 <br /><br />
@@ -35,18 +35,27 @@ export default function Cadastro() {
 
                 <br /><br />
 
-                <label>
-                    Digite a Senha:
+                 <label>
+                    Digite o e-mail:
                     <br />
-                    <input required type="password" class="inputSenha" />
+                    <input required type="email" class="inputEmail" />
+                </label>
+
+                <br /><br />
+
+
+                <label>
+                    Digite o bairro:
+                    <br />
+                    <input required type="password" class="inputbairro" />
                 </label>
 
                 <br /><br />
 
                 <label>
-                    Digite o Bairro:
+                    Digite a senha:
                     <br />
-                    <input required type="text" class="inputBairro" />
+                    <input required type="text" class="inputSenha" />
                 </label>
 
                 <br /><br />
