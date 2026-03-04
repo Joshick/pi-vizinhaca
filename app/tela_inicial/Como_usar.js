@@ -10,9 +10,8 @@ export default function Como_usar() {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text"> This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <h5 class="card-title">Cadastre-se</h5>
+                            <p class="card-text"> Crie sua conta e informe seu bairro</p>
                         </div>
                     </div>
                 </div>
@@ -24,9 +23,8 @@ export default function Como_usar() {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text"> This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <h5 class="card-title">Relate problemas</h5>
+                            <p class="card-text"> Registre problemas que você identifica no seu bairro</p>
                         </div>
                     </div>
                 </div>
@@ -38,9 +36,8 @@ export default function Como_usar() {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text"> This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <h5 class="card-title">Vote e acompanhe</h5>
+                            <p class="card-text"> Vote nos relatos e acompanhe o andamento das soluções</p>
                         </div>
                     </div>
                 </div>
