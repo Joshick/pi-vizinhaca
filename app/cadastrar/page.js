@@ -50,11 +50,10 @@ function Cadastro() {
                     <select required class="inputBairro">
                         <option hidden></option>
                         <option>Jockey Clube</option>
-                        <option>Jockey Clube</option>
                         <option>Cidade Aracy</option>
                         <option>Jardim São Carlos</option>
                         <option>Jardim Lutfalla</option>
-                        <option>Paulistano</option>
+                        <option>Jardim Paulistano</option>
                         <option>Jardim Brasil</option>
                         <option>Botafogo</option>
                         <option>Zavaglia</option>
@@ -98,6 +97,36 @@ function Cadastro() {
                 <Link href="/" ><button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
+
+                <br /><br />
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Bairros</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jockey Clube</td>
+                        <td>Cidade Aracy</td>
+                        <td>Jardim São Carlos</td>
+                    </tr>
+                    <tr>
+                        <td>Jardim Lutfalla</td>
+                        <td>Jardim Paulistano</td>
+                        <td>Jardim Brasil</td>
+                    </tr>
+                    <tr>
+                        <td>Botafogo</td>
+                        <td>Zavaglia</td>
+                        <td>Centro</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
 
         </div>
     )
