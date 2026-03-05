@@ -102,44 +102,6 @@ function Cadastro() {
         </div>
     )
 
-    return (<div>
-        <h1>Lista de Bairros</h1>
 
-
-        const listaBairros = [
-        "Centro",
-        "Cidade Aracy",
-        "Jardim São Carlos",
-        "Jardim Macarenco",
-        "Jardim Lutfalla",
-        "Jardim Paulistano",
-        "Jardim Brasil",
-        "Jardim Gonzaga",
-        "Jardim Ipanema",
-        "Jardim Guanabara",
-        "Jardim Embaré",
-        "Jardim Hikari",
-        "Jardim Mercedes",
-        "Jardim Martinelli",
-        "Jardim Maracanã",
-        "Jardim Jacobucci",
-        "Parque Faber Castell I",
-        "Parque Faber Castell II",
-        "Parque Santa Felícia Jardim",
-        "Parque Sabará",
-        "Parque Primavera",
-        "Parque Santa Mônica",
-        "Parque Paraíso",
-        "Vila Prado",
-        "Vila Nery",
-        "Vila Monteiro",
-        "Vila Arnaldo",
-        "Vila Elizabeth",
-        "Vila Marina",
-        "Vila Morumbi"
-        ];
-
-    </div>
-    );
 }
 export default Cadastro;
