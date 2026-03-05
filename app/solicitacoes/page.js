@@ -1,102 +1,63 @@
-export default function usuarios() {
-
-  const usuarios = [
-    {
-      nome: "josé Hickelme",
-      email: "josehickelme@gmail.com"
-    },
-
-    {
-      nome: "leonardo naka",
-      email: "nkaaleo@gmail.com",
-    },
-
-
-
-    {
-      nome: "rayssa",
-      email: "rayssa@gmail.com"
-    },
-    {
-      nome: "Barbara Heliodora",
-      email: "helibarbara@gmail.com"
-    },
-  ]
+export default function Home() {
 
   return (
-
-
     <div>
-      <div class="container-fluid">
-        <div class="row">
+      <div className="container-fluid">
+        <div className="row">
 
 
-          <aside class="col-2 border-end min-vh-100 p-3">
+          <aside className="col-2 border-end min-vh-100 p-3">
             <div className="text-center">
-
+              <img src="https://placehold.co/100" className="rounded mb-2" />
               <h5>Amigo da Vizinhança</h5>
             </div>
 
             <div className="list-group list-group-flush mt-4">
 
-              <a href="./administrador" className="list-group-item list-group-item-action">Home</a>
+              <a href="./admnistrador" class="list-group-item list-group-item-action">
+                Home
+              </a>
 
-              <button className="list-group-item list-group-item-action text-start" data-bs-toggle="modal"
+              <button type="button" className="list-group-item list-group-item-action text-start" data-bs-toggle="modal"
                 data-bs-target="#modalCriar">
                 Criar solicitação
               </button>
 
-              <a href="./solicitacoes" className="list-group-item list-group-item-action">
+              <a href="./solicitacoes" className="list-group-item list-group-item-action active">
                 Solicitações
               </a>
 
-              <a href="./usuarios" className="list-group-item list-group-item-action active">
+              <a href="./usuarios" className="list-group-item list-group-item-action">
                 Usuários
               </a>
 
             </div>
           </aside>
 
-
           <main className="col-10 p-4">
-            <h2>👥 Usuários</h2>
+            <h2>📌 Solicitações</h2>
 
-            <div className="table-responsive mt-4">
-              <table className="table table-striped table-bordered">
-                <thead className="table-dark">
-                  <tr>
-                    
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Ação</th>
-                  </tr>
-                </thead>
-                {usuarios.map(item => (
+            <div className="row mt-4">
 
+              <div className="col-md-4">
+                <div className="card">
+                  <img src="https://placehold.co/600x300" className="card-img-top" />
+                  <div className="card-body">
+                    <h5 className="card-title">Buraco na rua</h5>
+                    <p className="card-text">
+                      Tem um buraco grande na rua X, perto do número 123.
+                    </p>
+                    <span className="badge bg-primary">Infraestrutura</span>
+                    <span className="badge bg-warning text-dark">Média</span>
+                  </div>
+                  <div className="card-footer d-flex justify-content-between">
+                    <small className="text-muted">02/03/2026</small>
+                    <button className="btn btn-sm btn-outline-danger">Excluir</button>
+                  </div>
+                </div>
+              </div>
 
-                  <tr>
-                    <td>{item.nome}</td>
-                    <td>{item.email}</td>
-                    
-                    <td><span className="badge bg-success">Ativo</span></td>
-                    <td>
-                      <button className="btn btn-sm btn-outline-danger">
-                        Desativar
-                      </button>
-                    </td>
-                  </tr>
-
-
-
-
-                ))}
-                <tbody>
-
-                </tbody>
-              </table>
             </div>
-
           </main>
 
         </div>
@@ -107,7 +68,7 @@ export default function usuarios() {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Nova Solicitação</h5>
-              <button className="btn-close" data-bs-dismiss="modal"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div className="modal-body">
@@ -154,7 +115,8 @@ export default function usuarios() {
                 <input type="file" className="form-control" accept="image/*" />
               </div>
 
-
+              
+              </div>
             </div>
 
             <div className="modal-footer">
@@ -165,8 +127,8 @@ export default function usuarios() {
         </div>
       </div>
 
-    </div>
 
+    
 
 
   )
