@@ -100,23 +100,23 @@ export default function Principal() {
     return (
         <div class="row">
             {/* MENU LATERAL */}
-            <div class="col-2" >
-                {/* LOGO */}
-                <div class="text-center mt-3">
+            <div className="col-2" >
+                {/* LOGO + NOME */}
+                <div className="text-center mt-3">
                     <img src="https://placehold.co/100"></img>
                     <h1> Amigo da Vizinhança</h1>
                 </div>
 
                 {/* LISTAGEM DAS PÁGINAS */}
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action"> Home </a>
-                    <a href="/reclamacoes" class="list-group-item list-group-item-action"> Criar solicitação </a>
-                    <a href="/minhas_solicitacoes" class="list-group-item list-group-item-action"> Minhas solicitações </a>
+                <div className="list-group list-group-flush">
+                    <a href="#" className="list-group-item list-group-item-action"> Home </a>
+                    <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"> Criar solicitação </a>
+                    <a href="/minhas_solicitacoes" className="list-group-item list-group-item-action"> Minhas solicitações </a>
 
                 </div>
 
                 {/* PERFIL INFERIOR */}
-                <div class="text-center">
+                <div className="text-center">
 
                     <div>
                         <button> <img src="https://placehold.co/25"></img> Perfil </button>
@@ -129,33 +129,35 @@ export default function Principal() {
                 </div>
             </div>
 
-            <div class="col-9">
-
+            {/* MENU PRINCIPAL */}
+            <div className="col-9"
+            >
                 {/* INTRODUÇÃO */}
-                <div class="mt-3">
+                <div className="mt-3">
                     <h2> 🏚 Home </h2>
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
-                <div class="row mt-5">
-
-                    <div class="col-8">
-                        <div class="input-group mb-3">
-                            <input class="form-control" placeholder="Pesquisar..." />
-                            <button class="btn btn-outline-secondary"> 🔎 </button>
+                <div className="row mt-5 align-items-center">
+                    <div className="col-md-9">
+                        <div className="input-group">
+                            <input className="form-control" placeholder="Pesquisar solicitações..." />
+                            <button className="btn btn-outline-secondary">🔎</button>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <select class="form-select">
-                            <option hidden> Filtrar... </option>
-                            <option value="1"> Ativos </option>
-                            <option value="2"> Inativos </option>
+
+                    <div className="col-md-3">
+                        <select className="form-select filtro-select">
+                            <option hidden>Filtrar status...</option>
+                            <option>Todos</option>
+                            <option>Aberto</option>
+                            <option>Em análise</option>
+                            <option>Resolvido</option>
                         </select>
                     </div>
                 </div>
 
                 {/* CARDS SOLICITAÇÕES */}
-
                 <div className="row mt-3">
                     {listaSolicitacoes.map((solicitacao) => (
                         <div className="col-md-3 mb-3" key={solicitacao.id}>
@@ -181,7 +183,6 @@ export default function Principal() {
                 </div>
 
 
-
                 {/*
                 {
                     listaSolicitacoes.map(
@@ -201,7 +202,61 @@ export default function Principal() {
 
                         </div>
                     )
-                }*/}
+                }
+                */}
+
+            </div>
+
+            {/* MODAL CRIAR SOLICITAÇÕES */}
+            <div class="modal fade" id="modalCriar" tabindex="-1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nova Solicitação</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input class="form-control" placeholder="Ex: Buraco na rua" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Descrição</label>
+                                <textarea class="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Categoria</label>
+                                <select class="form-select">
+                                    <option hidden>Selecione...</option>
+                                    <option>Infraestrutura</option>
+                                    <option>Saúde</option>
+                                    <option>Segurança</option>
+                                    <option>Educação</option>
+                                    <option>Trânsito</option>
+                                    <option>Serviços públicos</option>
+                                    <option>Comercial/Outros</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Imagem</label>
+                                <input type="file" class="form-control" />
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     )

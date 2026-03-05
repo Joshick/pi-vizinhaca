@@ -1,7 +1,21 @@
-.tst{
-    display: flex;
+body {
+    background-color: #F5F6FA;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
-.card{
-    width: 18rem;
+.col-2 {
+    background-color: #1e293b;
+    min-height: 100vh;
+    color: white;
+    padding: 0;
+}
+
+.col-2 img {
+    border-radius: 50%;
+}
+
+.col-2 h1 {
+    font-size: 20px;
+    margin-top: 10px;
 }
