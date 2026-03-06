@@ -14,7 +14,7 @@ export default function Home() {
 
             <div className="list-group list-group-flush mt-4">
 
-              <a href="./admnistrador" class="list-group-item list-group-item-action">
+              <a href="./administrador" className="list-group-item list-group-item-action">
                 Home
               </a>
 
@@ -29,6 +29,10 @@ export default function Home() {
 
               <a href="./usuarios" className="list-group-item list-group-item-action">
                 Usuários
+              </a>
+
+              <a href="./Bairros" className="list-group-item list-group-item-action">
+                Bairro
               </a>
 
             </div>

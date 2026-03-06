@@ -53,6 +53,11 @@ export default function usuarios() {
               <a href="./usuarios" className="list-group-item list-group-item-action active">
                 Usuários
               </a>
+              
+              <a href="./Bairros" className="list-group-item list-group-item-action">
+                Bairro
+              </a>
+              
 
             </div>
           </aside>
