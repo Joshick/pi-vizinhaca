@@ -113,11 +113,11 @@ export default function Principal() {
 
         const objeto = {
             id: id,
+            usuario: usuario,
             titulo: titulo,
-            descricao: descricao,
             categoria: categoria,
             status: status,
-            usuario: usuario,
+            descricao: descricao,
             imagem: imagem
 
         }
@@ -196,43 +196,19 @@ export default function Principal() {
                                     <p className="card-text">{solicitacao.descricao}</p>
                                     <div>
                                         <span className="badge bg-primary">{solicitacao.categoria}</span>
-                                        <span className="badge bg-warning text-dark ms-1">media</span>
+                                        <span className="badge bg-warning text-dark ms-1"> Media </span>
                                     </div>
                                     <hr/>
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
                                         <button className="btn btn-danger ms-1"> 👎 </button>
-                                        <button className="btn btn-primary ms-3"> Comentar... </button>
+                                        <button className="btn btn-primary ms-3"> + Comentar... </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
-
-
-                {/*
-                {
-                    listaSolicitacoes.map(
-                        solicitacoes => <div class="tst mt-3">
-                            <div className="card me-5">
-                                <img src={solicitacoes.imagem} className="card-img-top" alt="..."></img>
-                                <div className="card-body">
-                                    <h5 className="card-title">{solicitacoes.titulo}</h5>
-                                    <p className="card-text">{solicitacoes.descricao}</p>
-                                    <a href="#" className="btn btn-success"> 👍 </a>
-                                    <a href="#" className="btn btn-danger ms-1" > 👎 </a>
-                                    <a href="#" className="btn btn-primary ms-5" > Comentar... </a>
-
-
-                                </div>
-                            </div>
-
-                        </div>
-                    )
-                }
-                */}
-
             </div>
 
             {/* MODAL CRIAR SOLICITAÇÕES */}
@@ -240,23 +216,14 @@ export default function Principal() {
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
 
+                        {/* TITULO MODAL */}
                         <div className="modal-header">
                             <h5 className="modal-title">Nova Solicitação</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                            <button className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
+                        {/* CORPO MODAL */}
                         <div className="modal-body">
-
-                            <div className="mb-3">
-                                <label className="form-label">Título</label>
-                                <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">Descrição</label>
-                                <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
-                            </div>
-
                             <div className="mb-3">
                                 <label className="form-label">Categoria</label>
                                 <select onChange={e => alteraCategoria(e.target.value)} className="form-select">
@@ -269,9 +236,28 @@ export default function Principal() {
                                     <option>Serviços públicos</option>
                                     <option>Comercial/Outros</option>
                                 </select>
-                                {categoria}
                             </div>
 
+                            <div className="mb-3">
+                                <label className="form-label">Urgência</label>
+                                <select onChange={e => alteraUrgencia(e.target.value)} className="form-select">
+                                    <option hidden>Selecione...</option>
+                                    <option>Muito Alta</option>
+                                    <option>Alta</option>
+                                    <option>Média</option>
+                                    <option>Baixa</option>
+                                    <option>Muito Baixa</option>
+                                </select>
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label">Título</label>
+                                <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Descrição</label>
+                                <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                            </div>
                             <div className="mb-3">
                                 <label className="form-label">Imagem</label>
                                 <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
@@ -280,7 +266,7 @@ export default function Principal() {
                         </div>
 
                         <div className="modal-footer">
-                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
                             <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
 
