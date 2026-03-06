@@ -1,6 +1,55 @@
+'use client'
+import { useState } from "react";
 import Link from "next/link";
 
 function Cadastro() {
+
+    const [Nome, alteraNome] = useState("")
+    const [Cpf, alteraCpf] = useState("")
+    const [Data, alteraData] = useState("")
+    const [Email, alteraEmail] = useState("")
+    const [Bairro, alteraBairro] = useState("")
+    const [Senha, alteraSenha] = useState("")
+    const [Responsavel, alteraResponsavel] = useState("")
+    const [Premium, alteraPremium] = useState("")
+
+
+    const [listaCadastro, alteraListaCadastro] = useState([
+
+        { 
+            nome: "",
+            cpf: "",
+            data: "",
+            email: "",
+            bairro: "",
+            senha: "",
+            responsavel: "",
+            premium: "",
+        }
+
+    ])
+
+    
+    function salvar(e) {
+        e.preventDefault()
+        
+        const cadastro = {
+            nome: Nome,
+            cpf: Cpf,
+            data: Data,
+            email: Email,
+            bairro: Bairro,
+            senha: Senha,
+            responsavel: Responsavel,
+            premium: Premium,
+            
+        }
+        
+        alteraListaCadastro(listaCadastro.concat(cadastro))
+        
+        console.log(cadastro)
+    }
+
     return (
         <div>
 
@@ -8,12 +57,12 @@ function Cadastro() {
 
             <hr />
 
-            <form class="formCadastro text-center">
+            <form onSubmit={salvar} class="formCadastro text-center">
 
                 <label>
                     Digite o nome:
                     <br />
-                    <input required type="text" class="inputNome" />
+                    <input onChange={e => alteraNome(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -21,7 +70,7 @@ function Cadastro() {
                 <label>
                     Digite o CPF:
                     <br />
-                    <input required type="email" class="inputcpf" />
+                    <input onChange={e => alteraCpf(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -30,7 +79,7 @@ function Cadastro() {
                 <label>
                     Digite a data de nascimento:
                     <br />
-                    <input required type="date" class="inputData" />
+                    <input onChange={e => alteraData(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -38,7 +87,7 @@ function Cadastro() {
                 <label>
                     Digite o e-mail:
                     <br />
-                    <input required type="email" class="inputEmail" />
+                    <input onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -47,7 +96,7 @@ function Cadastro() {
                 <label>
                     Selecione o bairro:
                     <br />
-                    <select required class="inputBairro">
+                      <select onChange={e => alteraBairro(e.target.value)} required class="inputBairro">
                         <option hidden></option>
                         <option>Jockey Clube</option>
                         <option>Cidade Aracy</option>
@@ -66,7 +115,7 @@ function Cadastro() {
                 <label>
                     Digite a senha:
                     <br />
-                    <input required type="text" class="inputSenha" />
+                    <input onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -74,7 +123,7 @@ function Cadastro() {
                 <label>
                     É Responsável?
                     <br />
-                    <select required class="inputResponsavel">
+                    {e => alteraResponsavel(e.target.value)}<select required class="inputResponsavel" >
                         <option>Sim</option>
                         <option>Não</option>
                     </select>
@@ -85,7 +134,7 @@ function Cadastro() {
                 <label>
                     É Premium?
                     <br />
-                    <select required class="inputPremium">
+                    {e => alteraPremium(e.target.value)}<select required class="inputPremium">
                         <option>Sim</option>
                         <option>Não</option>
                     </select>
@@ -93,14 +142,14 @@ function Cadastro() {
 
                 <br /><br />
 
-                <Link href="/login" ><button class="btn btn-outline-success me-2" type="submit">Salvar</button></Link>
-                <Link href="/" ><button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+              <button class="btn btn-outline-success me-2" type="submit">Salvar</button>
+            <Link href="/" ><button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
 
-                <br /><br />
+            <br /><br />
 
-            <table class="table">
+            {/*<table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Bairros</th>
@@ -123,12 +172,12 @@ function Cadastro() {
                         <td>Centro</td>
                     </tr>
                 </tbody>
-            </table>
+            </table>*/}
 
 
 
 
-        </div>
+        </div >
     )
 
 
