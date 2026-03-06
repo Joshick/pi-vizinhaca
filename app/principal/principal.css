@@ -31,3 +31,8 @@ body {
     padding: 5px;
 
 }
+
+.card span {
+    width: 30%;
+
+}

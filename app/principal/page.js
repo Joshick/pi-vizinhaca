@@ -1,10 +1,21 @@
+'use client'
+import { useState } from "react"
+
 import Link from "next/link"
 import "./principal.css"
 import Login from "../login/page"
 
 export default function Principal() {
 
-    const listaSolicitacoes = [
+    const [id, alteraId] = useState("")
+    const [titulo, alteraTitulo] = useState("")
+    const [descricao, alteraDescricao] = useState("")
+    const [categoria, alteraCategoria] = useState("")
+    const [status, alteraStatus] = useState("")
+    const [usuario, alteraUsuario] = useState("")
+    const [imagem, alteraImagem] = useState()
+
+    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([
         {
             id: 1,
             titulo: "Buraco na rua principal",
@@ -95,10 +106,27 @@ export default function Principal() {
             usuario: "Bruno Carvalho",
             imagem: "https://placehold.co/600x400?text=Animal+Abandonado"
         }
-    ]
+    ])
+
+    function salvar(e) {
+        e.preventDefault()
+
+        const objeto = {
+            id: id,
+            titulo: titulo,
+            descricao: descricao,
+            categoria: categoria,
+            status: status,
+            usuario: usuario,
+            imagem: imagem
+
+        }
+
+        alteraListaSolicitacoes(listaSolicitacoes.concat(objeto))
+    }
 
     return (
-        <div class="row">
+        <div className="row">
             {/* MENU LATERAL */}
             <div className="col-2" >
                 {/* LOGO + NOME */}
@@ -162,15 +190,15 @@ export default function Principal() {
                     {listaSolicitacoes.map((solicitacao) => (
                         <div className="col-md-3 mb-3" key={solicitacao.id}>
                             <div className="card h-100">
-                                <img
-                                    src={solicitacao.imagem}
-                                    className="card-img-top"
-                                    alt={solicitacao.titulo}
-                                />
+                                <img src={solicitacao.imagem} className="card-img-top" alt={solicitacao.titulo} />
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
-
+                                    <div>
+                                        <span className="badge bg-primary">{solicitacao.categoria}</span>
+                                        <span className="badge bg-warning text-dark ms-1">media</span>
+                                    </div>
+                                    <hr/>
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
                                         <button className="btn btn-danger ms-1"> 👎 </button>
@@ -208,30 +236,30 @@ export default function Principal() {
             </div>
 
             {/* MODAL CRIAR SOLICITAÇÕES */}
-            <div class="modal fade" id="modalCriar" tabindex="-1">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
+            <div className="modal fade" id="modalCriar" tabIndex="-1">
+                <div className="modal-dialog modal-dialog-scrollable">
+                    <div className="modal-content">
 
-                        <div class="modal-header">
-                            <h5 class="modal-title">Nova Solicitação</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <div className="modal-header">
+                            <h5 className="modal-title">Nova Solicitação</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-                        <div class="modal-body">
+                        <div className="modal-body">
 
-                            <div class="mb-3">
-                                <label class="form-label">Título</label>
-                                <input class="form-control" placeholder="Ex: Buraco na rua" />
+                            <div className="mb-3">
+                                <label className="form-label">Título</label>
+                                <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                            <div className="mb-3">
+                                <label className="form-label">Descrição</label>
+                                <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Categoria</label>
-                                <select class="form-select">
+                            <div className="mb-3">
+                                <label className="form-label">Categoria</label>
+                                <select onChange={e => alteraCategoria(e.target.value)} className="form-select">
                                     <option hidden>Selecione...</option>
                                     <option>Infraestrutura</option>
                                     <option>Saúde</option>
@@ -241,18 +269,19 @@ export default function Principal() {
                                     <option>Serviços públicos</option>
                                     <option>Comercial/Outros</option>
                                 </select>
+                                {categoria}
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Imagem</label>
-                                <input type="file" class="form-control" />
+                            <div className="mb-3">
+                                <label className="form-label">Imagem</label>
+                                <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
                             </div>
 
                         </div>
 
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+                        <div className="modal-footer">
+                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+                            <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
 
                     </div>
