@@ -224,6 +224,7 @@ export default function Principal() {
 
                         {/* CORPO MODAL */}
                         <div className="modal-body">
+                            {/* CATEGORIA */}
                             <div className="mb-3">
                                 <label className="form-label">Categoria</label>
                                 <select onChange={e => alteraCategoria(e.target.value)} className="form-select">
@@ -238,35 +239,30 @@ export default function Principal() {
                                 </select>
                             </div>
 
-                            <div className="mb-3">
-                                <label className="form-label">Urgência</label>
-                                <select onChange={e => alteraUrgencia(e.target.value)} className="form-select">
-                                    <option hidden>Selecione...</option>
-                                    <option>Muito Alta</option>
-                                    <option>Alta</option>
-                                    <option>Média</option>
-                                    <option>Baixa</option>
-                                    <option>Muito Baixa</option>
-                                </select>
-                            </div>
-
+                            {/* TITULO */}
                             <div className="mb-3">
                                 <label className="form-label">Título</label>
                                 <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
                             </div>
+                            
+                            {/* DESCRIÇÃO */}
                             <div className="mb-3">
                                 <label className="form-label">Descrição</label>
                                 <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
                             </div>
+
+                            {/* IMAGEM */}
                             <div className="mb-3">
                                 <label className="form-label">Imagem</label>
                                 <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
                             </div>
-
                         </div>
 
+                        {/* RODAPÉ MODAL */}
                         <div className="modal-footer">
+                            {/* BOTÃO ENVIAR */}
                             <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
+                            {/* BOTÃO CANCELAR */}
                             <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
 
