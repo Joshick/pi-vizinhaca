@@ -1,129 +1,73 @@
-'use client'
-import { useState } from "react"
+"use client"
+
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
+
+import { useEffect, useState } from "react"
 
 import Link from "next/link"
 import "./principal.css"
-import Login from "../login/page"
 
 export default function Principal() {
 
-    const [id, alteraId] = useState("")
     const [titulo, alteraTitulo] = useState("")
     const [descricao, alteraDescricao] = useState("")
-    const [categoria, alteraCategoria] = useState("")
     const [status, alteraStatus] = useState("")
-    const [usuario, alteraUsuario] = useState("")
+    const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
-    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([
-        {
-            id: 1,
-            titulo: "Buraco na rua principal",
-            descricao: "Há um buraco grande na Rua das Flores, próximo ao número 245. Está causando risco para carros e motos.",
-            categoria: "Infraestrutura",
-            status: "Aberto",
-            usuario: "Maria Oliveira",
-            imagem: "https://placehold.co/600x400?text=Buraco+na+Rua"
-        },
-        {
-            id: 2,
-            titulo: "Poste sem iluminação",
-            descricao: "O poste da esquina da Avenida Brasil com a Rua 7 está sem luz há mais de duas semanas.",
-            categoria: "Infraestrutura",
-            status: "Em análise",
-            usuario: "João Santos",
-            imagem: "https://placehold.co/600x400?text=Poste+Sem+Luz"
-        },
-        {
-            id: 3,
-            titulo: "Falta de médico no posto",
-            descricao: "O posto de saúde do bairro está sem clínico geral desde segunda-feira.",
-            categoria: "Saúde",
-            status: "Aberto",
-            usuario: "Ana Lima",
-            imagem: "https://placehold.co/600x400?text=Posto+de+Saude"
-        },
-        {
-            id: 4,
-            titulo: "Suspeita de foco de dengue",
-            descricao: "Terreno abandonado com água parada e muito mato alto.",
-            categoria: "Saúde",
-            status: "Em análise",
-            usuario: "Carlos Souza",
-            imagem: "https://placehold.co/600x400?text=Foco+de+Dengue"
-        },
-        {
-            id: 5,
-            titulo: "Movimentação suspeita à noite",
-            descricao: "Grupo de pessoas desconhecidas circulando em carros sem placa na praça central após as 23h.",
-            categoria: "Segurança",
-            status: "Aberto",
-            usuario: "Fernanda Alves",
-            imagem: "https://placehold.co/600x400?text=Seguranca"
-        },
-        {
-            id: 6,
-            titulo: "Semáforo quebrado",
-            descricao: "O semáforo da Avenida Central está piscando amarelo o dia todo, causando risco de acidentes.",
-            categoria: "Trânsito",
-            status: "Resolvido",
-            usuario: "Lucas Pereira",
-            imagem: "https://placehold.co/600x400?text=Semaforo"
-        },
-        {
-            id: 7,
-            titulo: "Escola com infiltração",
-            descricao: "A sala 3 da escola municipal está com infiltração no teto e risco de queda de reboco.",
-            categoria: "Educação",
-            status: "Em análise",
-            usuario: "Patrícia Gomes",
-            imagem: "https://placehold.co/600x400?text=Escola"
-        },
-        {
-            id: 8,
-            titulo: "Coleta de lixo irregular",
-            descricao: "O caminhão de lixo não passou na última semana e o lixo está acumulado nas calçadas.",
-            categoria: "Serviços públicos",
-            status: "Aberto",
-            usuario: "Rafael Martins",
-            imagem: "https://placehold.co/600x400?text=Coleta+de+Lixo"
-        },
-        {
-            id: 9,
-            titulo: "Barulho excessivo em comércio",
-            descricao: "Um bar na Rua do Comércio está com som muito alto após as 22h.",
-            categoria: "Comercial",
-            status: "Em análise",
-            usuario: "Juliana Rocha",
-            imagem: "https://placehold.co/600x400?text=Barulho"
-        },
-        {
-            id: 10,
-            titulo: "Animal abandonado na rua",
-            descricao: "Cachorro aparentemente abandonado circulando pela Rua Primavera há dias.",
-            categoria: "Outros",
-            status: "Aberto",
-            usuario: "Bruno Carvalho",
-            imagem: "https://placehold.co/600x400?text=Animal+Abandonado"
-        }
-    ])
+    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
 
-    function salvar(e) {
-        e.preventDefault()
+    async function buscar() {
+        const { data, error } = await supabase
+            .from('solicitacoes')
+            .select()
+
+        console.log(data)
+        alteraListaSolicitacoes(data)
+    }
+
+    async function salvar() {
 
         const objeto = {
-            id: id,
-            usuario: usuario,
             titulo: titulo,
-            categoria: categoria,
-            status: status,
             descricao: descricao,
+            status: status,
+            id_usuario: id_usuario,
             imagem: imagem
 
         }
 
+        //VALIDAÇÕES
+        if (objeto.titulo.length < 3) {
+            alert("Titulo muito curto...")
+            return
+        }
+
         alteraListaSolicitacoes(listaSolicitacoes.concat(objeto))
+
+        const { error } = await supabase
+            .from('solicitacoes')
+            .insert(objeto)
+
+        console.log(error)
+
+        if (error == null) {
+            alert("Solicitação enviada com sucesso!")
+            alteraTitulo("")
+            alteraDescricao("")
+            alteraStatus("")
+            alteraImagem("")
+        } else {
+            alert("Dados inválidos!")
+
+        }
+
     }
+
+    useEffect(() => {
+        buscar()
+    }, [])
 
     return (
         <div className="row">
@@ -188,16 +132,12 @@ export default function Principal() {
                 {/* CARDS SOLICITAÇÕES */}
                 <div className="row mt-3">
                     {listaSolicitacoes.map((solicitacao) => (
-                        <div className="col-md-3 mb-3" key={solicitacao.id}>
+                        <div className="col-md-3 mb-3">
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" alt={solicitacao.titulo} />
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
-                                    <div>
-                                        <span className="badge bg-primary">{solicitacao.categoria}</span>
-                                        <span className="badge bg-warning text-dark ms-1"> Media </span>
-                                    </div>
                                     <hr/>
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
@@ -224,27 +164,13 @@ export default function Principal() {
 
                         {/* CORPO MODAL */}
                         <div className="modal-body">
-                            {/* CATEGORIA */}
-                            <div className="mb-3">
-                                <label className="form-label">Categoria</label>
-                                <select onChange={e => alteraCategoria(e.target.value)} className="form-select">
-                                    <option hidden>Selecione...</option>
-                                    <option>Infraestrutura</option>
-                                    <option>Saúde</option>
-                                    <option>Segurança</option>
-                                    <option>Educação</option>
-                                    <option>Trânsito</option>
-                                    <option>Serviços públicos</option>
-                                    <option>Comercial/Outros</option>
-                                </select>
-                            </div>
 
                             {/* TITULO */}
                             <div className="mb-3">
                                 <label className="form-label">Título</label>
                                 <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
                             </div>
-                            
+
                             {/* DESCRIÇÃO */}
                             <div className="mb-3">
                                 <label className="form-label">Descrição</label>
