@@ -1,32 +1,35 @@
+'use client'
+import { createClient } from '@supabase/supabase-js'
+import { useState } from 'react'
+
+const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
+
+
+
 export default function usuarios() {
 
-  const usuarios = [
-    {
-      nome: "josé Hickelme",
-      email: "josehickelme@gmail.com"
-    },
+  const [usuarios, alteraUsuario] = useState([])
 
-    {
-      nome: "leonardo naka",
-      email: "nkaaleo@gmail.com",
-    },
+  async function buscar() {
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select()
+
+    console.log(data)
+
+    alteraUsuario(data)
+  }
 
 
-
-    {
-      nome: "rayssa",
-      email: "rayssa@gmail.com"
-    },
-    {
-      nome: "Barbara Heliodora",
-      email: "helibarbara@gmail.com"
-    },
-  ]
 
   return (
 
-
     <div>
+
+    
+      
+
+
       <div class="container-fluid">
         <div class="row">
 
@@ -53,11 +56,11 @@ export default function usuarios() {
               <a href="./usuarios" className="list-group-item list-group-item-action active">
                 Usuários
               </a>
-              
+
               <a href="./Bairros" className="list-group-item list-group-item-action">
                 Bairro
               </a>
-              
+
 
             </div>
           </aside>
@@ -66,38 +69,27 @@ export default function usuarios() {
           <main className="col-10 p-4">
             <h2>👥 Usuários</h2>
 
+            <button onClick={buscar} className='btn btn primary'>Carregar usuarios</button>
             <div className="table-responsive mt-4">
-              <table className="table table-striped table-bordered">
-                <thead className="table-dark">
+              <table className="table table-striped">
+                <thead>
                   <tr>
-                    
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Ação</th>
+                    <th scope="col">nome</th>
+                    <th scope="col">email</th>
+                    <th scope="col">responsavel</th>
+                    <th scope="col">ativo</th>
                   </tr>
                 </thead>
-                {usuarios.map(item => (
 
-
-                  <tr>
-                    <td>{item.nome}</td>
-                    <td>{item.email}</td>
-                    
-                    <td><span className="badge bg-success">Ativo</span></td>
-                    <td>
-                      <button className="btn btn-sm btn-outline-danger">
-                        Desativar
-                      </button>
-                    </td>
-                  </tr>
-
-
-
-
-                ))}
                 <tbody>
-
+                  {usuarios.map(item => (
+                    <tr>
+                      <td scope="row">{item.nome}</td>
+                      <td>{item.email}</td>
+                      <td>{item.responsavel ? "Responsavel" : "Comum"}</td>
+                      <td>{item.ativo ? <span className='badge text-bg-success'>Ativo</span> : <span className='badge text-bg-danger'>inativo</span>}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
