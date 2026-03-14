@@ -1,20 +1,26 @@
 "use client"
-
-import { useState } from "react"
+import { createClient } from '@supabase/supabase-js'
+import { useEffect, useState } from "react"
+ const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 export default function Bairros() {
 
 
-    const [bairros, alteraBairros] = useState([
-        {
-            bairro: "jardim Jockey Club A",
-        },
-    ]);
+    const [bairros, alteraBairros] = useState([]);
 
     const [nomeBairro, alteraNomeBairro] = useState("")
+    
+    async function buscar() {
 
+       const { data, error } = await supabase
+           .from('bairros')
+           .select()
+       console.log(data)
+       alteraBairros(data)
 
-    function salvar(e) {
+   }
+
+    async function salvar(e) {
         e.preventDefault()
 
         if (!nomeBairro.trim()) return;
@@ -25,7 +31,28 @@ export default function Bairros() {
 
         alteraBairros(bairros.concat(novo))
         alteraNomeBairro("")
+
+        const { error } = await supabase
+            .from('bairros')
+            .insert(novo)
+
+        console.log(error)
+        alteraNomeBairro(novo)
+
+        if (error == null) {
+            alert("Bairro cadastrado com sucesso!!!")
+            alteraNomeBairro("")
+           
+        } else {
+            alert("Dados inválidos, verifique os campos e tente novamente...")
+        }
     }
+
+
+    useEffect(() => {
+        buscar()
+    }, [])
+
 
 
     return (
@@ -89,13 +116,19 @@ export default function Bairros() {
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                {bairros.map((item) => (
-                                    <tr>
-                                        <td>{item.bairro}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
+                             <ul>
+                {
+
+                    bairros.length == 0 ?
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        :
+                        bairros.map(
+                            item => <li>Bairro: {item.bairro}</li>
+                        )
+                }
+            </ul>
                         </table>
                     </main>
 
