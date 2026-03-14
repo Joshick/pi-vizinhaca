@@ -42,15 +42,15 @@ export default function usuarios() {
 
             <div className="list-group list-group-flush mt-4">
 
-              <a href="./administrador" className="list-group-item list-group-item-action">Home</a>
+              <a href="./principal" className="list-group-item list-group-item-action">Home</a>
 
               <button className="list-group-item list-group-item-action text-start" data-bs-toggle="modal"
                 data-bs-target="#modalCriar">
                 Criar solicitação
               </button>
 
-              <a href="./solicitacoes" className="list-group-item list-group-item-action">
-                Solicitações
+              <a href="./minhas_solicitacoes" className="list-group-item list-group-item-action">
+                Minhas Solicitações
               </a>
 
               <a href="./usuarios" className="list-group-item list-group-item-action active">
@@ -58,7 +58,7 @@ export default function usuarios() {
               </a>
 
               <a href="./Bairros" className="list-group-item list-group-item-action">
-                Bairro
+                Bairros
               </a>
 
 

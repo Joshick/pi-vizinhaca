@@ -16,6 +16,8 @@ export default function Principal() {
                     <a href="/principal" class="list-group-item list-group-item-action"> Home </a>
                     <a href="#" class="list-group-item list-group-item-action"> Criar solicitação </a>
                     <a href="/minhas_solicitacoes" class="list-group-item list-group-item-action"> Minhas solicitações </a>
+                    <a href="./usuarios" class="list-group-item list-group-item-action"> Usuários </a>
+                    <a href="./Bairros" className="list-group-item list-group-item-action"> Bairros </a>
 
                 </div>
             

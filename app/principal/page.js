@@ -84,6 +84,8 @@ export default function Principal() {
                     <a href="#" className="list-group-item list-group-item-action"> Home </a>
                     <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"> Criar solicitação </a>
                     <a href="/minhas_solicitacoes" className="list-group-item list-group-item-action"> Minhas solicitações </a>
+                    <a href="./usuarios" className="list-group-item list-group-item-action"> Usuários </a>
+                    <a href="./Bairros" className="list-group-item list-group-item-action"> Bairros </a>
 
                 </div>
 
@@ -138,7 +140,7 @@ export default function Principal() {
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
-                                    <hr/>
+                                    <hr />
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
                                         <button className="btn btn-danger ms-1"> 👎 </button>
