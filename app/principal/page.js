@@ -2,7 +2,6 @@
 
 import { createClient } from '@supabase/supabase-js'
 const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
-
 import { useEffect, useState } from "react"
 
 import Link from "next/link"
@@ -91,15 +90,10 @@ export default function Principal() {
 
                 {/* PERFIL INFERIOR */}
                 <div className="text-center">
-
                     <div>
                         <button> <img src="https://placehold.co/25"></img> Perfil </button>
-
                         <Link href="/"><button>Sair</button></Link>
-
                     </div>
-
-
                 </div>
             </div>
 
@@ -108,11 +102,12 @@ export default function Principal() {
             >
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
-                    <h2> 🏚 Home </h2>
+                    <h2> 🏠 Home </h2>
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
                 <div className="row mt-5 align-items-center">
+                    {/* PESQUISAR */}
                     <div className="col-md-9">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
@@ -120,13 +115,15 @@ export default function Principal() {
                         </div>
                     </div>
 
+                    {/* FILTRAR */}
                     <div className="col-md-3">
                         <select className="form-select filtro-select">
                             <option hidden>Filtrar status...</option>
-                            <option>Todos</option>
-                            <option>Aberto</option>
-                            <option>Em análise</option>
-                            <option>Resolvido</option>
+                            <option> Todos </option>
+                            <option> Novo </option>
+                            <option> Em andamento </option>
+                            <option> Fechado </option>
+                            <option> Fechado </option>
                         </select>
                     </div>
                 </div>
@@ -160,7 +157,7 @@ export default function Principal() {
 
                         {/* TITULO MODAL */}
                         <div className="modal-header">
-                            <h5 className="modal-title">Nova Solicitação</h5>
+                            <h5 className="modal-title"> Nova Solicitação </h5>
                             <button className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -169,13 +166,13 @@ export default function Principal() {
 
                             {/* TITULO */}
                             <div className="mb-3">
-                                <label className="form-label">Título</label>
+                                <label className="form-label"> Título </label>
                                 <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
                             </div>
 
                             {/* DESCRIÇÃO */}
                             <div className="mb-3">
-                                <label className="form-label">Descrição</label>
+                                <label className="form-label"> Descrição </label>
                                 <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
                             </div>
 
