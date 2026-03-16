@@ -120,7 +120,7 @@ export default function Principal() {
                             <option> Todos </option>
                             <option> Novo </option>
                             <option> Em andamento </option>
-                            <option> Fechado </option>
+                            <option> Pendente </option>
                             <option> Fechado </option>
                         </select>
                     </div>
