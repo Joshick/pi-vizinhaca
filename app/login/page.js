@@ -1,6 +1,5 @@
-import { createClient } from '@supabase/supabase-js'
+import supabase from "../conexao/supabse"
 import Link from "next/link";
-const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 
 export default function Login() {

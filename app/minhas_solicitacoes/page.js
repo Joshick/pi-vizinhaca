@@ -1,5 +1,6 @@
 import Link from "next/link"
 import "./minhas_solicitacoes.css"
+import supabase from "../conexao/supabse"
 
 
 export default function Principal() {
