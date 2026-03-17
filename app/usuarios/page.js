@@ -1,6 +1,6 @@
 'use client'
 import { createClient } from '@supabase/supabase-js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
@@ -20,6 +20,12 @@ export default function usuarios() {
     alteraUsuario(data)
   }
 
+
+  useEffect(() => {
+
+    buscar()
+
+  }, [])
 
 
   return (
@@ -69,11 +75,12 @@ export default function usuarios() {
           <main className="col-10 p-4">
             <h2>👥 Usuários</h2>
 
-            <button onClick={buscar} className='btn btn primary'>Carregar usuarios</button>
+           
             <div className="table-responsive mt-4">
               <table className="table table-striped">
                 <thead>
                   <tr>
+                    <th scope="col">#</th>
                     <th scope="col">nome</th>
                     <th scope="col">email</th>
                     <th scope="col">responsavel</th>
@@ -82,8 +89,10 @@ export default function usuarios() {
                 </thead>
 
                 <tbody>
-                  {usuarios.map(item => (
+                  {usuarios.map(
+                    (item, indice) => (
                     <tr>
+                      <td scope="row">{indice+1}</td>
                       <td scope="row">{item.nome}</td>
                       <td>{item.email}</td>
                       <td>{item.responsavel ? "Responsavel" : "Comum"}</td>
