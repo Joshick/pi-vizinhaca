@@ -3,7 +3,7 @@ import Pq_usar from "./tela_inicial/pq_usar";
 import Como_usar from "./tela_inicial/Como_usar";
 import "./tela_inicial/Home.css"
 import Link from "next/link";
-import supabase from "../conexao/supabse"
+import supabase from "./conexao/supabse";
 
 export default function Home() {
     return (
