@@ -8,12 +8,12 @@ function Cadastro() {
 
     const [Nome, alteraNome] = useState("")
     const [Cpf, alteraCpf] = useState("")
-    const [Data, alteraData] = useState("")
+    const [nascimento, alteraNascimento] = useState("")
     const [Email, alteraEmail] = useState("")
     const [Bairro, alteraBairro] = useState("")
     const [Senha, alteraSenha] = useState("")
-    const [Responsavel, alteraResponsavel] = useState("")
-    const [Premium, alteraPremium] = useState("")
+    const [Responsavel, alteraResponsavel] = useState()
+    const [Ativo, alteraAtivo] = useState()
 
 
     const [listaCadastro, alteraListaCadastro] = useState([
@@ -21,45 +21,66 @@ function Cadastro() {
         { 
             nome: "",
             cpf: "",
-            data: "",
+            nascimento: "",
             email: "",
             bairro: "",
             senha: "",
             responsavel: "",
-            premium: "",
+            ativo: "",
         }
 
     ])
 
     
-    function salvar(e) {
+    async function salvar(e) {
         e.preventDefault()
-        
         const cadastro = {
             nome: Nome,
             cpf: Cpf,
-            data: Data,
+            nascimento: nascimento,
             email: Email,
-            bairro: Bairro,
+            id_bairros: 23,
             senha: Senha,
             responsavel: Responsavel,
-            premium: Premium,
-            
+            ativo: Ativo,
+
         }
         
+        const { error } = await supabase
+        .from('usuarios')
+        .insert(cadastro)
+
+
         alteraListaCadastro(listaCadastro.concat(cadastro))
         
         console.log(cadastro)
+        console.log(error)
+        
+
+        if (error == null) {
+            alert("Solicitação enviada com sucesso!")
+            alteraNome("")
+            alteraCpf("")
+            alteraNascimento("")
+            alteraEmail("")
+            alteraBairro("")
+            alteraSenha("")
+            alteraResponsavel()
+            alteraAtivo()
+        } else {
+            alert("Dados inválidos!")
+
+        }
     }
 
     return (
         <div>
 
-            <h1 class="text-center mt-5"> Cadastro De Usuários </h1>
+            <h1 className="text-center mt-5"> Cadastro De Usuários </h1>
 
             <hr />
 
-            <form onSubmit={salvar} class="formCadastro text-center">
+            <form onSubmit={salvar} className="formCadastro text-center">
 
                 <label>
                     Digite o nome:
@@ -81,7 +102,7 @@ function Cadastro() {
                 <label>
                     Digite a data de nascimento:
                     <br />
-                    <input onChange={e => alteraData(e.target.value)} />
+                    <input type= "date" onChange={e => alteraNascimento(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -98,9 +119,9 @@ function Cadastro() {
                 <label>
                     Selecione o bairro:
                     <br />
-                      <select onChange={e => alteraBairro(e.target.value)} required class="inputBairro">
+                      <select onChange={e => alteraBairro(e.target.value)} required className="inputBairro">
                         <option hidden></option>
-                        <option>Jockey Clube</option>
+                        <option value={22}>Jockey Clube</option>
                         <option>Cidade Aracy</option>
                         <option>Jardim São Carlos</option>
                         <option>Jardim Lutfalla</option>
@@ -117,15 +138,15 @@ function Cadastro() {
                 <label>
                     Digite a senha:
                     <br />
-                    <input onChange={e => alteraSenha(e.target.value)} />
+                    <input type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                {/* <label>
                     É Responsável?
                     <br />
-                    {e => alteraResponsavel(e.target.value)}<select required class="inputResponsavel" >
+                    {e => alteraResponsavel(e.target.value)}<select required className="inputResponsavel" >
                         <option>Sim</option>
                         <option>Não</option>
                     </select>
@@ -134,50 +155,22 @@ function Cadastro() {
                 <br /><br />
 
                 <label>
-                    É Premium?
+                    Está ativo?
                     <br />
-                    {e => alteraPremium(e.target.value)}<select required class="inputPremium">
+                    {e => alteraAtivo(e.target.value)}<select required className="inputAtivo">
                         <option>Sim</option>
                         <option>Não</option>
                     </select>
-                </label>
+                </label> */}
 
                 <br /><br />
 
-              <button class="btn btn-outline-success me-2" type="submit">Salvar</button>
-            <Link href="/" ><button class="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+              <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
+            <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
 
             <br /><br />
-
-            {/*<table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Bairros</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jockey Clube</td>
-                        <td>Cidade Aracy</td>
-                        <td>Jardim São Carlos</td>
-                    </tr>
-                    <tr>
-                        <td>Jardim Lutfalla</td>
-                        <td>Jardim Paulistano</td>
-                        <td>Jardim Brasil</td>
-                    </tr>
-                    <tr>
-                        <td>Botafogo</td>
-                        <td>Zavaglia</td>
-                        <td>Centro</td>
-                    </tr>
-                </tbody>
-            </table>*/}
-
-
-
 
         </div >
     )
