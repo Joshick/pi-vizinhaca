@@ -18,7 +18,11 @@ export default function Principal() {
     async function buscar() {
         const { data, error } = await supabase
             .from('solicitacoes')
-            .select()
+            .select(`
+                *,
+                id_usuario (*),
+                id_bairros (*)
+            `)
 
         console.log(data)
         alteraListaSolicitacoes(data)
@@ -54,7 +58,7 @@ export default function Principal() {
             alteraTitulo("")
             alteraDescricao("")
             alteraStatus("")
-            alteraImagem("")
+            alteraImagem()
         } else {
             alert("Dados inválidos!")
 
@@ -129,17 +133,16 @@ export default function Principal() {
                 {/* CARDS SOLICITAÇÕES */}
                 <div className="row mt-3">
                     {listaSolicitacoes.map((solicitacao) => (
-                        <div className="col-md-3 mb-3">
+                        <div className="col-md-3 mb-3" key={solicitacao.id}>
                             <div className="card h-100">
-                                <img src={solicitacao.imagem} className="card-img-top" alt={solicitacao.titulo} />
+                                <img src={solicitacao.imagem} className="card-img-top" />
+                                <p className="card-text">@{solicitacao.id_usuario.nome}</p>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
-                                    <hr />
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
                                         <button className="btn btn-danger ms-1"> 👎 </button>
-                                        <button className="btn btn-primary ms-3"> + Comentar... </button>
                                     </div>
                                 </div>
                             </div>
