@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import supabase from "../conexao/supabse";
 
@@ -10,10 +10,11 @@ function Cadastro() {
     const [Cpf, alteraCpf] = useState("")
     const [nascimento, alteraNascimento] = useState("")
     const [Email, alteraEmail] = useState("")
-    const [Bairro, alteraBairro] = useState("")
+    const [bairro, alteraBairro] = useState("")
     const [Senha, alteraSenha] = useState("")
     const [Responsavel, alteraResponsavel] = useState()
     const [Ativo, alteraAtivo] = useState()
+    const [seleciona, alteraSelecionaBairro] = useState([])
 
 
     const [listaCadastro, alteraListaCadastro] = useState([
@@ -39,7 +40,7 @@ function Cadastro() {
             cpf: Cpf,
             nascimento: nascimento,
             email: Email,
-            id_bairros: 23,
+            bairros: bairro,
             senha: Senha,
             responsavel: Responsavel,
             ativo: Ativo,
@@ -72,6 +73,24 @@ function Cadastro() {
 
         }
     }
+
+
+    async function buscaBairro() {
+        const {data, error} = await supabase
+            .from('bairros')
+            .select('bairro')
+
+        console.log(data)
+
+        alteraSelecionaBairro(data)
+    }
+
+
+
+    useEffect(()=> {
+            buscaBairro()
+    }, [])
+
 
     return (
         <div>
@@ -119,17 +138,15 @@ function Cadastro() {
                 <label>
                     Selecione o bairro:
                     <br />
-                      <select onChange={e => alteraBairro(e.target.value)} required className="inputBairro">
-                        <option hidden></option>
-                        <option value={22}>Jockey Clube</option>
-                        <option>Cidade Aracy</option>
-                        <option>Jardim São Carlos</option>
-                        <option>Jardim Lutfalla</option>
-                        <option>Jardim Paulistano</option>
-                        <option>Jardim Brasil</option>
-                        <option>Botafogo</option>
-                        <option>Zavaglia</option>
-                        <option>Centro</option>
+                      <select onChange={e => buscaBairro (e.target.value)} >
+                        <option>Selecione...</option>
+                        {
+                            seleciona.map(
+                                item=> <option value={item.bairros}> {item.bairro}</option>
+                            )
+                        }
+                       
+                        
                     </select>
                 </label>
 
@@ -140,28 +157,6 @@ function Cadastro() {
                     <br />
                     <input type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
-
-                <br /><br />
-
-                {/* <label>
-                    É Responsável?
-                    <br />
-                    {e => alteraResponsavel(e.target.value)}<select required className="inputResponsavel" >
-                        <option>Sim</option>
-                        <option>Não</option>
-                    </select>
-                </label>
-
-                <br /><br />
-
-                <label>
-                    Está ativo?
-                    <br />
-                    {e => alteraAtivo(e.target.value)}<select required className="inputAtivo">
-                        <option>Sim</option>
-                        <option>Não</option>
-                    </select>
-                </label> */}
 
                 <br /><br />
 
