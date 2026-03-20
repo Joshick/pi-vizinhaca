@@ -13,7 +13,12 @@ export default function usuarios() {
   async function buscar() {
     const { data, error } = await supabase
       .from('usuarios')
-      .select()
+      .select(`
+                    *,
+                    
+                    id_bairros (*) 
+                    
+                `)
 
     console.log(data)
 
@@ -82,6 +87,7 @@ export default function usuarios() {
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">nome</th>
+                    <th scope="col">bairro</th>
                     <th scope="col">email</th>
                     <th scope="col">responsavel</th>
                     <th scope="col">ativo</th>
@@ -93,7 +99,8 @@ export default function usuarios() {
                     (item, indice) => (
                     <tr>
                       <td scope="row">{indice+1}</td>
-                      <td scope="row">{item.nome}</td>
+                      <td>{item.nome}</td>
+                      <td>{item.id_bairros.bairro}</td>
                       <td>{item.email}</td>
                       <td>{item.responsavel ? "Responsavel" : "Comum"}</td>
                       <td>{item.ativo ? <span className='badge text-bg-success'>Ativo</span> : <span className='badge text-bg-danger'>inativo</span>}</td>

@@ -28,6 +28,8 @@ export default function Bairros() {
             bairro: nomeBairro.trim(),
         }
 
+        
+
         alteraBairros(bairros.concat(novo))
         alteraNomeBairro("")
 
@@ -47,6 +49,17 @@ export default function Bairros() {
         }
     }
 
+     async function excluir(id){
+            const opcao = confirm("Tem certeza que deseja excluir?")
+            if(opcao == false){
+                return
+            } else {
+                const response = await supabase
+                .from('bairros')
+                .delete()
+                .eq('id', id)
+            }
+     }
 
     useEffect(() => {
         buscar()
@@ -111,11 +124,12 @@ export default function Bairros() {
                             <thead>
                                 <tr>
                                     <th scope="col">Bairros</th>
+                                    <th scope="col">Ações</th>
 
                                 </tr>
                             </thead>
 
-                             <ul>
+                            
                 {
 
                     bairros.length == 0 ?
@@ -124,10 +138,17 @@ export default function Bairros() {
                         </div>
                         :
                         bairros.map(
-                            item => <li>Bairro: {item.bairro}</li>
+                            item => 
+                            <thead>
+                                <tr>
+                                <td scope="col"><li>{item.bairro}</li></td>
+                                <td scope="col"><button  >Editar</button><button onClick={ ()=> excluir(item.id) } class = "ms-1" >Excluir</button></td>
+
+                                </tr>
+                            </thead>
                         )
                 }
-            </ul>
+         
                         </table>
                     </main>
 
