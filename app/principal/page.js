@@ -1,6 +1,7 @@
 "use client"
 import supabase from "../conexao/supabse"
 import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
 
 import Link from "next/link"
 import "./principal.css"
@@ -15,6 +16,22 @@ export default function Principal() {
 
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
 
+    const params = useParams()
+
+    async function buscarMinhasSolicitacoes() {
+
+        const { data, error } = await supabase
+            .from('solicitacoes')
+            .select(`
+                *,
+                id_usuario (*),
+                id_bairros (*)
+                `)
+            .eq('id_usuario', params.id)
+
+        console.log(error)
+    }
+
     async function buscar() {
         const { data, error } = await supabase
             .from('solicitacoes')
@@ -24,7 +41,7 @@ export default function Principal() {
                 id_bairros (*)
             `)
 
-        console.log(data)
+        console.log(error)
         alteraListaSolicitacoes(data)
     }
 
@@ -100,17 +117,16 @@ export default function Principal() {
             </div>
 
             {/* MENU PRINCIPAL */}
-            <div className="col-9"
-            >
+            <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
                     <h2> 🏠 Home </h2>
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
-                <div className="row mt-5 align-items-center">
+                <div className="row mt-5 align-itens-center">
                     {/* PESQUISAR */}
-                    <div className="col-md-9">
+                    <div className="col-md-8">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
                             <button className="btn btn-outline-secondary">🔎</button>
@@ -118,7 +134,7 @@ export default function Principal() {
                     </div>
 
                     {/* FILTRAR */}
-                    <div className="col-md-3">
+                    <div className="col-md-2">
                         <select className="form-select filtro-select">
                             <option hidden>Filtrar status...</option>
                             <option> Todos </option>
@@ -126,6 +142,14 @@ export default function Principal() {
                             <option> Em andamento </option>
                             <option> Pendente </option>
                             <option> Fechado </option>
+                        </select>
+                    </div>
+
+
+                    <div className="col-md-2">
+                        <select className="form-select filtro-select">
+                            <option onClick={buscarMinhasSolicitacoes}> Minhas Solicitações </option>
+                            <option> Todos </option>
                         </select>
                     </div>
                 </div>
@@ -149,49 +173,49 @@ export default function Principal() {
                         </div>
                     ))}
                 </div>
-            </div>
 
-            {/* MODAL CRIAR SOLICITAÇÕES */}
-            <div className="modal fade" id="modalCriar" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-scrollable">
-                    <div className="modal-content">
+                {/* MODAL CRIAR SOLICITAÇÕES */}
+                <div className="modal fade" id="modalCriar" tabIndex="-1">
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
 
-                        {/* TITULO MODAL */}
-                        <div className="modal-header">
-                            <h5 className="modal-title"> Nova Solicitação </h5>
-                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        {/* CORPO MODAL */}
-                        <div className="modal-body">
-
-                            {/* TITULO */}
-                            <div className="mb-3">
-                                <label className="form-label"> Título </label>
-                                <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
+                            {/* TITULO MODAL */}
+                            <div className="modal-header">
+                                <h5 className="modal-title"> Nova Solicitação </h5>
+                                <button className="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            {/* DESCRIÇÃO */}
-                            <div className="mb-3">
-                                <label className="form-label"> Descrição </label>
-                                <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                            {/* CORPO MODAL */}
+                            <div className="modal-body">
+
+                                {/* TITULO */}
+                                <div className="mb-3">
+                                    <label className="form-label"> Título </label>
+                                    <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
+                                </div>
+
+                                {/* DESCRIÇÃO */}
+                                <div className="mb-3">
+                                    <label className="form-label"> Descrição </label>
+                                    <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                                </div>
+
+                                {/* IMAGEM */}
+                                <div className="mb-3">
+                                    <label className="form-label">Imagem</label>
+                                    <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
+                                </div>
                             </div>
 
-                            {/* IMAGEM */}
-                            <div className="mb-3">
-                                <label className="form-label">Imagem</label>
-                                <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
+                            {/* RODAPÉ MODAL */}
+                            <div className="modal-footer">
+                                {/* BOTÃO ENVIAR */}
+                                <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
+                                {/* BOTÃO CANCELAR */}
+                                <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             </div>
-                        </div>
 
-                        {/* RODAPÉ MODAL */}
-                        <div className="modal-footer">
-                            {/* BOTÃO ENVIAR */}
-                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
-                            {/* BOTÃO CANCELAR */}
-                            <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
-
                     </div>
                 </div>
             </div>
