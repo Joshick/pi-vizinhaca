@@ -40,16 +40,21 @@ function Cadastro() {
             cpf: Cpf,
             nascimento: nascimento,
             email: Email,
-            bairros: bairro,
+            bairro: bairro,
             senha: Senha,
             responsavel: Responsavel,
             ativo: Ativo,
 
         }
 
+        if(cadastro.cpf.length < 11){
+            alert("O CPF deve conter 11 digitos")
+            return
+        }
+
         const { error } = await supabase
-            .from('usuarios')
-            .insert(cadastro)
+            .from('bairros')
+            .insert(bairro)
 
 
         alteraListaCadastro(listaCadastro.concat(cadastro))
@@ -69,7 +74,7 @@ function Cadastro() {
             alteraResponsavel()
             alteraAtivo()
         } else {
-            alert("Dados inválidos!")
+            alert("Dados inválidos!" + error)
 
         }
     }
@@ -129,7 +134,7 @@ function Cadastro() {
                 <label>
                     Digite o e-mail:
                     <br />
-                    <input onChange={e => alteraEmail(e.target.value)} />
+                    <input required type onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -138,7 +143,7 @@ function Cadastro() {
                 <label>
                     Selecione o bairro:
                     <br />
-                    <select onChange={e => buscaBairro(e.target.value)} >
+                    <select onChange={e => alteraBairro(e.target.value)} >
                         <option>Selecione...</option>
                         {
                             seleciona.map(
