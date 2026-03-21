@@ -27,9 +27,11 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
                 `)
-            .eq('id_usuario', params.id)
+            .eq('id_usuario', '60')
 
+        alteraListaSolicitacoes(data)
         console.log(error)
+
     }
 
     async function buscar() {
@@ -83,6 +85,18 @@ export default function Principal() {
 
     }
 
+    async function excluir(id) {
+        const opcao = confirm("Tem certeza que deseja excluir?")
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase
+            .from('solicitacoes')
+            .delete()
+            .eq('id', id)
+
+    }
+
     useEffect(() => {
         buscar()
     }, [])
@@ -126,7 +140,7 @@ export default function Principal() {
                 {/* CONTEÚDO PRINCIPAL */}
                 <div className="row mt-5 align-itens-center">
                     {/* PESQUISAR */}
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
                             <button className="btn btn-outline-secondary">🔎</button>
@@ -145,13 +159,14 @@ export default function Principal() {
                         </select>
                     </div>
 
-
-                    <div className="col-md-2">
+                    <div className="input-group col-md-1">
                         <select className="form-select filtro-select">
                             <option onClick={buscarMinhasSolicitacoes}> Minhas Solicitações </option>
                             <option> Todos </option>
                         </select>
+                        <button className="btn btn-outline-secondary">🔎</button>
                     </div>
+
                 </div>
 
                 {/* CARDS SOLICITAÇÕES */}
@@ -160,7 +175,11 @@ export default function Principal() {
                         <div className="col-md-3 mb-3" key={solicitacao.id}>
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
-                                <p className="card-text">@{solicitacao.id_usuario.nome}</p>
+                                <div className="align-itens-center">
+                                    <button className="btn">@{solicitacao.id_usuario.nome}</button>
+                                    <button className="btn" onClick={() => excluir(solicitacao.id)}> Excluir </button>
+                                    <button className="btn"> Editar </button>
+                                </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
