@@ -4,7 +4,7 @@ body {
 }
 
 .col-2 {
-    background-color: #1e293b;
+    background-color: #455c06;
     min-height: 100vh;
     color: white;
     padding: 0;
@@ -34,5 +34,11 @@ body {
 
 .card span {
     width: 30%;
+
+}
+
+.lat{
+    position: fixed;
+    margin-top: 10px;
 
 }
