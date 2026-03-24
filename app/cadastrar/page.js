@@ -19,7 +19,7 @@ function Cadastro() {
 
     const [listaCadastro, alteraListaCadastro] = useState([
 
-        { 
+        {
             nome: "",
             cpf: "",
             nascimento: "",
@@ -32,7 +32,7 @@ function Cadastro() {
 
     ])
 
-    
+
     async function salvar(e) {
         e.preventDefault()
         const cadastro = {
@@ -40,23 +40,28 @@ function Cadastro() {
             cpf: Cpf,
             nascimento: nascimento,
             email: Email,
-            bairros: bairro,
+            bairro: bairro,
             senha: Senha,
             responsavel: Responsavel,
             ativo: Ativo,
 
         }
-        
+
+        if(cadastro.cpf.length < 11){
+            alert("O CPF deve conter 11 digitos")
+            return
+        }
+
         const { error } = await supabase
-        .from('usuarios')
-        .insert(cadastro)
+            .from('bairros')
+            .insert(bairro)
 
 
         alteraListaCadastro(listaCadastro.concat(cadastro))
-        
+
         console.log(cadastro)
         console.log(error)
-        
+
 
         if (error == null) {
             alert("Solicitação enviada com sucesso!")
@@ -69,14 +74,14 @@ function Cadastro() {
             alteraResponsavel()
             alteraAtivo()
         } else {
-            alert("Dados inválidos!")
+            alert("Dados inválidos!" + error)
 
         }
     }
 
 
     async function buscaBairro() {
-        const {data, error} = await supabase
+        const { data, error } = await supabase
             .from('bairros')
             .select('bairro')
 
@@ -87,8 +92,8 @@ function Cadastro() {
 
 
 
-    useEffect(()=> {
-            buscaBairro()
+    useEffect(() => {
+        buscaBairro()
     }, [])
 
 
@@ -121,7 +126,7 @@ function Cadastro() {
                 <label>
                     Digite a data de nascimento:
                     <br />
-                    <input type= "date" onChange={e => alteraNascimento(e.target.value)} />
+                    <input type="date" onChange={e => alteraNascimento(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -129,7 +134,7 @@ function Cadastro() {
                 <label>
                     Digite o e-mail:
                     <br />
-                    <input onChange={e => alteraEmail(e.target.value)} />
+                    <input required type onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
                 <br /><br />
@@ -138,15 +143,15 @@ function Cadastro() {
                 <label>
                     Selecione o bairro:
                     <br />
-                      <select onChange={e => buscaBairro (e.target.value)} >
+                    <select onChange={e => alteraBairro(e.target.value)} >
                         <option>Selecione...</option>
                         {
                             seleciona.map(
-                                item=> <option value={item.bairros}> {item.bairro}</option>
+                                item => <option value={item.bairros}> {item.bairro}</option>
                             )
                         }
-                       
-                        
+
+
                     </select>
                 </label>
 
@@ -160,8 +165,8 @@ function Cadastro() {
 
                 <br /><br />
 
-              <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
-            <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+                <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
+                <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
 
