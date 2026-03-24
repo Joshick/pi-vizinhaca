@@ -1,4 +1,6 @@
 "use client"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import supabase from "../conexao/supabse"
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
@@ -14,9 +16,23 @@ export default function Principal() {
     const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
-    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
+    const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
 
+    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
+
+    function botaoTodasSolicitacoes() {
+
+        alteraMinhasSolicitacoes(true)
+
+    }
+
+    {/* EDITAR LIVROS */ }
+    function botaoMinhasSolicitacoes() {
+
+        alteraMinhasSolicitacoes(false)
+
+    }
 
     async function buscarMinhasSolicitacoes() {
 
@@ -115,7 +131,6 @@ export default function Principal() {
                 <div className="list-group list-group-flush">
                     <a href="#" className="list-group-item list-group-item-action"> Home </a>
                     <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"> Criar solicitação </a>
-                    <a href="/minhas_solicitacoes" className="list-group-item list-group-item-action"> Minhas solicitações </a>
                     <a href="./usuarios" className="list-group-item list-group-item-action"> Usuários </a>
                     <a href="./Bairros" className="list-group-item list-group-item-action"> Bairros </a>
 
@@ -134,7 +149,8 @@ export default function Principal() {
             <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
-                    <h2> 🏠 Home </h2>
+                    <h2>
+                        <i class="bi bi-house"> </i> Home </h2>
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
@@ -143,7 +159,7 @@ export default function Principal() {
                     <div className="col-md-6">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
-                            <button className="btn btn-outline-secondary">🔎</button>
+                            <button className="btn btn-outline-secondary"> <i class="bi bi-search"></i> </button>
                         </div>
                     </div>
 
@@ -157,14 +173,18 @@ export default function Principal() {
                             <option> Pendente </option>
                             <option> Fechado </option>
                         </select>
-                    </div>
+                        <div>
 
-                    <div className="input-group col-md-1">
-                        <select className="form-select filtro-select">
-                            <option onClick={buscarMinhasSolicitacoes}> Minhas Solicitações </option>
-                            <option> Todos </option>
-                        </select>
-                        <button className="btn btn-outline-secondary">🔎</button>
+                            {
+                                minhasSolicitacoes == true ?
+                                    <div>
+                                        <button className='btn btn-outline-secondary' onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
+                                    </div>
+                                :
+                                    <button className='btn btn-outline-secondary' onClick={botaoTodasSolicitacoes}> Todas Solicitações </button>
+                            }
+                        </div>
+
                     </div>
 
                 </div>
