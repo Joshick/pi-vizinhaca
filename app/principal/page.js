@@ -1,4 +1,6 @@
 "use client"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import supabase from "../conexao/supabse"
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
@@ -14,9 +16,23 @@ export default function Principal() {
     const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
-    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
+    const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
 
+    const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
+
+    function botaoTodasSolicitacoes() {
+
+        alteraMinhasSolicitacoes(true)
+
+    }
+
+    {/* EDITAR LIVROS */ }
+    function botaoMinhasSolicitacoes() {
+
+        alteraMinhasSolicitacoes(false)
+
+    }
 
     async function buscarMinhasSolicitacoes() {
 
@@ -27,9 +43,11 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
                 `)
-            .eq('id_usuario', params.id)
+            .eq('id_usuario', '60')
 
+        alteraListaSolicitacoes(data)
         console.log(error)
+
     }
 
     async function buscar() {
@@ -83,6 +101,18 @@ export default function Principal() {
 
     }
 
+    async function excluir(id) {
+        const opcao = confirm("Tem certeza que deseja excluir?")
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase
+            .from('solicitacoes')
+            .delete()
+            .eq('id', id)
+
+    }
+
     useEffect(() => {
         buscar()
     }, [])
@@ -101,7 +131,6 @@ export default function Principal() {
                 <div className="list-group list-group-flush">
                     <a href="#" className="list-group-item list-group-item-action"> Home </a>
                     <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"> Criar solicitação </a>
-                    <a href="/minhas_solicitacoes" className="list-group-item list-group-item-action"> Minhas solicitações </a>
                     <a href="./usuarios" className="list-group-item list-group-item-action"> Usuários </a>
                     <a href="./Bairros" className="list-group-item list-group-item-action"> Bairros </a>
 
@@ -120,16 +149,17 @@ export default function Principal() {
             <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
-                    <h2> 🏠 Home </h2>
+                    <h2>
+                        <i class="bi bi-house"> </i> Home </h2>
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
                 <div className="row mt-5 align-itens-center">
                     {/* PESQUISAR */}
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
-                            <button className="btn btn-outline-secondary">🔎</button>
+                            <button className="btn btn-outline-secondary"> <i class="bi bi-search"></i> </button>
                         </div>
                     </div>
 
@@ -143,15 +173,20 @@ export default function Principal() {
                             <option> Pendente </option>
                             <option> Fechado </option>
                         </select>
+                        <div>
+
+                            {
+                                minhasSolicitacoes == true ?
+                                    <div>
+                                        <button className='btn btn-outline-secondary' onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
+                                    </div>
+                                :
+                                    <button className='btn btn-outline-secondary' onClick={botaoTodasSolicitacoes}> Todas Solicitações </button>
+                            }
+                        </div>
+
                     </div>
 
-
-                    <div className="col-md-2">
-                        <select className="form-select filtro-select">
-                            <option onClick={buscarMinhasSolicitacoes}> Minhas Solicitações </option>
-                            <option> Todos </option>
-                        </select>
-                    </div>
                 </div>
 
                 {/* CARDS SOLICITAÇÕES */}
@@ -160,7 +195,11 @@ export default function Principal() {
                         <div className="col-md-3 mb-3" key={solicitacao.id}>
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
-                                <p className="card-text">@{solicitacao.id_usuario.nome}</p>
+                                <div className="align-itens-center">
+                                    {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
+                                    <button className="btn" onClick={() => excluir(solicitacao.id)}> Excluir </button>
+                                    <button className="btn"> Editar </button>
+                                </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-text">{solicitacao.descricao}</p>
