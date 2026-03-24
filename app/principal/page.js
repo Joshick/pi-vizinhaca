@@ -196,7 +196,7 @@ export default function Principal() {
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
                                 <div className="align-itens-center">
-                                    <button className="btn">@{solicitacao.id_usuario.nome}</button>
+                                    {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
                                     <button className="btn" onClick={() => excluir(solicitacao.id)}> Excluir </button>
                                     <button className="btn"> Editar </button>
                                 </div>
