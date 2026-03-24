@@ -100,11 +100,11 @@ function Cadastro() {
     return (
         <div>
 
-            <h1 className="text-center mt-5"> Cadastro De Usuários </h1>
+            <h1 className ="text-center"> Cadastro De Usuários </h1>
 
             <hr />
 
-            <form onSubmit={salvar} className="formCadastro text-center">
+            <form onSubmit={salvar} className= "formCadastro text-center">
 
                 <label>
                     Digite o nome:
