@@ -23,22 +23,10 @@ export default function Principal() {
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
 
-    function botaoTodasSolicitacoes() {
-
-        alteraMinhasSolicitacoes(true)
-
-        
-
-    }
-
-    {/* EDITAR LIVROS */ }
-    function botaoMinhasSolicitacoes() {
+    {/* FILTRAR TODAS SOLICITAÇÕES */ }
+    async function botaoTodasSolicitacoes() {
 
         alteraMinhasSolicitacoes(false)
-
-    }
-
-    async function buscarMinhasSolicitacoes() {
 
         const { data, error } = await supabase
             .from('solicitacoes')
@@ -47,13 +35,28 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
                 `)
-            .eq('id_usuario', '60')
 
         alteraListaSolicitacoes(data)
-        console.log(error)
-
     }
 
+    {/* FILTRAR MINHAS SOLICITAÇÕES */ }
+    async function botaoMinhasSolicitacoes() {
+
+        alteraMinhasSolicitacoes(true)
+
+        const { data, error } = await supabase
+            .from('solicitacoes')
+            .select(`
+                *,
+                id_usuario (*),
+                id_bairros (*)
+                `)
+            .eq('id_usuario', '65')
+
+        alteraListaSolicitacoes(data)
+    }
+
+    {/* BUSCAR SOLICITAÇÕES */ }
     async function buscar() {
         const { data, error } = await supabase
             .from('solicitacoes')
@@ -67,6 +70,7 @@ export default function Principal() {
         alteraListaSolicitacoes(data)
     }
 
+    {/* SALVAR SOLICITAÇÕES */ }
     async function salvar() {
 
         const objeto = {
@@ -105,6 +109,7 @@ export default function Principal() {
 
     }
 
+    {/* EXCLUIR SOLICITAÇÕES */ }
     async function excluir(id) {
         const opcao = confirm("Tem certeza que deseja excluir?")
         if (opcao == false) {
@@ -119,7 +124,7 @@ export default function Principal() {
     }
 
     {/* EDITAR SOLICITAÇÕES */ }
-    function editar(objeto){
+    function editar(objeto) {
 
         alteraEditandoSolicitacao(objeto.id)
 
@@ -215,10 +220,10 @@ export default function Principal() {
                         {
                             minhasSolicitacoes == true ?
                                 <div>
-                                    <button className="btn btn-outline-secondary" onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
+                                    <button className="btn btn-outline-secondary" onClick={botaoTodasSolicitacoes}> Todas Solicitações </button>
                                 </div>
                                 :
-                                <button className="btn btn-outline-secondary" onClick={botaoTodasSolicitacoes}> Todas Solicitações </button>
+                                <button className="btn btn-outline-secondary" onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
                         }
                     </div>
                 </div>
@@ -230,17 +235,21 @@ export default function Principal() {
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
                                 <div className="align-itens-center">
-                                    {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
-                                    <button className="btn" onClick={() => excluir(solicitacao.id)}> Excluir </button>
-                                    <button onClick={ ()=> editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> Editar </button>
+                                    <button className="btn">@{solicitacao.id_usuario.nome}</button>
                                 </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
                                     <p className="card-title">{solicitacao.status}</p>
                                     <p className="card-text">{solicitacao.descricao}</p>
-                                    <div className="mt-auto">
-                                        <button className="btn btn-success"> 👍 </button>
-                                        <button className="btn btn-danger ms-1"> 👎 </button>
+                                    <div className="mt-auto cont">
+                                        <div>
+                                            <button className="btn btn-success"> <i class="bi bi-hand-thumbs-up-fill"></i> </button>
+                                            <button className="btn btn-danger ms-2"> <i class="bi bi-hand-thumbs-down"></i> </button>
+                                        </div>
+                                        <div>
+                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i class="bi bi-trash3"></i> </button>
+                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i class="bi bi-pen"></i> </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +320,7 @@ export default function Principal() {
                             {/* TÍTULO */}
                             <div className="mb-3">
                                 <label className="form-label">Título</label>
-                                <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control"/>
+                                <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control" />
                             </div>
 
                             {/* DESCRIÇÃO */}
@@ -330,7 +339,7 @@ export default function Principal() {
                 </div>
             </div>
 
-            
+
             {/* MODAL PERFIL USUÁRIO */}
             <div className="modal fade" id="modalPerfil" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">

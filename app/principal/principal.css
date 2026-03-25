@@ -37,8 +37,7 @@ body {
 
 }
 
-.lat{
-    position: fixed;
-    margin-top: 10px;
-
+.cont {
+    display: flex;
+    gap: 15px;
 }
