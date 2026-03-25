@@ -3,14 +3,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 
-
-
 const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
-
-
 export default function aprovacao() {
-
 
     const [aprovacao, alteraAprovacao] = useState([])
 
@@ -18,18 +13,16 @@ export default function aprovacao() {
         const { data, error } = await supabase
             .from('solicitacoes')
             .select(`
-*,
-bairros ( bairro )
-`)
+                *,
+                bairros ( bairro )
+            `)
 
         if (error) {
             console.log(error)
         } else {
-            console.log(data)
             alteraAprovacao(data || [])
         }
     }
-
 
     async function atualizarStatus(id, status) {
         const { error } = await supabase
@@ -44,17 +37,15 @@ bairros ( bairro )
         buscar()
     }
 
-
     useEffect(() => {
         buscar()
     }, [])
 
-
+    // Filtra só os pendentes para a primeira tabela
+    const pendentes = aprovacao.filter(item => item.status === 'pendente' || !item.status)
 
     return (
-
         <div>
-
             <div className="container-fluid">
                 <div className="row">
 
@@ -62,34 +53,69 @@ bairros ( bairro )
                     <aside className="col-2 border-end min-vh-100 p-3">
                         <h5>Amigo da Vizinhança</h5>
                         <div className="list-group list-group-flush mt-4">
-
                             <a href="./principal" className="list-group-item list-group-item-action">Home</a>
-
                             <button className="list-group-item list-group-item-action text-start" data-bs-toggle="modal"
                                 data-bs-target="#modalCriar">
                                 Criar solicitação
                             </button>
-
                             <a href="./usuarios" className="list-group-item list-group-item-action active">
                                 Usuários
                             </a>
-
                             <a href="./Bairros" className="list-group-item list-group-item-action">
                                 Bairros
                             </a>
-                            
                             <a href="./aprovacao" className="list-group-item list-group-item-action">
                                 Aprovações
                             </a>
-
-
                         </div>
                     </aside>
 
-                    {/* CONTEÚDO (TABELA) */}
+                    {/* CONTEÚDO */}
                     <main className="col-10 p-4">
                         <h2>Aprovações</h2>
 
+                        {/* TABELA DE PENDENTES */}
+                        <h5 className="mt-4">Pendentes</h5>
+                        <div className="table-responsive">
+                            <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Título</th>
+                                        <th>Bairro</th>
+                                        <th>Descrição</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pendentes.map((item, indice) => (
+                                        <tr key={item.id}>
+                                            <td>{indice + 1}</td>
+                                            <td>{item.titulo}</td>
+                                            <td>{item.bairros?.bairro}</td>
+                                            <td>{item.descricao}</td>
+                                            <td>{item.status || 'pendente'}</td>
+                                            <td>
+                                                <button className="btn btn-success btn-sm me-2"
+                                                    onClick={() => atualizarStatus(item.id, 'aprovado')}>
+                                                    Aprovar
+                                                </button>
+                                                <button className="btn btn-danger btn-sm"
+                                                    onClick={() => atualizarStatus(item.id, 'reprovado')}>
+                                                    Reprovar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr />
+
+                        {/* TABELA DE TODAS */}
+                        <h5 className="mt-4">Todas as solicitações</h5>
                         <div className="table-responsive">
                             <table className="table table-striped">
                                 <thead>
@@ -101,23 +127,21 @@ bairros ( bairro )
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     {aprovacao.map((item, indice) => (
                                         <tr key={item.id}>
                                             <td>{indice + 1}</td>
                                             <td>{item.titulo}</td>
-                                            <td>{item.id_bairros?.bairro}</td>
+                                            <td>{item.bairros?.bairro}</td>
                                             <td>{item.descricao}</td>
-                                            <td>{item.status}</td>
+                                            <td>{item.status || 'pendente'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
-
                             </table>
                         </div>
-                    </main>
 
+                    </main>
                 </div>
 
                 <div className="modal fade" id="modalCriar" tabindex="-1" aria-hidden="true">
@@ -171,8 +195,6 @@ bairros ( bairro )
                                     <label className="form-label">Imagem do problema</label>
                                     <input type="file" className="form-control" accept="image/*" />
                                 </div>
-
-
                             </div>
 
                             <div className="modal-footer">
@@ -183,21 +205,7 @@ bairros ( bairro )
                     </div>
                 </div>
 
-
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     )
-
 }
-
-
-
