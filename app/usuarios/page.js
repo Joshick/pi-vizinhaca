@@ -12,15 +12,31 @@ export default function usuarios() {
 
   const [inputPesquisaAtivo, alteraInputPesquisaAtivo] = useState('')
 
+  const [inputPesquisaUsuario, alteraInputPesquisaUsuario] = useState('')
+
 
 
   async function pesquisar() {
-    const { data, error } = await supabase
-      .from('usuarios')
-      .select('*, id_bairros (*)')
-      .eq('ativo', inputPesquisaAtivo == 'true')
 
-    alteraUsuario(data)
+    
+    if (inputPesquisaUsuario) {
+      const { data, error } = await supabase
+        .from('usuarios')
+        .select('*, id_bairros (*)')
+        .eq('ativo', inputPesquisaAtivo === 'true')
+        .or(`nome.ilike.%${inputPesquisaUsuario}%,email.ilike.%${inputPesquisaUsuario}%`)
+
+      alteraUsuario(data)
+
+      
+    } else {
+      const { data, error } = await supabase
+        .from('usuarios')
+        .select('*, id_bairros (*)')
+        .eq('ativo', inputPesquisaAtivo === 'true')
+
+      alteraUsuario(data)
+    }
   }
 
   async function buscar() {
@@ -94,8 +110,18 @@ export default function usuarios() {
           <main className="col-10 p-4">
             <h2>👥 Usuários</h2>
 
+
+            <input
+              type="text"
+              className="form-control d-inline-block w-auto mx-2"
+              placeholder="Buscar por nome ou email..."
+              value={inputPesquisaUsuario}
+              onChange={e => alteraInputPesquisaUsuario(e.target.value)}
+            />
+
+
             <select onChange={e => alteraInputPesquisaAtivo(e.target.value)}>
-              <option value="">Todos</option>
+
               <option value="true">Ativo</option>
               <option value="false">Inativo</option>
             </select>
