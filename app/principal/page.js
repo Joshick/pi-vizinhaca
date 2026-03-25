@@ -16,6 +16,8 @@ export default function Principal() {
     const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
+    const [editandoSolicitacao, alteraEditandoSolicitacao] = useState(null)
+
     const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
 
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
@@ -24,6 +26,8 @@ export default function Principal() {
     function botaoTodasSolicitacoes() {
 
         alteraMinhasSolicitacoes(true)
+
+        
 
     }
 
@@ -111,6 +115,39 @@ export default function Principal() {
             .delete()
             .eq('id', id)
 
+        buscar()
+    }
+
+    {/* EDITAR SOLICITAÇÕES */ }
+    function editar(objeto){
+
+        alteraEditandoSolicitacao(objeto.id)
+
+        alteraTitulo(objeto.titulo)
+        alteraDescricao(objeto.descricao)
+    }
+
+    async function atualizarSolicitacao() {
+
+        const objeto = {
+            titulo: titulo,
+            descricao: descricao
+        }
+
+        const { error } = await supabase
+            .from('solicitacoes')
+            .update(objeto)
+            .eq('id', editandoSolicitacao)
+
+        console.log(objeto)
+
+        if (error == null) {
+            alert("Atualização realizada com sucesso!")
+            buscar()
+        } else {
+            alert("Dados inválidos!")
+            console.log(error)
+        }
     }
 
     useEffect(() => {
@@ -130,16 +167,16 @@ export default function Principal() {
                 {/* LISTAGEM DAS PÁGINAS */}
                 <div className="list-group list-group-flush">
                     <a href="#" className="list-group-item list-group-item-action"><i className="bi bi-house"></i> Home </a>
-                    <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"><i class="bi bi-plus-lg"></i> Criar solicitação </a>
-                    <a href="./usuarios" className="list-group-item list-group-item-action"><i class="bi bi-people-fill"></i> Usuários </a>
-                    <a href="./Bairros" className="list-group-item list-group-item-action"><i class="bi bi-pin-map"></i> Bairros </a>
-                    <a href="./aprovacao" className="list-group-item list-group-item-action"><i class="bi bi-check-all"></i> Aprovações </a>
+                    <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"><i className="bi bi-plus-lg"></i> Criar solicitação </a>
+                    <a href="./usuarios" className="list-group-item list-group-item-action"><i className="bi bi-people-fill"></i> Usuários </a>
+                    <a href="./Bairros" className="list-group-item list-group-item-action"><i className="bi bi-pin-map"></i> Bairros </a>
+                    <a href="./aprovacao" className="list-group-item list-group-item-action"><i className="bi bi-check-all"></i> Aprovações </a>
                 </div>
 
                 {/* PERFIL INFERIOR */}
                 <div className="text-center">
                     <div>
-                        <button data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i class="bi bi-person-circle"></i> Perfil </button>
+                        <button data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button>
                         <Link href="/"><button>Sair</button></Link>
                     </div>
                 </div>
@@ -158,7 +195,7 @@ export default function Principal() {
                     <div className="col-md-8">
                         <div className="input-group">
                             <input className="form-control" placeholder="Pesquisar solicitações..." />
-                            <button className="btn btn-outline-secondary"> <i class="bi bi-search"></i> </button>
+                            <button className="btn btn-outline-secondary"> <i className="bi bi-search"></i> </button>
                         </div>
                     </div>
 
@@ -195,10 +232,11 @@ export default function Principal() {
                                 <div className="align-itens-center">
                                     {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
                                     <button className="btn" onClick={() => excluir(solicitacao.id)}> Excluir </button>
-                                    <button className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> Editar </button>
+                                    <button onClick={ ()=> editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> Editar </button>
                                 </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
+                                    <p className="card-title">{solicitacao.status}</p>
                                     <p className="card-text">{solicitacao.descricao}</p>
                                     <div className="mt-auto">
                                         <button className="btn btn-success"> 👍 </button>
@@ -256,84 +294,61 @@ export default function Principal() {
                 </div>
             </div>
 
-            {/* MODAL PERFIL USUÁRIO */}
-            <div class="modal fade" id="modalPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Perfil do Usuário</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <img src="https://placehold.co/100"></img>
-                            <h5>Nome do Usuário</h5>
-                            <p class="text-muted">cargo@empresa.com</p>
-                            <p>Departamento de Vendas</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Editar Perfil</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* MODAL EDITAR */}
+            {/* MODAL EDITAR SOLICITAÇÕES */}
             <div className="modal fade" id="modalEditar" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
 
-                        {/* HEADER */}
+                        {/* CABEÇALHO MODAL */}
                         <div className="modal-header">
                             <h5 className="modal-title">Editar Solicitação</h5>
                             <button className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-                        {/* BODY */}
+                        {/* CORPO MODAL */}
                         <div className="modal-body">
 
                             {/* TÍTULO */}
                             <div className="mb-3">
                                 <label className="form-label">Título</label>
-                                <input
-                                    // value={tituloEditar}
-                                    // onChange={e => setTituloEditar(e.target.value)}
-                                    className="form-control"
-                                />
+                                <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control"/>
                             </div>
 
                             {/* DESCRIÇÃO */}
                             <div className="mb-3">
                                 <label className="form-label">Descrição</label>
-                                <textarea
-                                    // value={descricaoEditar}
-                                    // onChange={e => setDescricaoEditar(e.target.value)}
-                                    className="form-control"
-                                    rows="4"
-                                ></textarea>
+                                <textarea value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4"></textarea>
                             </div>
-
-                            {/* IMAGEM */}
-                            <div className="mb-3">
-                                <label className="form-label">URL da Imagem</label>
-                                <input
-                                    // value={imagemEditar}
-                                    // onChange={e => setImagemEditar(e.target.value)}
-                                    className="form-control"
-                                />
-                            </div>
-
                         </div>
 
-                        {/* FOOTER */}
+                        {/* RODAPÉ MODAL */}
                         <div className="modal-footer">
-                            <button
-                                // onClick={atualizar} 
-                                className="btn btn-primary" data-bs-dismiss="modal"> Salvar Alterações </button>
-
+                            <button onClick={atualizarSolicitacao} className="btn btn-primary" data-bs-dismiss="modal"> Salvar Alterações </button>
                             <button className="btn btn-secondary" data-bs-dismiss="modal"> Cancelar </button>
                         </div>
+                    </div>
+                </div>
+            </div>
 
+            
+            {/* MODAL PERFIL USUÁRIO */}
+            <div className="modal fade" id="modalPerfil" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Perfil do Usuário</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <img src="https://placehold.co/100"></img>
+                            <h5>Nome do Usuário</h5>
+                            <p className="text-muted">cargo@empresa.com</p>
+                            <p>Departamento de Vendas</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" className="btn btn-primary">Editar Perfil</button>
+                        </div>
                     </div>
                 </div>
             </div>
