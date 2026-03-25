@@ -16,12 +16,30 @@ export default function Principal() {
     const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
+    const [inputPesquisarSolicitacao, alteraInputPesquisarSolicitacao] = useState()
+
     const [editandoSolicitacao, alteraEditandoSolicitacao] = useState(null)
 
     const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
 
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
+
+    {/* PESQUISAR SOLICITAÇÕES */ }
+    async function pesquisarSolicitacao(e) {
+        const { data, error } = await supabase
+            .from('solicitacoes')
+            .select(`
+                *,
+                id_usuario (*),
+                id_bairros (*)
+                `)
+            .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
+
+        console.log(data)
+        alteraListaSolicitacoes(data)
+    }
+
 
     {/* FILTRAR TODAS SOLICITAÇÕES */ }
     async function botaoTodasSolicitacoes() {
@@ -181,7 +199,7 @@ export default function Principal() {
                 {/* PERFIL INFERIOR */}
                 <div className="text-center">
                     <div>
-                        <button data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button>
+                        <button  data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button> 
                         <Link href="/"><button>Sair</button></Link>
                     </div>
                 </div>
@@ -199,8 +217,8 @@ export default function Principal() {
                     {/* PESQUISAR */}
                     <div className="col-md-8">
                         <div className="input-group">
-                            <input className="form-control" placeholder="Pesquisar solicitações..." />
-                            <button className="btn btn-outline-secondary"> <i className="bi bi-search"></i> </button>
+                            <input onChange={ e => alteraInputPesquisarSolicitacao(e.target.value)} className="form-control" placeholder="Pesquisar solicitações..." />
+                            <button onClick={pesquisarSolicitacao} className="btn btn-outline-secondary"> <i className="bi bi-search"></i> </button>
                         </div>
                     </div>
 
@@ -243,12 +261,12 @@ export default function Principal() {
                                     <p className="card-text">{solicitacao.descricao}</p>
                                     <div className="mt-auto cont">
                                         <div>
-                                            <button className="btn btn-success"> <i class="bi bi-hand-thumbs-up-fill"></i> </button>
-                                            <button className="btn btn-danger ms-2"> <i class="bi bi-hand-thumbs-down"></i> </button>
+                                            <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
+                                            <button className="btn btn-danger ms-2"> <i className="bi bi-hand-thumbs-down"></i> </button>
                                         </div>
                                         <div>
-                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i class="bi bi-trash3"></i> </button>
-                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i class="bi bi-pen"></i> </button>
+                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
+                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +357,6 @@ export default function Principal() {
                 </div>
             </div>
 
-
             {/* MODAL PERFIL USUÁRIO */}
             <div className="modal fade" id="modalPerfil" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
@@ -350,9 +367,9 @@ export default function Principal() {
                         </div>
                         <div className="modal-body text-center">
                             <img src="https://placehold.co/100"></img>
-                            <h5>Nome do Usuário</h5>
-                            <p className="text-muted">cargo@empresa.com</p>
-                            <p>Departamento de Vendas</p>
+                            <h5> Rayssa Silveira </h5>
+                            <p className="text-muted">rayssa.admin@senac.com</p>
+                            <p> Administrador do sistema </p>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
