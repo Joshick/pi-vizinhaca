@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import supabase from "../conexao/supabse";
+import "./cadastrar.css/"
 
 function Cadastro() {
 
@@ -97,13 +98,12 @@ function Cadastro() {
 
 
     return (
+        <div className="inicio">
 
-
-        <div >
-
-            <h1 className="text-center mb-3" style={{ color: "#064837" }}> Cadastro De Usuários <i class="bi bi-person-fill-add"></i> </h1>
+            <h1 className="text-center mb-3" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i> Cadastro De Usuários  </h1>
+            <br/>
             <hr />
-
+            <br/>
             <form onSubmit={salvar} className="formCadastro text-center" >
 
                 <label>
