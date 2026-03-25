@@ -43,6 +43,8 @@ export default function Bairros() {
         if (error == null) {
             alert("Bairro cadastrado com sucesso!!!")
             alteraNomeBairro("")
+
+            buscar()
            
         } else {
             alert("Dados inválidos, verifique os campos e tente novamente...")
@@ -58,6 +60,8 @@ export default function Bairros() {
                 .from('bairros')
                 .delete()
                 .eq('id', id)
+
+                buscar()
             }
      }
 
@@ -111,12 +115,12 @@ export default function Bairros() {
                         <h2>🏠 Bairros</h2>
 
                         <form onSubmit={salvar}>
-                            <p>Digite o nome do Bairro</p>
+                            <p>Cadastrar um novo bairro</p>
                             
-                            <input onChange={e => alteraNomeBairro(e.target.value)} />
+                            <input value={nomeBairro} onChange={e => alteraNomeBairro(e.target.value)} />
 
                             <br />
-                            <button>Salvar</button>
+                            <button>Cadastrar</button>
 
                         </form>
 
