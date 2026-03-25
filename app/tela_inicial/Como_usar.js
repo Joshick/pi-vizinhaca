@@ -1,12 +1,14 @@
+import "./Home.css"
 export default function Como_usar() {
     return (
         <div>
             <h2>Como funciona:</h2>
-            <p>Uma plataforma completa</p>
+            <p>Simples, rápido e eficiente</p>
+            <br/>
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/40/40054.png" class="img-fluid rounded-start" alt="..." />
+                        <img src="https://cdn-icons-png.flaticon.com/512/8068/8068013.png" class="img-fluid rounded-start; n1" alt="..." />
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -19,7 +21,7 @@ export default function Como_usar() {
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/40/40054.png" class="img-fluid rounded-start" alt="..." />
+                        <img src="https://cdn-icons-png.flaticon.com/512/8068/8068070.png" class="img-fluid rounded-start; n1" alt="..." />
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -32,12 +34,12 @@ export default function Como_usar() {
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/40/40054.png" class="img-fluid rounded-start" alt="..." />
+                        <img src="https://cdn-icons-png.flaticon.com/512/8068/8068125.png" class="img-fluid rounded-start; n1" alt="..." />
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">Vote e acompanhe</h5>
-                            <p class="card-text"> Vote nos relatos e acompanhe o andamento das soluções</p>
+                            <p class="card-text"> Vote e acompanhe o andamento das soluções</p>
                         </div>
                     </div>
                 </div>

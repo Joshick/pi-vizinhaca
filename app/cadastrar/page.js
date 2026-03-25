@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import supabase from "../conexao/supabse";
 
-
 function Cadastro() {
 
     const [Nome, alteraNome] = useState("")
@@ -47,7 +46,7 @@ function Cadastro() {
 
         }
 
-        if(cadastro.cpf.length < 11){
+        if (cadastro.cpf.length < 11) {
             alert("O CPF deve conter 11 digitos")
             return
         }
@@ -98,13 +97,14 @@ function Cadastro() {
 
 
     return (
-        <div>
 
-            <h1 className ="text-center"> Cadastro De Usuários </h1>
 
+        <div >
+
+            <h1 className="text-center mb-3" style={{ color: "#064837" }}> Cadastro De Usuários <i class="bi bi-person-fill-add"></i> </h1>
             <hr />
 
-            <form onSubmit={salvar} className= "formCadastro text-center">
+            <form onSubmit={salvar} className="formCadastro text-center" >
 
                 <label>
                     Digite o nome:
@@ -139,6 +139,13 @@ function Cadastro() {
 
                 <br /><br />
 
+                <label>
+                    Digite a senha:
+                    <br />
+                    <input type="password" onChange={e => alteraSenha(e.target.value)} />
+                </label>
+
+                <br /><br />
 
                 <label>
                     Selecione o bairro:
@@ -151,16 +158,7 @@ function Cadastro() {
                             )
                         }
 
-
                     </select>
-                </label>
-
-                <br /><br />
-
-                <label>
-                    Digite a senha:
-                    <br />
-                    <input type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
                 <br /><br />

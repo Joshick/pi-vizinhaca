@@ -17,8 +17,11 @@ export default function Home() {
                 <Link href="/cadastrar"><button class="btn btn-outline-secondary btn-sm ms-2">CADASTRAR</button></Link>
 
             </div>
-
+            <br/>
+            <br/>
             <hr />
+            <br/>
+
             <div>
                 <div class="container text-rigth">
                     <div class="row ">
