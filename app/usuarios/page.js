@@ -10,6 +10,19 @@ export default function usuarios() {
 
   const [usuarios, alteraUsuario] = useState([])
 
+  const [inputPesquisaAtivo, alteraInputPesquisaAtivo] = useState('')
+
+
+
+  async function pesquisar() {
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select('*, id_bairros (*)')
+      .eq('ativo', inputPesquisaAtivo == 'true')
+
+    alteraUsuario(data)
+  }
+
   async function buscar() {
     const { data, error } = await supabase
       .from('usuarios')
@@ -30,6 +43,7 @@ export default function usuarios() {
 
     buscar()
 
+
   }, [])
 
 
@@ -37,8 +51,8 @@ export default function usuarios() {
 
     <div>
 
-    
-      
+
+
 
 
       <div class="container-fluid">
@@ -60,16 +74,16 @@ export default function usuarios() {
                 Criar solicitação
               </button>
 
-              <a href="./minhas_solicitacoes" className="list-group-item list-group-item-action">
-                Minhas Solicitações
-              </a>
-
               <a href="./usuarios" className="list-group-item list-group-item-action active">
                 Usuários
               </a>
 
               <a href="./Bairros" className="list-group-item list-group-item-action">
                 Bairros
+              </a>
+
+              <a href="./aprovacao" className="list-group-item list-group-item-action">
+                Aprovações
               </a>
 
 
@@ -80,7 +94,14 @@ export default function usuarios() {
           <main className="col-10 p-4">
             <h2>👥 Usuários</h2>
 
-           
+            <select onChange={e => alteraInputPesquisaAtivo(e.target.value)}>
+              <option value="">Todos</option>
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+
+            <button onClick={pesquisar}>Pesquisar</button>
+
             <div className="table-responsive mt-4">
               <table className="table table-striped">
                 <thead>
@@ -97,15 +118,15 @@ export default function usuarios() {
                 <tbody>
                   {usuarios.map(
                     (item, indice) => (
-                    <tr>
-                      <td scope="row">{indice+1}</td>
-                      <td>{item.nome}</td>
-                      <td>{item.id_bairros.bairro}</td>
-                      <td>{item.email}</td>
-                      <td>{item.responsavel ? "Responsavel" : "Comum"}</td>
-                      <td>{item.ativo ? <span className='badge text-bg-success'>Ativo</span> : <span className='badge text-bg-danger'>inativo</span>}</td>
-                    </tr>
-                  ))}
+                      <tr>
+                        <td scope="row">{indice + 1}</td>
+                        <td>{item.nome}</td>
+                        <td>{item.id_bairros.bairro}</td>
+                        <td>{item.email}</td>
+                        <td>{item.responsavel ? "Responsavel" : "Comum"}</td>
+                        <td>{item.ativo ? <span className='badge text-bg-success'>Ativo</span> : <span className='badge text-bg-danger'>inativo</span>}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

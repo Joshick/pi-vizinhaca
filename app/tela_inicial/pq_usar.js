@@ -4,6 +4,7 @@ export default function Pq_usar() {
         <div>
             <h2>Por que usar?</h2>
             <p>Uma plataforma completa</p>
+            <br/>
            <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
