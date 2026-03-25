@@ -20,6 +20,7 @@ export default function Home() {
             <br/>
             <br/>
             <hr />
+            <br/>
 
             <div>
                 <div class="container text-rigth">
