@@ -69,7 +69,7 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
                 `)
-            .eq('id_usuario', '65')
+            .eq('id_usuario', '70')
 
         alteraListaSolicitacoes(data)
     }
@@ -215,24 +215,13 @@ export default function Principal() {
                 {/* CONTEÚDO PRINCIPAL */}
                 <div className="row mt-5 align-itens-center">
                     {/* PESQUISAR */}
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         <div className="input-group">
                             <input onChange={ e => alteraInputPesquisarSolicitacao(e.target.value)} className="form-control" placeholder="Pesquisar solicitações..." />
                             <button onClick={pesquisarSolicitacao} className="btn btn-outline-secondary"> <i className="bi bi-search"></i> </button>
                         </div>
                     </div>
 
-                    {/* FILTRAR */}
-                    <div className="col-md-2">
-                        <select className="form-select filtro-select">
-                            <option hidden>Filtrar status...</option>
-                            <option> Todos </option>
-                            <option> Novo </option>
-                            <option> Em andamento </option>
-                            <option> Pendente </option>
-                            <option> Fechado </option>
-                        </select>
-                    </div>
                     {/* FILTRAR */}
                     <div className="col-md-2">
                         {
@@ -253,7 +242,8 @@ export default function Principal() {
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
                                 <div className="align-itens-center">
-                                    <button className="btn">@{solicitacao.id_usuario.nome}</button>
+                                    <button className="btn">@nome_do_usuario</button>
+                                    {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
                                 </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
