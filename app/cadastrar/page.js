@@ -1,8 +1,10 @@
 'use client'
+
+import { createClient } from "@supabase/supabase-js"
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import supabase from "../conexao/supabse";
 import "./cadastrar.css/"
+const supabase= createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 function Cadastro() {
 
@@ -17,20 +19,7 @@ function Cadastro() {
     const [seleciona, alteraSelecionaBairro] = useState([])
 
 
-    const [listaCadastro, alteraListaCadastro] = useState([
-
-        {
-            nome: "",
-            cpf: "",
-            nascimento: "",
-            email: "",
-            bairro: "",
-            senha: "",
-            responsavel: "",
-            ativo: "",
-        }
-
-    ])
+    const [listaCadastro, alteraListaCadastro] = useState([])
 
 
     async function salvar(e) {
@@ -40,7 +29,7 @@ function Cadastro() {
             cpf: Cpf,
             nascimento: nascimento,
             email: Email,
-            bairro: bairro,
+            id_bairros: bairro,
             senha: Senha,
             responsavel: Responsavel,
             ativo: Ativo,
@@ -53,15 +42,13 @@ function Cadastro() {
         }
 
         const { error } = await supabase
-            .from('bairros')
-            .insert(bairro)
-
+            .from('usuarios')
+            .insert(cadastro)
 
         alteraListaCadastro(listaCadastro.concat(cadastro))
 
         console.log(cadastro)
         console.log(error)
-
 
         if (error == null) {
             alert("Solicitação enviada com sucesso!")
@@ -79,31 +66,26 @@ function Cadastro() {
         }
     }
 
-
     async function buscaBairro() {
         const { data, error } = await supabase
             .from('bairros')
-            .select('bairro')
+            .select()
 
         console.log(data)
 
         alteraSelecionaBairro(data)
     }
 
-
-
     useEffect(() => {
         buscaBairro()
     }, [])
 
-
     return (
         <div className="inicio">
 
-            <h1 className="text-center mb-3" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i> Cadastro De Usuários  </h1>
-            <br/>
-            <hr />
-            <br/>
+            <h1 className="text-center mb-3" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i>Cadastro De Usuários</h1>
+            <br/><br/>
+            <hr/>
             <form onSubmit={salvar} className="formCadastro text-center" >
 
                 <label>
@@ -112,24 +94,24 @@ function Cadastro() {
                     <input onChange={e => alteraNome(e.target.value)} />
                 </label>
 
-                <br /><br />
+                <br/><br/>
 
                 <label>
                     Digite o CPF:
-                    <br />
+                    <br/>
                     <input onChange={e => alteraCpf(e.target.value)} />
                 </label>
 
-                <br /><br />
+                <br/><br/>
 
 
                 <label>
                     Digite a data de nascimento:
-                    <br />
+                    <br/>
                     <input type="date" onChange={e => alteraNascimento(e.target.value)} />
                 </label>
 
-                <br /><br />
+                <br/><br/>
 
                 <label>
                     Digite o e-mail:
@@ -137,7 +119,7 @@ function Cadastro() {
                     <input required type onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
-                <br /><br />
+                <br/><br/>
 
                 <label>
                     Digite a senha:
@@ -145,7 +127,7 @@ function Cadastro() {
                     <input type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
-                <br /><br />
+                <br/><br/>
 
                 <label>
                     Selecione o bairro:
@@ -154,7 +136,7 @@ function Cadastro() {
                         <option>Selecione...</option>
                         {
                             seleciona.map(
-                                item => <option value={item.bairros}> {item.bairro}</option>
+                                item => <option value={item.id}> {item.bairro}</option>
                             )
                         }
 
@@ -172,7 +154,6 @@ function Cadastro() {
 
         </div >
     )
-
 
 }
 export default Cadastro;
