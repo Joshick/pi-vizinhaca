@@ -4,46 +4,51 @@ import { createClient } from "@supabase/supabase-js"
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./cadastrar.css/"
-const supabase= createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
+const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 function Cadastro() {
 
     const [Nome, alteraNome] = useState("")
     const [Cpf, alteraCpf] = useState("")
-    const [nascimento, alteraNascimento] = useState("")
+    const [data_nascimento, alteraDataNascimento] = useState("")
     const [Email, alteraEmail] = useState("")
     const [bairro, alteraBairro] = useState("")
     const [Senha, alteraSenha] = useState("")
-    const [Responsavel, alteraResponsavel] = useState()
-    const [Ativo, alteraAtivo] = useState()
-    const [seleciona, alteraSelecionaBairro] = useState([])
-
-
+    
     const [listaCadastro, alteraListaCadastro] = useState([])
-
+    
+    const [seleciona, alteraSelecionaBairro] = useState([])
 
     async function salvar(e) {
         e.preventDefault()
-        const cadastro = {
-            nome: Nome,
-            cpf: Cpf,
-            nascimento: nascimento,
+
+        const { data, error } = await supabase.auth.signUp({
             email: Email,
-            id_bairros: bairro,
-            senha: Senha,
-            responsavel: Responsavel,
-            ativo: Ativo,
-
-        }
-
-        if (cadastro.cpf.length < 11) {
-            alert("O CPF deve conter 11 digitos")
+            password: Senha,
+        })
+        console.log(error)
+        if (data == null) {
+            alert("Dados inválidos...")
             return
         }
 
-        const { error } = await supabase
+        const cadastro = {
+            id: data.user.id,
+            nome: Nome,
+            cpf: Cpf,
+            data_nascimento: data_nascimento,
+            bairro: bairro,
+        }
+
+        const resposta = await supabase
             .from('usuarios')
             .insert(cadastro)
+
+        if (resposta.error == null) {
+            alert("Cadastrado com sucesso!")
+        } else {
+            alert("Verifique os dados e tente novamente...")
+        }
 
         alteraListaCadastro(listaCadastro.concat(cadastro))
 
@@ -52,14 +57,7 @@ function Cadastro() {
 
         if (error == null) {
             alert("Solicitação enviada com sucesso!")
-            alteraNome("")
-            alteraCpf("")
-            alteraNascimento("")
-            alteraEmail("")
-            alteraBairro("")
-            alteraSenha("")
-            alteraResponsavel()
-            alteraAtivo()
+    
         } else {
             alert("Dados inválidos!" + error)
 
@@ -84,8 +82,8 @@ function Cadastro() {
         <div className="inicio">
 
             <h1 className="text-center mb-3" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i>Cadastro De Usuários</h1>
-            <br/><br/>
-            <hr/>
+            <br /><br />
+            <hr />
             <form onSubmit={salvar} className="formCadastro text-center" >
 
                 <label>
@@ -94,24 +92,23 @@ function Cadastro() {
                     <input onChange={e => alteraNome(e.target.value)} />
                 </label>
 
-                <br/><br/>
+                <br /><br />
 
                 <label>
                     Digite o CPF:
-                    <br/>
+                    <br />
                     <input onChange={e => alteraCpf(e.target.value)} />
                 </label>
 
-                <br/><br/>
-
+                <br /><br />
 
                 <label>
                     Digite a data de nascimento:
-                    <br/>
-                    <input type="date" onChange={e => alteraNascimento(e.target.value)} />
+                    <br />
+                    <input type="date" onChange={e => alteraDataNascimento(e.target.value)} />
                 </label>
 
-                <br/><br/>
+                <br /><br />
 
                 <label>
                     Digite o e-mail:
@@ -119,7 +116,7 @@ function Cadastro() {
                     <input required type onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
-                <br/><br/>
+                <br /><br />
 
                 <label>
                     Digite a senha:
@@ -127,7 +124,7 @@ function Cadastro() {
                     <input type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
-                <br/><br/>
+                <br /><br />
 
                 <label>
                     Selecione o bairro:
