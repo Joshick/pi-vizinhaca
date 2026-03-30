@@ -56,7 +56,6 @@ function Cadastro() {
         console.log(error)
 
         if (error == null) {
-            alert("Solicitação enviada com sucesso!")
     
         } else {
             alert("Dados inválidos!" + error)
@@ -81,8 +80,8 @@ function Cadastro() {
     return (
         <div className="inicio">
 
-            <h1 className="text-center mb-3" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i>Cadastro De Usuários</h1>
-            <br /><br />
+            <h1 className="text-center mb-2" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i>Cadastro De Usuários</h1>
+            <br />
             <hr />
             <form onSubmit={salvar} className="formCadastro text-center" >
 
@@ -142,7 +141,7 @@ function Cadastro() {
 
                 <br /><br />
 
-                <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
+               <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
                 <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>

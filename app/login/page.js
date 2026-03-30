@@ -41,7 +41,7 @@ export default function Login() {
                 <br />
 
 
-                Digite a Senha: <input onChange={e => alteraSenha(e.target.value)}></input>
+                Digite a Senha: <input type="password" onChange={e => alteraSenha(e.target.value)}></input>
                 <br />
                 <br />
 
