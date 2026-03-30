@@ -8,6 +8,44 @@ export default function Bairros() {
     const [bairros, alteraBairros] = useState([]);
 
     const [nomeBairro, alteraNomeBairro] = useState("")
+    const [editando, alteraEditando] = useState(null)
+
+    function editar(objeto) {
+
+        alteraEditando(objeto.id)
+        alteraNomeBairro(objeto.bairro)
+
+    }
+
+    async function atualizar(){
+
+        const objeto = {
+            bairro: nomeBairro,
+        }
+
+        const { error } = await supabase
+            .from('bairros')
+            .update(objeto)
+            .eq('id', editando)
+        
+        if(error ==  null){
+            alert("Atualização realizada com sucesso!")
+
+            cancelaEdicao()
+            buscarTodos()
+        }else{
+            alert("Dados inválidos! Verifique os campos e tente novamente.")
+        }
+        
+    }
+
+    function cancelaEdicao() {
+
+        alteraEditando(null)
+
+        alteraNomeBairro("")
+
+    }
     
     async function buscar() {
 
@@ -19,9 +57,8 @@ export default function Bairros() {
 
    }
 
-    async function salvar(e) {
-        e.preventDefault()
-
+    async function salvar() {
+        
         if (!nomeBairro.trim()) return;
 
         const novo = {
@@ -114,13 +151,23 @@ export default function Bairros() {
                     <main className="col-10 p-4">
                         <h2>🏠 Bairros</h2>
 
-                        <form onSubmit={salvar}>
+                        <form >
                             <p>Cadastrar um novo bairro</p>
                             
                             <input value={nomeBairro} onChange={e => alteraNomeBairro(e.target.value)} />
 
                             <br />
-                            <button>Cadastrar</button>
+
+                            {
+                    editando != null ?
+                        <div>
+                            <button onClick={atualizar} class="ms-2 me-2" >Atualizar</button>
+                            <button onClick={() => cancelaEdicao(false)} >Cancelar</button>
+                        </div>
+                        :
+                        <button onClick={salvar} >Cadastrar</button>
+                }
+                            {/* <button>Cadastrar</button> */}
 
                         </form>
 
@@ -146,7 +193,7 @@ export default function Bairros() {
                             <thead>
                                 <tr>
                                 <td scope="col"><li>{item.bairro}</li></td>
-                                <td scope="col"><button  >Editar</button><button onClick={ ()=> excluir(item.id) } class = "ms-1" >Excluir</button></td>
+                                <td scope="col"><button onClick={ ()=> editar(item) } >Editar</button><button onClick={ ()=> excluir(item.id) } class = "ms-1" >Excluir</button></td>
 
                                 </tr>
                             </thead>
