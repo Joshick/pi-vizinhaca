@@ -69,7 +69,7 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
                 `)
-            .eq('id_usuario', '70')
+            .eq('id_usuario', )
 
         alteraListaSolicitacoes(data)
     }
@@ -83,6 +83,7 @@ export default function Principal() {
                 id_usuario (*),
                 id_bairros (*)
             `)
+            .eq('status', "aprovado")
 
         console.log(error)
         alteraListaSolicitacoes(data)
