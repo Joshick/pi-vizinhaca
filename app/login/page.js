@@ -6,7 +6,11 @@ import { useState } from "react";
 import supabase from "../conexao/supabse";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 export default function Login() {
+
+    const router = useRouter();
 
     const [email, alteraEmail] = useState("")
     const [senha, alteraSenha] = useState("")
@@ -25,6 +29,9 @@ export default function Login() {
 
         alert("Atenticado com sucesso!")
         localStorage.setItem("id_usuario", data.user.id)
+
+        router.push("/principal")
+
     }
 
 

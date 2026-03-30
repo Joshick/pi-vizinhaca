@@ -4,9 +4,14 @@ import { createClient } from "@supabase/supabase-js"
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./cadastrar.css/"
+import { useRouter } from "next/navigation";
 const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 function Cadastro() {
+
+
+    const router = useRouter();
+
 
     const [Nome, alteraNome] = useState("")
     const [Cpf, alteraCpf] = useState("")
@@ -14,24 +19,43 @@ function Cadastro() {
     const [Email, alteraEmail] = useState("")
     const [bairro, alteraBairro] = useState("")
     const [Senha, alteraSenha] = useState("")
-    
+
     const [listaCadastro, alteraListaCadastro] = useState([])
-    
+
     const [seleciona, alteraSelecionaBairro] = useState([])
 
     async function salvar(e) {
         e.preventDefault()
 
+        // PRIMEIRO VALIDA TODOS OS DADOS DO FORMULÁRIO
+        if(Nome.length < 3){
+            alert("Preencha o nome corretamente para continuar")
+            return
+        }
+        if(bairro == null || bairro == "" || bairro < 0){
+            alert("Selecione o bairro antes de continuar...")
+            return
+        }
+        if(Cpf.length != 11){
+            alert("O CPF deve ter 11 caracteres para prosseguir....")
+            return
+        }
+        if(data_nascimento == null || data_nascimento == ""){
+            alert("Selecione uma data de nascimento para continuar...")
+            return
+        }
+
+        // DEPOIS ENVIA PARA O AUTHENTICATION DO SUPABASE
         const { data, error } = await supabase.auth.signUp({
             email: Email,
             password: Senha,
         })
-        console.log(error)
-        if (data == null) {
+        if (data == null || data.user == null) {
             alert("Dados inválidos...")
             return
         }
 
+        // CADASTRA NA TABELA DE USUÁRIOS :)
         const cadastro = {
             id: data.user.id,
             nome: Nome,
@@ -44,11 +68,13 @@ function Cadastro() {
             .from('usuarios')
             .insert(cadastro)
 
-        if (resposta.error == null) {
+        if (resposta.status == 201) {
             alert("Cadastrado com sucesso!")
+            router.push("/login")
         } else {
             alert("Verifique os dados e tente novamente...")
         }
+
 
         alteraListaCadastro(listaCadastro.concat(cadastro))
 
@@ -56,7 +82,7 @@ function Cadastro() {
         console.log(error)
 
         if (error == null) {
-    
+
         } else {
             alert("Dados inválidos!" + error)
 
@@ -141,7 +167,7 @@ function Cadastro() {
 
                 <br /><br />
 
-               <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
+                <button className="btn btn-outline-success me-2" type="submit">Salvar</button>
                 <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
             </form>
