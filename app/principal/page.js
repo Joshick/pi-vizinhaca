@@ -31,8 +31,7 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*),
-                id_bairros (*)
+                id_usuario (*)
                 `)
             .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
 
@@ -50,9 +49,9 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*),
-                id_bairros (*)
+                id_usuario (*)
                 `)
+            .eq('status', "aprovado")
 
         alteraListaSolicitacoes(data)
     }
@@ -66,10 +65,9 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*),
-                id_bairros (*)
+                id_usuario (*)
                 `)
-            .eq('id_usuario', )
+            .eq('id_usuario', id_usuario)
 
         alteraListaSolicitacoes(data)
     }
@@ -80,8 +78,7 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*),
-                id_bairros (*)
+                id_usuario (*)
             `)
             .eq('status', "aprovado")
 
@@ -175,6 +172,8 @@ export default function Principal() {
     }
 
     useEffect(() => {
+        const id = localStorage.getItem("id_usuario")
+        alteraIdUsuario(id)
         buscar()
     }, [])
 
@@ -200,7 +199,7 @@ export default function Principal() {
                 {/* PERFIL INFERIOR */}
                 <div className="text-center">
                     <div>
-                        <button  data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button> 
+                        <button data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button>
                         <Link href="/"><button>Sair</button></Link>
                     </div>
                 </div>
@@ -218,7 +217,7 @@ export default function Principal() {
                     {/* PESQUISAR */}
                     <div className="col-md-10">
                         <div className="input-group">
-                            <input onChange={ e => alteraInputPesquisarSolicitacao(e.target.value)} className="form-control" placeholder="Pesquisar solicitações..." />
+                            <input onChange={e => alteraInputPesquisarSolicitacao(e.target.value)} className="form-control" placeholder="Pesquisar solicitações..." />
                             <button onClick={pesquisarSolicitacao} className="btn btn-outline-secondary"> <i className="bi bi-search"></i> </button>
                         </div>
                     </div>
