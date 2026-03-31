@@ -34,6 +34,7 @@ export default function Principal() {
                 *,
                 id_usuario (*)
                 `)
+            .eq('status', "aprovado")
             .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
 
         console.log(data)
@@ -182,7 +183,7 @@ export default function Principal() {
         <div className="row">
             {/* MENU LATERAL */}
            
-           <Menu_lateral/>
+            <Menu_lateral/>
 
             {/* MENU PRINCIPAL */}
             <div className="col-9">
@@ -221,8 +222,7 @@ export default function Principal() {
                             <div className="card h-100">
                                 <img src={solicitacao.imagem} className="card-img-top" />
                                 <div className="align-itens-center">
-                                    <button className="btn">@nome_do_usuario</button>
-                                    {/* <button className="btn">@{solicitacao.id_usuario.nome}</button> */}
+                                    <a>@{solicitacao.id_usuario.nome}</a>
                                 </div>
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{solicitacao.titulo}</h5>
