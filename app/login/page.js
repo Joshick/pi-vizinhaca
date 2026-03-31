@@ -36,10 +36,11 @@ export default function Login() {
 
 
     return (
-        <div>
+        <div className="borda">
 
             <h1 class="text-center mt-5"> Login de Usuários </h1>
-
+            <hr />
+          
             <form class="formLogin text-center">
 
 
@@ -53,7 +54,7 @@ export default function Login() {
                 <br />
 
                 <button onClick={autenticar} class="btn btn-outline-success me-2" type="submit">Entrar</button>
-                <button type="button" class="btn  btn-outline-danger ms-2">Cancelar</button>
+               <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
 
             </form>
