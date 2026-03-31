@@ -1,6 +1,7 @@
 'use client'
 import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
+import Menu_lateral from '../principal/menu_lateral'
 
 const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
@@ -116,33 +117,7 @@ export default function usuarios() {
         <div class="row">
 
 
-          <aside class="col-2 border-end min-vh-100 p-3">
-            <div className="text-center">
-
-              <h5>Amigo da Vizinhança</h5>
-            </div>
-
-            <div className="list-group list-group-flush mt-4">
-
-              <a href="./principal" className="list-group-item list-group-item-action">Home</a>
-
-              <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"><i className="bi bi-plus-lg"></i> Criar solicitação </a>
-
-              <a href="./usuarios" className="list-group-item list-group-item-action active">
-                Usuários
-              </a>
-
-              <a href="./Bairros" className="list-group-item list-group-item-action">
-                Bairros
-              </a>
-
-              <a href="./aprovacao" className="list-group-item list-group-item-action">
-                Aprovações
-              </a>
-
-
-            </div>
-          </aside>
+          <Menu_lateral/>
 
 
           <main className="col-10 p-4">
