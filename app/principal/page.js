@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import supabase from "../conexao/supabse"
@@ -26,15 +26,6 @@ export default function Principal() {
     const id_usuario = localStorage.getItem("id_usuario")
     const [usuario, alteraUsuario] = useState([])
 
-    async function buscarUsuario() {
-
-        const { data, error } = await supabase
-            .from("usuarios")
-            .select()
-            .eq("id", id_usuario)
-
-        alteraUsuario(data[0])
-    }
 
     {/* PESQUISAR SOLICITAÇÕES */ }
     async function pesquisarSolicitacao(e) {
@@ -48,23 +39,6 @@ export default function Principal() {
             .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
 
         console.log(data)
-        alteraListaSolicitacoes(data)
-    }
-
-
-    {/* FILTRAR TODAS SOLICITAÇÕES */ }
-    async function botaoTodasSolicitacoes() {
-
-        alteraMinhasSolicitacoes(false)
-
-        const { data, error } = await supabase
-            .from('solicitacoes')
-            .select(`
-                *,
-                id_usuario (*)
-                `)
-            .eq('status', "aprovado")
-
         alteraListaSolicitacoes(data)
     }
 
@@ -86,16 +60,28 @@ export default function Principal() {
 
     {/* BUSCAR SOLICITAÇÕES */ }
     async function buscar() {
+
+        
         const { data, error } = await supabase
+            .from("usuarios")
+            .select("*, bairro(*)")
+            .eq("id", id_usuario)
+
+        console.log(data)
+        alteraUsuario(data[0])
+
+        const resposta = await supabase
             .from('solicitacoes')
             .select(`
                 *,
                 id_usuario (*)
-            `)
+                `)
             .eq('status', "aprovado")
+            .eq('id_bairro', data[0].bairro.id)
 
-        console.log(error)
-        alteraListaSolicitacoes(data)
+
+        console.log(resposta.error)
+        alteraListaSolicitacoes(resposta.data)
     }
 
     {/* SALVAR SOLICITAÇÕES */ }
@@ -106,6 +92,7 @@ export default function Principal() {
             descricao: descricao,
             status: status,
             id_usuario: id_usuario,
+            id_bairro: usuario.bairro.id,
             imagem: imagem
 
         }
@@ -184,7 +171,6 @@ export default function Principal() {
     }
 
     useEffect(() => {
-        buscarUsuario()
         buscar()
     }, [])
 
@@ -198,7 +184,7 @@ export default function Principal() {
             <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
-                    <h2><i className="bi bi-house"></i> Home </h2>
+                    <h2><i className="bi bi-house"></i> {usuario == null ? "Carregando..." : usuario.bairro.bairro} </h2>
                     <h5>Seja bem-vindo {usuario == null ? "Carregando..." : usuario.nome}</h5>
 
                 </div>
@@ -218,7 +204,7 @@ export default function Principal() {
                         {
                             minhasSolicitacoes == true ?
                                 <div>
-                                    <button className="btn btn-outline-secondary" onClick={botaoTodasSolicitacoes}> Todas Solicitações </button>
+                                    <button className="btn btn-outline-secondary" onClick={buscar}> Todas Solicitações </button>
                                 </div>
                                 :
                                 <button className="btn btn-outline-secondary" onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
@@ -251,7 +237,7 @@ export default function Principal() {
                                                     <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
                                                     <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
                                                 </div>
-                                            :
+                                                :
                                                 <div></div>
                                         }
                                     </div>
