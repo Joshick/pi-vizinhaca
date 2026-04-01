@@ -65,9 +65,9 @@ const id_usuario = localStorage.getItem("id_usuario")
                         </div>
                         <div className="modal-body text-center">
                             <img src="https://placehold.co/100"></img>
-                            <h5> Rayssa Silveira </h5>
-                            <p className="text-muted">rayssa.admin@senac.com</p>
-                            <p> Administrador do sistema </p>
+                            <h5> {usuario.nome} </h5>
+                            <p className="text-muted">{usuario.email}</p>
+                            <p>{usuario.admin == true?  <p>Administrador do sistema</p> : <p></p> }</p>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
