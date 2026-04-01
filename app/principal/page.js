@@ -14,17 +14,27 @@ export default function Principal() {
     const [titulo, alteraTitulo] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [status, alteraStatus] = useState("")
-    const [id_usuario, alteraIdUsuario] = useState()
     const [imagem, alteraImagem] = useState()
 
     const [inputPesquisarSolicitacao, alteraInputPesquisarSolicitacao] = useState()
-
     const [editandoSolicitacao, alteraEditandoSolicitacao] = useState(null)
-
     const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
 
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
+
+    const id_usuario = localStorage.getItem("id_usuario")
+    const [usuario, alteraUsuario] = useState([])
+
+    async function buscarUsuario() {
+
+        const { data, error } = await supabase
+            .from("usuarios")
+            .select()
+            .eq("id", id_usuario)
+
+        alteraUsuario(data[0])
+    }
 
     {/* PESQUISAR SOLICITAÇÕES */ }
     async function pesquisarSolicitacao(e) {
@@ -174,22 +184,23 @@ export default function Principal() {
     }
 
     useEffect(() => {
-        const id = localStorage.getItem("id_usuario")
-        alteraIdUsuario(id)
+        buscarUsuario()
         buscar()
     }, [])
 
     return (
         <div className="row">
             {/* MENU LATERAL */}
-           
-            <Menu_lateral/>
+
+            <Menu_lateral />
 
             {/* MENU PRINCIPAL */}
             <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
                     <h2><i className="bi bi-house"></i> Home </h2>
+                    <h5>Seja bem-vindo {usuario == null ? "Carregando..." : usuario.nome}</h5>
+
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
@@ -233,10 +244,16 @@ export default function Principal() {
                                             <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
                                             <button className="btn btn-danger ms-2"> <i className="bi bi-hand-thumbs-down"></i> </button>
                                         </div>
-                                        <div>
-                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
-                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
-                                        </div>
+
+                                        {
+                                            usuario != null && usuario.admin == true ?
+                                                <div>
+                                                    <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
+                                                    <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
+                                                </div>
+                                            :
+                                                <div></div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -261,6 +278,7 @@ export default function Principal() {
 
                             {/* TITULO */}
                             <div className="mb-3">
+                                <h5> {usuario.nome} </h5>
                                 <label className="form-label"> Título </label>
                                 <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
                             </div>
@@ -326,7 +344,7 @@ export default function Principal() {
                 </div>
             </div>
 
-           
+
         </div>
     )
 }

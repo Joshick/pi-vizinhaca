@@ -1,39 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TAREFAS
 
-## Getting Started
+*Tela principal:*
+- Usuário comum não deve poder editar nem excluir solicitações, apenas os adminstradores
+- Ao fazer uma solicitação, aparecer separado com uma etiqueta "Aguardando aprovação". Até ser aprovado pode ser possível editar ou excluir
+- Usuários devem poder ver apenas solicitações do seu próprio bairro
+(OPCIONAL) -> uma sessão para ver tudo de todos os bairros
 
-First, run the development server:
+- Perfil deve puxar informações do usuário logado
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*Painel lateral*
+- Filtrar o que o usuário comum pode ver e o que o administrador pode ver
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*Página de bairros*
+- Arrumar o cadastro
+- Melhora a interface peloamordedeus
+- Rever a necessidade da exclusão
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+*Página de Aprovações*:
+- Fazer funcionar
+- Ao aceitar as solicitações pendentes, deve aparecer em todas solicitações
+- Em todas solicitações deve haver um botão "Resolvido/Concluído" para finalizar a solicitação
+*IMPORTANTE*
+- O administrador do sistema deve poder ver tudo
+- O administrador do bairro deve poder ver e aprovar apenas as solicitações do bairro que é responsável
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*Página de usuários*
+- Fazer funcionar
+- Ter certeza que é possível tornar um usuário comum um administrador do bairro
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
-#0B9200
