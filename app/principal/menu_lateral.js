@@ -1,7 +1,29 @@
+import supabase from "../conexao/supabse";
+
 import "./principal.css"
+import { useEffect, useState } from "react";
 
 
 function Menu_lateral() {
+
+const id_usuario = localStorage.getItem("id_usuario") 
+
+    const [usuario, alteraUsuario] = useState([])
+
+    async function buscarUsuario() {
+        
+        const {data, error} = await supabase
+            .from("usuarios")
+            .select()
+            .eq("id", id_usuario)
+
+        alteraUsuario(data[0])
+    }
+
+    useEffect(()=> {
+        buscarUsuario()
+    },[])
+
     return (
 
         <div className="col-2" >
@@ -14,9 +36,17 @@ function Menu_lateral() {
             <div className="list-group list-group-flush">
                 <a href="./principal" className="list-group-item list-group-item-action"><i className="bi bi-house"></i> Home </a>
                 <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"><i className="bi bi-plus-lg"></i> Criar solicitação </a>
-                <a href="./usuarios" className="list-group-item list-group-item-action"><i className="bi bi-people-fill"></i> Usuários </a>
-                <a href="./Bairros" className="list-group-item list-group-item-action"><i className="bi bi-pin-map"></i> Bairros </a>
-                <a href="./aprovacao" className="list-group-item list-group-item-action"><i className="bi bi-check-all"></i> Aprovações </a>
+
+                 {
+                usuario != null && usuario.admin == true ?
+                    <div>
+                        <a href="./usuarios" className="list-group-item list-group-item-action"><i className="bi bi-people-fill"></i> Usuários </a>
+                        <a href="./Bairros" className="list-group-item list-group-item-action"><i className="bi bi-pin-map"></i> Bairros </a>
+                        <a href="./aprovacao" className="list-group-item list-group-item-action"><i className="bi bi-check-all"></i> Aprovações </a>
+                    </div>
+                :
+                    <div></div>
+            }
             </div>
             {/* PERFIL INFERIOR */}
             <div className="text-center">

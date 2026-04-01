@@ -33,7 +33,7 @@ export default function Bairros() {
             alert("Atualização realizada com sucesso!")
 
             cancelaEdicao()
-            buscarTodos()
+            buscar()
         }else{
             alert("Dados inválidos! Verifique os campos e tente novamente.")
         }
@@ -120,7 +120,7 @@ export default function Bairros() {
                     <main className="col-10 p-4">
                         <h2>🏠 Bairros</h2>
 
-                        <form >
+                        <div >
                             <p>Cadastrar um novo bairro</p>
                             
                             <input value={nomeBairro} onChange={e => alteraNomeBairro(e.target.value)} />
@@ -138,7 +138,7 @@ export default function Bairros() {
                 }
                             {/* <button>Cadastrar</button> */}
 
-                        </form>
+                        </div>
 
                         <table className="table table-striped">
                             <thead>
