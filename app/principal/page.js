@@ -46,21 +46,22 @@ export default function Principal() {
     async function botaoMinhasSolicitacoes() {
 
         alteraMinhasSolicitacoes(true)
-
+        
         const { data, error } = await supabase
-            .from('solicitacoes')
-            .select(`
-                *,
-                id_usuario (*)
-                `)
+        .from('solicitacoes')
+        .select(`
+            *,
+            id_usuario (*)
+            `)
             .eq('id_usuario', id_usuario)
-
-        alteraListaSolicitacoes(data)
-    }
-
-    {/* BUSCAR SOLICITAÇÕES */ }
-    async function buscar() {
-
+            
+            alteraListaSolicitacoes(data)
+        }
+        
+        {/* BUSCAR SOLICITAÇÕES */ }
+        async function buscar() {
+            
+        alteraMinhasSolicitacoes(false)
         
         const { data, error } = await supabase
             .from("usuarios")
@@ -184,7 +185,7 @@ export default function Principal() {
             <div className="col-9">
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
-                    <h2><i className="bi bi-house"></i> {usuario == null ? "Carregando..." : usuario.bairro.bairro} </h2>
+                    <h2><i className="bi bi-house"></i> {usuario == null ? "Carregando..." : usuario?.bairro?.bairro} </h2>
                     <h5>Seja bem-vindo {usuario == null ? "Carregando..." : usuario.nome}</h5>
 
                 </div>
