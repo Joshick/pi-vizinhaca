@@ -52,7 +52,7 @@ const id_usuario = localStorage.getItem("id_usuario")
             <div className="text-center">
                 <div>
                     <button data-bs-toggle="modal" data-bs-target="#modalPerfil"> <i className="bi bi-person-circle"></i> Perfil </button>
-                    <a href="/" ><button>Sair</button></a>
+                    <a href="/" ><button> <i class="bi bi-box-arrow-right"></i> Sair </button></a>
                 </div>
             </div>
             {/* MODAL PERFIL USUÁRIO */}

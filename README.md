@@ -6,9 +6,9 @@
 - Usuários devem poder ver apenas solicitações do seu próprio bairro
 (OPCIONAL) -> uma sessão para ver tudo de todos os bairros
 
-- Perfil deve puxar informações do usuário logado
 
 *Painel lateral*
+- Perfil deve puxar informações do usuário logado
 - Filtrar o que o usuário comum pode ver e o que o administrador pode ver
 
 *Página de bairros*
