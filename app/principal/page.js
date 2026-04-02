@@ -68,10 +68,7 @@ export default function Principal() {
 
         const pendentes = await supabase
             .from('solicitacoes')
-            .select(`
-        *,
-        id_usuario (*)
-    `)
+            .select(`*, id_usuario (*)`)
             .eq('status', 'pendente')
 
         alteraSolicitacoesPendentes(pendentes.data)
@@ -228,24 +225,36 @@ export default function Principal() {
                     </div>
                 </div>
 
-                {/* CARDS SOLICITAÇÕES */}
                 <div className="row mt-4">
 
-                    {/* 🟩 CARDS */}
+                    {/* CARDS SOLICITAÇÕES */}
                     <div className="col-8">
                         <div className="row">
                             {listaSolicitacoes.map((solicitacao) => (
                                 <div className="col-md-4 mb-3" key={solicitacao.id}>
                                     <div className="card h-100">
                                         <img src={solicitacao.imagem} className="card-img-top" />
-
+                                        <div className="align-itens-center">
+                                            <a>@{solicitacao.id_usuario.nome}</a>
+                                        </div>
                                         <div className="card-body d-flex flex-column">
-                                            <h5>{solicitacao.titulo}</h5>
-                                            <p>{solicitacao.descricao}</p>
-
-                                            <span className="badge bg-success mb-2">
-                                                {solicitacao.status}
-                                            </span>
+                                            <h5 className="card-title">{solicitacao.titulo}</h5>
+                                            <p className="card-text">{solicitacao.descricao}</p>
+                                            <div className="mt-auto cont">
+                                                <div>
+                                                    <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
+                                                    <button className="btn btn-danger ms-2"> <i className="bi bi-hand-thumbs-down"></i> </button>
+                                                </div>
+                                                {
+                                                    usuario != null && usuario.admin == true ?
+                                                        <div>
+                                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
+                                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
+                                                        </div>
+                                                        :
+                                                        <div></div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -253,28 +262,29 @@ export default function Principal() {
                         </div>
                     </div>
 
-                    {/* 🟨 PAINEL DIREITA */}
+                    {/* PAINEL PENDENTES */}
                     <div className="col-4">
                         <div className="card">
-                            <div className="card-header bg-warning">
-                                <strong>⏳ Pendentes</strong>
+                            <div className="card-header bg-success">
+                                <strong>Solicitações Pendentes</strong>
                             </div>
 
                             <div className="card-body" style={{ maxHeight: 500, overflowY: "auto" }}>
-                                {solicitacoesPendentes.length === 0 ? (
-                                    <p>Nenhuma pendente</p>
-                                ) : (
-                                    solicitacoesPendentes.map((p) => (
-                                        <div key={p.id} className="mb-3 border-bottom pb-2">
-                                            <strong>{p.titulo}</strong>
-                                            <p>{p.descricao}</p>
-
-                                            <span className="badge bg-warning text-dark">
-                                                Pendente
-                                            </span>
-                                        </div>
-                                    ))
-                                )}
+                                {
+                                    solicitacoesPendentes.length === 0 ? (
+                                        <p>Nenhuma pendente</p>
+                                    )
+                                        :
+                                        (
+                                            solicitacoesPendentes.map((p) => (
+                                                <div key={p.id} className="mb-3 border-bottom pb-2">
+                                                    <strong>{p.titulo}</strong>
+                                                    <p>{p.descricao}</p>
+                                                    <span className="badge bg-warning text-dark"> Pendente </span>
+                                                </div>
+                                            ))
+                                        )
+                                }
                             </div>
                         </div>
                     </div>
