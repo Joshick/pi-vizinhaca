@@ -2,3 +2,7 @@
     margin-top: 50;
     color: rgb(16, 14, 14);
 }
+
+.formCadastro text-center{
+    cursor: pointer;
+}

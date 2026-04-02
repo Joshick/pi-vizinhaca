@@ -137,7 +137,7 @@ function Cadastro() {
 
                 <br /><br />
 
-                <label for="inputEmail" class="col-sm-2 col-form-label">
+                < label for="inputEmail" class="col-sm-2 col-form-label">
                     Digite o e-mail:
                     <br />
                     <input class="form-control" id="inputEmail"
