@@ -69,6 +69,7 @@ export default function Principal() {
         const pendentes = await supabase
             .from('solicitacoes')
             .select(`*, id_usuario (*)`)
+            .eq('id_usuario', id_usuario)
             .eq('status', 'pendente')
 
         alteraSolicitacoesPendentes(pendentes.data)
