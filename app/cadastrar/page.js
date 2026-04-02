@@ -106,55 +106,60 @@ function Cadastro() {
     return (
         <div className="inicio">
 
-            <h1 className="text-center mb-2" style={{ color: "#064837" }}> <i class="bi bi-person-fill-add"></i>Cadastro De Usuários</h1>
-            <br />
+            <h1 className="text-center mb-2" style={{ color: "black" }}> <i class="bi bi-person-fill-add"> </i>Cadastro De Usuários</h1>
             <hr />
             <form onSubmit={salvar} className="formCadastro text-center" >
 
-                <label>
+                <label for="inputNome" class="col-sm-2 col-form-label">
                     Digite o nome:
                     <br />
-                    <input onChange={e => alteraNome(e.target.value)} />
+                    <input class="form-control" id="inputNome"
+                        onChange={e => alteraNome(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                <label for="inputCPF" class="col-sm-2 col-form-label">
                     Digite o CPF:
                     <br />
-                    <input onChange={e => alteraCpf(e.target.value)} />
+                    <input class="form-control" id="inputCPF"
+                        onChange={e => alteraCpf(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                <label for="inputData" class="col-sm-2 col-form-label">
                     Digite a data de nascimento:
                     <br />
-                    <input type="date" onChange={e => alteraDataNascimento(e.target.value)} />
+                    <input class="form-control" id="inputData"
+                        type="date" onChange={e => alteraDataNascimento(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                <label for="inputEmail" class="col-sm-2 col-form-label">
                     Digite o e-mail:
                     <br />
-                    <input required type onChange={e => alteraEmail(e.target.value)} />
+                    <input class="form-control" id="inputEmail"
+                        required type onChange={e => alteraEmail(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                <label for="inputSenha" class="col-sm-2 col-form-label">
                     Digite a senha:
                     <br />
-                    <input type="password" onChange={e => alteraSenha(e.target.value)} />
+                    <input class="form-control" id="inputSenha"
+                        type="password" onChange={e => alteraSenha(e.target.value)} />
                 </label>
 
                 <br /><br />
 
-                <label>
+                <label for="inputBairro" class="col-sm-2 col-form-label">
                     Selecione o bairro:
                     <br />
-                    <select onChange={e => alteraBairro(e.target.value)} >
+                    <select class="form-control" id="inputBairro"
+                        onChange={e => alteraBairro(e.target.value)} >
                         <option>Selecione...</option>
                         {
                             seleciona.map(

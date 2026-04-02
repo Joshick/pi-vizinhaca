@@ -40,21 +40,27 @@ export default function Login() {
 
             <h1 class="text-center mt-5"> Login de Usuários </h1>
             <hr />
-          
             <form class="formLogin text-center">
 
 
-                Digite o e-mail: <input onChange={e => alteraEmail(e.target.value)}></input>
-                <br />
-                <br />
+                <label for="inputEmail" class="col-sm-2 col-form-label">
+                    Digite o e-mail:
+                    <br />
+                    <input class="form-control" id="inputEmail"
+                        required type onChange={e => alteraEmail(e.target.value)} />
+                </label>
+                <br /><br />
 
-
-                Digite a Senha: <input type="password" onChange={e => alteraSenha(e.target.value)}></input>
-                <br />
-                <br />
+                <label for="inputSenha" class="col-sm-2 col-form-label">
+                    Digite a senha:
+                    <br />
+                    <input class="form-control" id="inputSenha"
+                        type="password" onChange={e => alteraSenha(e.target.value)} />
+                </label>
+                <br /><br />
 
                 <button onClick={autenticar} class="btn btn-outline-success me-2" type="submit">Entrar</button>
-               <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+                <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
 
 
             </form>
