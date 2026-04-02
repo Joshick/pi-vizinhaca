@@ -11,6 +11,8 @@ const supabase = createClient(
 
 export default function Aprovacao() {
 
+  if (typeof window === "undefined") return null
+
   const [aprovacao, alteraAprovacao] = useState([])
 
   async function buscar() {
