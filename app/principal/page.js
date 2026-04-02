@@ -70,7 +70,7 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`*, id_usuario (*)`)
             .eq('id_usuario', id_usuario)
-            .eq('status', 'pendente')
+            .eq('status', '')
 
         alteraSolicitacoesPendentes(pendentes.data)
 
@@ -131,6 +131,8 @@ export default function Principal() {
             alteraDescricao("")
             alteraStatus("")
             alteraImagem()
+
+            buscar()
         } else {
             alert("Dados inválidos!")
 
