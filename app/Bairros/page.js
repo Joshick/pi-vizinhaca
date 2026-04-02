@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import Menu_lateral from "../principal/menu_lateral";
 
 export default function Bairros() {
+    
+    if(typeof window === "undefined") return null
 
 
     const [bairros, alteraBairros] = useState([]);

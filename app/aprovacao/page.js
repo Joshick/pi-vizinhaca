@@ -8,6 +8,8 @@ const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_pu
 
 export default function aprovacao() {
 
+    if(typeof window === "undefined") return null
+
     const [aprovacao, alteraAprovacao] = useState([])
     const [titulo, alteraTitulo] = useState('')
     const [descricao, alteraDescricao] = useState('')

@@ -10,6 +10,9 @@ const supabase = createClient(
 )
 
 export default function Usuarios() {
+
+  if(typeof window === "undefined") return null
+  
   const [usuarios, alteraUsuario] = useState([])
   const [inputPesquisaAtivo, alteraInputPesquisaAtivo] = useState('true')
   const [inputPesquisaUsuario, alteraInputPesquisaUsuario] = useState('')

@@ -11,6 +11,8 @@ import Menu_lateral from './menu_lateral';
 
 export default function Principal() {
 
+    if(typeof window === "undefined") return null
+
     const [titulo, alteraTitulo] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [status, alteraStatus] = useState("")
