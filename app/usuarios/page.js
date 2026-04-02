@@ -11,17 +11,16 @@ const supabase = createClient(
 
 export default function Usuarios() {
 
-  if(typeof window === "undefined") return null
-  
   const [usuarios, alteraUsuario] = useState([])
   const [inputPesquisaAtivo, alteraInputPesquisaAtivo] = useState('true')
   const [inputPesquisaUsuario, alteraInputPesquisaUsuario] = useState('')
 
   async function buscarUsuarios() {
+
     let query = supabase
       .from('usuarios')
       .select('*')
-      .eq('ativo', inputPesquisaAtivo === 'true')
+      .eq('ativo', inputPesquisaAtivo == 'true')
 
     if (inputPesquisaUsuario.trim()) {
       query = query.ilike('nome', `%${inputPesquisaUsuario}%`)
@@ -34,7 +33,6 @@ export default function Usuarios() {
       return
     }
 
-    console.log(data)
     alteraUsuario(data || [])
   }
 
@@ -46,12 +44,14 @@ export default function Usuarios() {
     <div>
       <div className="container-fluid">
         <div className="row">
+
           <Menu_lateral />
 
           <main className="col-10 p-4">
             <h2>👥 Usuários</h2>
 
             <div className="d-flex gap-2 mb-3">
+
               <input
                 type="text"
                 className="form-control w-auto"
@@ -68,6 +68,7 @@ export default function Usuarios() {
                 <option value="true">Ativo</option>
                 <option value="false">Inativo</option>
               </select>
+
             </div>
 
             <div className="table-responsive mt-4">
@@ -101,6 +102,7 @@ export default function Usuarios() {
                 </tbody>
               </table>
             </div>
+
           </main>
         </div>
       </div>
