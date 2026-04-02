@@ -11,7 +11,7 @@ import Menu_lateral from './menu_lateral';
 
 export default function Principal() {
 
-    if(typeof window === "undefined") return null
+    if (typeof window === "undefined") return null
 
     const [titulo, alteraTitulo] = useState("")
     const [descricao, alteraDescricao] = useState("")
@@ -24,6 +24,7 @@ export default function Principal() {
 
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
+    const [solicitacoesPendentes, alteraSolicitacoesPendentes] = useState([])
 
     const id_usuario = localStorage.getItem("id_usuario")
     const [usuario, alteraUsuario] = useState([])
@@ -48,23 +49,33 @@ export default function Principal() {
     async function botaoMinhasSolicitacoes() {
 
         alteraMinhasSolicitacoes(true)
-        
+
         const { data, error } = await supabase
-        .from('solicitacoes')
-        .select(`
+            .from('solicitacoes')
+            .select(`
             *,
             id_usuario (*)
             `)
             .eq('id_usuario', id_usuario)
-            
-            alteraListaSolicitacoes(data)
-        }
-        
-        {/* BUSCAR SOLICITAÇÕES */ }
-        async function buscar() {
-            
+
+        alteraListaSolicitacoes(data)
+    }
+
+    {/* BUSCAR SOLICITAÇÕES */ }
+    async function buscar() {
+
         alteraMinhasSolicitacoes(false)
-        
+
+        const pendentes = await supabase
+            .from('solicitacoes')
+            .select(`
+        *,
+        id_usuario (*)
+    `)
+            .eq('status', 'pendente')
+
+        alteraSolicitacoesPendentes(pendentes.data)
+
         const { data, error } = await supabase
             .from("usuarios")
             .select("*, bairro(*)")
@@ -85,6 +96,8 @@ export default function Principal() {
 
         console.log(resposta.error)
         alteraListaSolicitacoes(resposta.data)
+
+
     }
 
     {/* SALVAR SOLICITAÇÕES */ }
@@ -193,7 +206,7 @@ export default function Principal() {
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
-                <div className="row mt-5 align-itens-center">
+                <div className="row mt-5 align-items-center">
                     {/* PESQUISAR */}
                     <div className="col-md-10">
                         <div className="input-group">
@@ -216,124 +229,142 @@ export default function Principal() {
                 </div>
 
                 {/* CARDS SOLICITAÇÕES */}
-                <div className="row mt-3">
-                    {listaSolicitacoes.map((solicitacao) => (
-                        <div className="col-md-3 mb-3" key={solicitacao.id}>
-                            <div className="card h-100">
-                                <img src={solicitacao.imagem} className="card-img-top" />
-                                <div className="align-itens-center">
-                                    <a>@{solicitacao.id_usuario.nome}</a>
-                                </div>
-                                <div className="card-body d-flex flex-column">
-                                    <h5 className="card-title">{solicitacao.titulo}</h5>
-                                    <p className="card-title">{solicitacao.status}</p>
-                                    <p className="card-text">{solicitacao.descricao}</p>
-                                    <div className="mt-auto cont">
-                                        <div>
-                                            <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
-                                            <button className="btn btn-danger ms-2"> <i className="bi bi-hand-thumbs-down"></i> </button>
-                                        </div>
+                <div className="row mt-4">
 
-                                        {
-                                            usuario != null && usuario.admin == true ?
-                                                <div>
-                                                    <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
-                                                    <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
-                                                </div>
-                                                :
-                                                <div></div>
-                                        }
+                    {/* 🟩 CARDS */}
+                    <div className="col-8">
+                        <div className="row">
+                            {listaSolicitacoes.map((solicitacao) => (
+                                <div className="col-md-4 mb-3" key={solicitacao.id}>
+                                    <div className="card h-100">
+                                        <img src={solicitacao.imagem} className="card-img-top" />
+
+                                        <div className="card-body d-flex flex-column">
+                                            <h5>{solicitacao.titulo}</h5>
+                                            <p>{solicitacao.descricao}</p>
+
+                                            <span className="badge bg-success mb-2">
+                                                {solicitacao.status}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* MODAL CRIAR SOLICITAÇÕES */}
-            <div className="modal fade" id="modalCriar" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-scrollable">
-                    <div className="modal-content">
-
-                        {/* TITULO MODAL */}
-                        <div className="modal-header">
-                            <h5 className="modal-title"> Nova Solicitação </h5>
-                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        {/* CORPO MODAL */}
-                        <div className="modal-body">
-
-                            {/* TITULO */}
-                            <div className="mb-3">
-                                <h5> {usuario.nome} </h5>
-                                <label className="form-label"> Título </label>
-                                <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
-                            </div>
-
-                            {/* DESCRIÇÃO */}
-                            <div className="mb-3">
-                                <label className="form-label"> Descrição </label>
-                                <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
-                            </div>
-
-                            {/* IMAGEM */}
-                            <div className="mb-3">
-                                <label className="form-label">Imagem</label>
-                                <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
-                            </div>
-                        </div>
-
-                        {/* RODAPÉ MODAL */}
-                        <div className="modal-footer">
-                            {/* BOTÃO ENVIAR */}
-                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
-                            {/* BOTÃO CANCELAR */}
-                            <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        </div>
-
                     </div>
+
+                    {/* 🟨 PAINEL DIREITA */}
+                    <div className="col-4">
+                        <div className="card">
+                            <div className="card-header bg-warning">
+                                <strong>⏳ Pendentes</strong>
+                            </div>
+
+                            <div className="card-body" style={{ maxHeight: 500, overflowY: "auto" }}>
+                                {solicitacoesPendentes.length === 0 ? (
+                                    <p>Nenhuma pendente</p>
+                                ) : (
+                                    solicitacoesPendentes.map((p) => (
+                                        <div key={p.id} className="mb-3 border-bottom pb-2">
+                                            <strong>{p.titulo}</strong>
+                                            <p>{p.descricao}</p>
+
+                                            <span className="badge bg-warning text-dark">
+                                                Pendente
+                                            </span>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
 
-            {/* MODAL EDITAR SOLICITAÇÕES */}
-            <div className="modal fade" id="modalEditar" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-scrollable">
-                    <div className="modal-content">
+                {/* MODAL CRIAR SOLICITAÇÕES */}
+                <div className="modal fade" id="modalCriar" tabIndex="-1">
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
 
-                        {/* CABEÇALHO MODAL */}
-                        <div className="modal-header">
-                            <h5 className="modal-title">Editar Solicitação</h5>
-                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        {/* CORPO MODAL */}
-                        <div className="modal-body">
-
-                            {/* TÍTULO */}
-                            <div className="mb-3">
-                                <label className="form-label">Título</label>
-                                <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control" />
+                            {/* TITULO MODAL */}
+                            <div className="modal-header">
+                                <h5 className="modal-title"> Nova Solicitação </h5>
+                                <button className="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            {/* DESCRIÇÃO */}
-                            <div className="mb-3">
-                                <label className="form-label">Descrição</label>
-                                <textarea value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4"></textarea>
-                            </div>
-                        </div>
+                            {/* CORPO MODAL */}
+                            <div className="modal-body">
 
-                        {/* RODAPÉ MODAL */}
-                        <div className="modal-footer">
-                            <button onClick={atualizarSolicitacao} className="btn btn-primary" data-bs-dismiss="modal"> Salvar Alterações </button>
-                            <button className="btn btn-secondary" data-bs-dismiss="modal"> Cancelar </button>
+                                {/* TITULO */}
+                                <div className="mb-3">
+                                    <h5> {usuario.nome} </h5>
+                                    <label className="form-label"> Título </label>
+                                    <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
+                                </div>
+
+                                {/* DESCRIÇÃO */}
+                                <div className="mb-3">
+                                    <label className="form-label"> Descrição </label>
+                                    <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
+                                </div>
+
+                                {/* IMAGEM */}
+                                <div className="mb-3">
+                                    <label className="form-label">Imagem</label>
+                                    <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
+                                </div>
+                            </div>
+
+                            {/* RODAPÉ MODAL */}
+                            <div className="modal-footer">
+                                {/* BOTÃO ENVIAR */}
+                                <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
+                                {/* BOTÃO CANCELAR */}
+                                <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+
+                {/* MODAL EDITAR SOLICITAÇÕES */}
+                <div className="modal fade" id="modalEditar" tabIndex="-1">
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
+
+                            {/* CABEÇALHO MODAL */}
+                            <div className="modal-header">
+                                <h5 className="modal-title">Editar Solicitação</h5>
+                                <button className="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            {/* CORPO MODAL */}
+                            <div className="modal-body">
+
+                                {/* TÍTULO */}
+                                <div className="mb-3">
+                                    <label className="form-label">Título</label>
+                                    <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control" />
+                                </div>
+
+                                {/* DESCRIÇÃO */}
+                                <div className="mb-3">
+                                    <label className="form-label">Descrição</label>
+                                    <textarea value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+
+                            {/* RODAPÉ MODAL */}
+                            <div className="modal-footer">
+                                <button onClick={atualizarSolicitacao} className="btn btn-primary" data-bs-dismiss="modal"> Salvar Alterações </button>
+                                <button className="btn btn-secondary" data-bs-dismiss="modal"> Cancelar </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
-
-
         </div>
     )
 }
