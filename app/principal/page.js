@@ -162,13 +162,15 @@ export default function Principal() {
 
         alteraTitulo(objeto.titulo)
         alteraDescricao(objeto.descricao)
+        alteraImagem(objeto.imagem)
     }
 
     async function atualizarSolicitacao() {
 
         const objeto = {
             titulo: titulo,
-            descricao: descricao
+            descricao: descricao,
+            imagem: imagem
         }
 
         const { error } = await supabase
@@ -202,7 +204,7 @@ export default function Principal() {
                 {/* INTRODUÇÃO */}
                 <div className="mt-3">
                     <h2><i className="bi bi-house"></i> {usuario == null ? "Carregando..." : usuario?.bairro?.bairro} </h2>
-                    <h5>Seja bem-vindo {usuario == null ? "Carregando..." : usuario.nome}</h5>
+                    <h5>Seja bem-vindo, {usuario == null ? "Carregando..." : usuario.nome}!</h5>
 
                 </div>
 
@@ -325,7 +327,7 @@ export default function Principal() {
                                 {/* IMAGEM */}
                                 <div className="mb-3">
                                     <label className="form-label">Imagem</label>
-                                    <input onChange={e => alteraImagem(e.target.value)} type="file" className="form-control" />
+                                    <input onChange={e => alteraImagem(e.target.value)} className="form-control" />
                                 </div>
                             </div>
 
@@ -365,6 +367,12 @@ export default function Principal() {
                                 <div className="mb-3">
                                     <label className="form-label">Descrição</label>
                                     <textarea value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4"></textarea>
+                                </div>
+
+                                {/* IMAGEM */}
+                                <div className="mb-3">
+                                    <label className="form-label"> Imagem </label>
+                                    <textarea value={imagem} onChange={e => alteraImagem(e.target.value)} className="form-control" rows="4"></textarea>
                                 </div>
                             </div>
 
