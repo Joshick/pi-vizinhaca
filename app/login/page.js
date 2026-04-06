@@ -27,7 +27,7 @@ export default function Login() {
             return
         }
 
-        alert("Atenticado com sucesso!")
+        alert("Autenticado com sucesso!")
         localStorage.setItem("id_usuario", data.user.id)
 
         router.push("/principal")

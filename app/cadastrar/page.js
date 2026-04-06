@@ -29,19 +29,19 @@ function Cadastro() {
 
         // PRIMEIRO VALIDA TODOS OS DADOS DO FORMULÁRIO
         if (Nome.length < 3) {
-            alert("Preencha o nome corretamente para continuar")
+            alert("Preencha o nome corretamente para continuar.")
             return
         }
         if (bairro == null || bairro == "" || bairro < 0) {
-            alert("Selecione o bairro antes de continuar...")
+            alert("Selecione o bairro antes de continuar.")
             return
         }
         if (Cpf.length != 11) {
-            alert("O CPF deve ter 11 caracteres para prosseguir....")
+            alert("O CPF deve ter 11 caracteres para prosseguir.")
             return
         }
         if (data_nascimento == null || data_nascimento == "") {
-            alert("Selecione uma data de nascimento para continuar...")
+            alert("Selecione uma data de nascimento para continuar.")
             return
         }
 
@@ -51,8 +51,11 @@ function Cadastro() {
             password: Senha,
         })
         if (data == null || data.user == null) {
-            alert("Dados inválidos...")
+            alert("Email ou senha inválidos! Tente novamente.")
+
             return
+        }else{
+            console.log(error)
         }
 
         // CADASTRA NA TABELA DE USUÁRIOS :)
@@ -72,7 +75,7 @@ function Cadastro() {
             alert("Cadastrado com sucesso!")
             router.push("/login")
         } else {
-            alert("Verifique os dados e tente novamente...")
+            alert("Verifique os dados e tente novamente.")
         }
 
 
