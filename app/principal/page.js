@@ -39,6 +39,7 @@ export default function Principal() {
                 id_usuario (*)
                 `)
             .eq('status', "aprovado")
+            .eq('id_bairro', usuario.bairro.id)
             .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
 
         console.log(data)
