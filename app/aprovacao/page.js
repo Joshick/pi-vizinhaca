@@ -4,10 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import Menu_lateral from "../principal/menu_lateral";
 
-const supabase = createClient(
-    'https://edgdqwzpczmrsatrprxi.supabase.co',
-    'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-'
-)
+const supabase = createClient('https://edgdqwzpczmrsatrprxi.supabase.co', 'sb_publishable_ZMv7WBT8DU6d9uEgEaWzHA_eyWsKvj-')
 
 export default function aprovacao() {
 
@@ -17,29 +14,26 @@ export default function aprovacao() {
     const [imagem, alteraImagem] = useState('')
 
     async function buscar() {
-        const { data, error } = await supabase
-            .from('solicitacoes')
-            .select(`
-                *,
-                id_usuario (*),
-                bairros (bairro)
-            `)
+    const { data, error } = await supabase
+        .from('solicitacoes')
+        .select('*')
 
-        if (error) {
-            console.log(error)
-        } else {
-            alteraAprovacao(data || [])
-        }
+    if (error) {
+        console.log(error)
+    } else {
+        alteraAprovacao(data || [])
     }
+}
 
     async function salvar() {
+        // Pega o usuário logado
         const { data: { user } } = await supabase.auth.getUser()
 
         const objeto = {
             titulo: titulo,
             descricao: descricao,
             status: 'pendente',
-            id_usuario: user.id,
+            id_usuario: user.id,  // <-- agora pega o id do usuário logado
             imagem: imagem
         }
 
@@ -82,8 +76,8 @@ export default function aprovacao() {
     }, [])
 
     const pendentes = aprovacao.filter(
-        item => item.status == 'pendente' || item.status =='EMPTY' || !item.status
-    )
+    item => item.status === 'pendente' || item.status === 'EMPTY' || !item.status
+)
 
     return (
         <div>
@@ -92,9 +86,11 @@ export default function aprovacao() {
 
                     <Menu_lateral />
 
+                    {/* CONTEÚDO */}
                     <main className="col-10 p-4">
                         <h2>Aprovações</h2>
 
+                        {/* TABELA DE PENDENTES */}
                         <h5 className="mt-4">Pendentes</h5>
                         <div className="table-responsive">
                             <table className="table table-striped">
@@ -102,7 +98,6 @@ export default function aprovacao() {
                                     <tr>
                                         <th>#</th>
                                         <th>Título</th>
-                                        <th>Usuário</th>
                                         <th>Bairro</th>
                                         <th>Descrição</th>
                                         <th>Status</th>
@@ -114,22 +109,16 @@ export default function aprovacao() {
                                         <tr key={item.id}>
                                             <td>{indice + 1}</td>
                                             <td>{item.titulo}</td>
-                                            <td>{item.id_usuario?.nome}</td>
                                             <td>{item.bairros?.bairro}</td>
                                             <td>{item.descricao}</td>
                                             <td>{item.status || 'pendente'}</td>
                                             <td>
-                                                <button
-                                                    className="btn btn-success btn-sm me-2"
-                                                    onClick={() => atualizarStatus(item.id, 'aprovado')}
-                                                >
+                                                <button className="btn btn-success btn-sm me-2"
+                                                    onClick={() => atualizarStatus(item.id, 'aprovado')}>
                                                     Aprovar
                                                 </button>
-
-                                                <button
-                                                    className="btn btn-danger btn-sm"
-                                                    onClick={() => atualizarStatus(item.id, 'reprovado')}
-                                                >
+                                                <button className="btn btn-danger btn-sm"
+                                                    onClick={() => atualizarStatus(item.id, 'reprovado')}>
                                                     Reprovar
                                                 </button>
                                             </td>
@@ -141,6 +130,7 @@ export default function aprovacao() {
 
                         <hr />
 
+                        {/* TABELA DE TODAS */}
                         <h5 className="mt-4">Todas as solicitações</h5>
                         <div className="table-responsive">
                             <table className="table table-striped">
@@ -148,7 +138,6 @@ export default function aprovacao() {
                                     <tr>
                                         <th>#</th>
                                         <th>Título</th>
-                                        <th>Usuário</th>
                                         <th>Bairro</th>
                                         <th>Descrição</th>
                                         <th>Status</th>
@@ -159,8 +148,7 @@ export default function aprovacao() {
                                         <tr key={item.id}>
                                             <td>{indice + 1}</td>
                                             <td>{item.titulo}</td>
-                                            <td>{item.id_usuario?.nome}</td>
-                                            <td>{item.bairros?.bairro || "Sem bairro"}</td>
+                                            <td>{item.bairros?.bairro}</td>
                                             <td>{item.descricao}</td>
                                             <td>{item.status || 'pendente'}</td>
                                         </tr>
@@ -172,6 +160,7 @@ export default function aprovacao() {
                 </div>
             </div>
 
+            {/* MODAL CRIAR SOLICITAÇÃO */}
             <div className="modal fade" id="modalCriar" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
@@ -179,7 +168,6 @@ export default function aprovacao() {
                             <h5 className="modal-title">Nova Solicitação</h5>
                             <button className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-
                         <div className="modal-body">
                             <div className="mb-3">
                                 <label className="form-label">Título</label>
@@ -187,10 +175,8 @@ export default function aprovacao() {
                                     onChange={e => alteraTitulo(e.target.value)}
                                     value={titulo}
                                     className="form-control"
-                                    placeholder="Ex: Buraco na rua"
-                                />
+                                    placeholder="Ex: Buraco na rua" />
                             </div>
-
                             <div className="mb-3">
                                 <label className="form-label">Descrição</label>
                                 <textarea
@@ -198,32 +184,21 @@ export default function aprovacao() {
                                     value={descricao}
                                     className="form-control"
                                     rows="4"
-                                    placeholder="Descreva o problema..."
-                                ></textarea>
+                                    placeholder="Descreva o problema..."></textarea>
                             </div>
-
                             <div className="mb-3">
                                 <label className="form-label">Imagem</label>
                                 <input
                                     onChange={e => alteraImagem(e.target.value)}
                                     type="file"
-                                    className="form-control"
-                                />
+                                    className="form-control" />
                             </div>
                         </div>
-
                         <div className="modal-footer">
-                            <button
-                                onClick={salvar}
-                                className="btn btn-primary"
-                                data-bs-dismiss="modal"
-                            >
+                            <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal">
                                 Enviar Solicitação
                             </button>
-
-                            <button className="btn btn-secondary" data-bs-dismiss="modal">
-                                Cancelar
-                            </button>
+                            <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
                 </div>
