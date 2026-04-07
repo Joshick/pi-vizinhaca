@@ -6,6 +6,8 @@ git checkout master
 git reset --hard nova-master
 git push origin master --force
 
+.
+
 ----------
 
 *Tela principal:*
