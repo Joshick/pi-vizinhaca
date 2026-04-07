@@ -17,6 +17,7 @@ export default function Principal() {
     const [descricao, alteraDescricao] = useState("")
     const [status, alteraStatus] = useState("")
     const [imagem, alteraImagem] = useState()
+    const [andamento, alteraAndamento] = useState()
 
     const [inputPesquisarSolicitacao, alteraInputPesquisarSolicitacao] = useState()
     const [editandoSolicitacao, alteraEditandoSolicitacao] = useState(null)
@@ -108,7 +109,8 @@ export default function Principal() {
             status: status,
             id_usuario: id_usuario,
             id_bairro: usuario.bairro.id,
-            imagem: imagem
+            imagem: imagem,
+            andamento: "Novo"
 
         }
 
@@ -163,6 +165,7 @@ export default function Principal() {
         alteraTitulo(objeto.titulo)
         alteraDescricao(objeto.descricao)
         alteraImagem(objeto.imagem)
+        alteraAndamento(objeto.andamento)
     }
 
     async function atualizarSolicitacao() {
@@ -170,7 +173,8 @@ export default function Principal() {
         const objeto = {
             titulo: titulo,
             descricao: descricao,
-            imagem: imagem
+            imagem: imagem,
+            andamento: andamento
         }
 
         const { error } = await supabase
@@ -189,6 +193,13 @@ export default function Principal() {
         }
     }
 
+    function corBadge(andamento) {
+        if (andamento === "Novo") return "bg-primary"
+        if (andamento === "Em andamento") return "bg-warning text-dark"
+        if (andamento === "Finalizado") return "bg-success"
+        return "bg-secondary"
+    }
+
     useEffect(() => {
         buscar()
     }, [])
@@ -205,7 +216,6 @@ export default function Principal() {
                 <div className="mt-3">
                     <h2><i className="bi bi-house"></i> {usuario == null ? "Carregando..." : usuario?.bairro?.bairro} </h2>
                     <h5>Seja bem-vindo, {usuario == null ? "Carregando..." : usuario.nome}!</h5>
-
                 </div>
 
                 {/* CONTEÚDO PRINCIPAL */}
@@ -223,10 +233,10 @@ export default function Principal() {
                         {
                             minhasSolicitacoes == true ?
                                 <div>
-                                    <button className="btn btn-outline-secondary" onClick={buscar}> Todas Solicitações </button>
+                                    <button className="btn-minhas" onClick={buscar}> Todas Solicitações </button>
                                 </div>
                                 :
-                                <button className="btn btn-outline-secondary" onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
+                                <button className="btn-minhas" onClick={botaoMinhasSolicitacoes}> Minhas Solicitações </button>
                         }
                     </div>
                 </div>
@@ -241,11 +251,14 @@ export default function Principal() {
                                     <div className="card h-100">
                                         <img src={solicitacao.imagem} className="card-img-top" />
                                         <div className="align-itens-center">
-                                            <a>@{solicitacao.id_usuario.nome}</a>
+                                            <strong>@{solicitacao.id_usuario.nome}</strong>
                                         </div>
                                         <div className="card-body d-flex flex-column">
                                             <h5 className="card-title">{solicitacao.titulo}</h5>
                                             <p className="card-text">{solicitacao.descricao}</p>
+                                            <span className={`badge ${corBadge(solicitacao.andamento)}`}> {solicitacao.andamento || "Novo"} </span>
+
+                                            <hr />
                                             <div className="mt-auto cont">
                                                 <div>
                                                     <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
@@ -270,7 +283,7 @@ export default function Principal() {
 
                     {/* PAINEL PENDENTES */}
                     <div className="col-4">
-                        <div className="card">
+                        <div className="card card-pendentes">
                             <div className="card-header bg-success">
                                 <strong>Solicitações Pendentes</strong>
                             </div>
@@ -283,10 +296,10 @@ export default function Principal() {
                                         :
                                         (
                                             solicitacoesPendentes.map((p) => (
-                                                <div key={p.id} className="mb-3 border-bottom pb-2">
+                                                <div key={p.id} className="pendente-item">
                                                     <strong>{p.titulo}</strong>
                                                     <p>{p.descricao}</p>
-                                                    <span className="badge bg-warning text-dark"> Pendente </span>
+                                                    <span className="badge-pendente"><strong> Pendente </strong></span>
                                                 </div>
                                             ))
                                         )
@@ -361,6 +374,15 @@ export default function Principal() {
                                 <div className="mb-3">
                                     <label className="form-label">Título</label>
                                     <input value={titulo} onChange={e => alteraTitulo(e.target.value)} className="form-control" />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label"> Andamento </label>
+                                    <select value={andamento} onChange={e => alteraAndamento(e.target.value)} className="form-control">
+                                        <option value="Novo">Novo</option>
+                                        <option value="Em andamento">Em andamento</option>
+                                        <option value="Finalizado">Finalizado</option>
+                                    </select>
                                 </div>
 
                                 {/* DESCRIÇÃO */}
