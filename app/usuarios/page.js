@@ -22,7 +22,7 @@ export default function Usuarios() {
       .select('*')
       .eq('ativo', inputPesquisaAtivo === 'true')
 
-    if (inputPesquisaUsuario()) {
+    if (inputPesquisaUsuario.trim()) {
       query = query.or(
         `nome.ilike.%${inputPesquisaUsuario}%,email.ilike.%${inputPesquisaUsuario}%`
       )

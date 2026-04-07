@@ -12,10 +12,17 @@ const supabase = createClient(
 function Menu_lateral() {
 
   const [admin, alteraAdmin] = useState(false)
+  const [responsavel, alteraResponsavel] = useState(false)
 
-  async function verificarAdmin() {
-    const { data: { user } } = await supabase.auth.getUser()
+  async function verificarPerfil() {
+    const { data: { user }, error: erroAuth } = await supabase.auth.getUser()
 
+    if (erroAuth || !user) {
+      console.log(erroAuth)
+      alteraAdmin(false)
+      alteraResponsavel(false)
+      return
+    }
 
     const { data, error } = await supabase
       .from('usuarios')
@@ -23,17 +30,19 @@ function Menu_lateral() {
       .eq('id', user.id)
       .single()
 
-  
-
-    if (data?.admin === true) {
-      alteraAdmin(true)
-    } else {
+    if (error) {
+      console.log(error)
       alteraAdmin(false)
+      alteraResponsavel(false)
+      return
     }
+
+    alteraAdmin(data?.admin === true)
+    alteraResponsavel(data?.responsavel === true)
   }
 
   useEffect(() => {
-    verificarAdmin()
+    verificarPerfil()
   }, [])
 
   return (
@@ -65,11 +74,13 @@ function Menu_lateral() {
             <a href="./bairros" className="list-group-item list-group-item-action">
               <i className="bi bi-pin-map"></i> Bairros
             </a>
-
-            <a href="./aprovacao" className="list-group-item list-group-item-action">
-              <i className="bi bi-check-all"></i> Aprovações
-            </a>
           </>
+        )}
+
+        {(admin || responsavel) && (
+          <a href="./aprovacao" className="list-group-item list-group-item-action">
+            <i className="bi bi-check-all"></i> Aprovações
+          </a>
         )}
       </div>
 
