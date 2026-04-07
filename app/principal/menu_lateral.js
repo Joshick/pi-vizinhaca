@@ -29,7 +29,7 @@ const id_usuario = localStorage.getItem("id_usuario")
         <div className="col-2" >
             {/* LOGO + NOME */}
             <div className="text-center mt-3">
-                <img width={100} src="/img/logoPrincipal.png" />
+                <img width={200} src="/img/logoAtt.png" />
                 <h1> Amigo da Vizinhança</h1>
             </div>
             {/* LISTAGEM DAS PÁGINAS */}

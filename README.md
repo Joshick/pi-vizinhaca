@@ -1,5 +1,13 @@
 # TAREFAS
 
+## se der merda de novo
+
+git checkout master
+git reset --hard nova-master
+git push origin master --force
+
+----------
+
 *Tela principal:*
 - Usuário comum não deve poder editar nem excluir solicitações, apenas os adminstradores
 - Ao fazer uma solicitação, aparecer separado com uma etiqueta "Aguardando aprovação". Até ser aprovado pode ser possível editar ou excluir
