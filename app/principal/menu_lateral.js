@@ -37,7 +37,7 @@ function Menu_lateral() {
         <a href="./principal" className="list-group-item list-group-item-action"><i className="bi bi-house"></i> Home </a>
         <a className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalCriar"><i className="bi bi-plus-lg"></i> Criar solicitação </a>
         <a href="/dicas" className="list-group-item list-group-item-action"> <i className="bi bi-lightbulb"></i> Dicas do Bairro </a>
-        <a href="/sobre" className="list-group-item list-group-item-action"> <i className="bi bi-lightbulb"></i> Sobre nós </a>
+        <a href="/sobre" className="list-group-item list-group-item-action"> <i className="bi bi-info-circle"></i> Sobre nós </a>
         {
           usuario != null && usuario.admin == true ?
             <div>
@@ -56,7 +56,7 @@ function Menu_lateral() {
           <a href="/" ><button> <i class="bi bi-box-arrow-right"></i> Sair </button></a>
         </div>
       </div>
-      {/* MODAL PERFIL USUÁRIO */}
+
       {/* MODAL PERFIL USUÁRIO */}
       <div className="modal fade" id="modalPerfil" tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
