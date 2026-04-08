@@ -1,8 +1,16 @@
 import styles from "./page.module.css";
 
+import Link from "next/link";
+
 export default function Home() {
   return (
     <>
+
+
+    <Link className={styles.btnAjuda} href="/ajuda">
+          Ajuda.
+      </Link>
+
       {/* NAVBAR */}
       <nav className={styles.navbar}>
         <div className={styles.navbarBrand}>
@@ -126,6 +134,10 @@ export default function Home() {
       <footer className={styles.footer}>
         © 2025 Amigo da Vizinhança · Grandes responsabilidades, comunidade forte
       </footer>
+
+      
+
     </>
   );
 }
+

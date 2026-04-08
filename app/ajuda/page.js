@@ -92,9 +92,3 @@ export default function Ajuda() {
         </div>
     );
 }
-
-<Link href="/ajuda">
-    <button className="btn-ajuda">
-        ❓
-    </button>
-</Link>

@@ -1,6 +1,41 @@
 /* =====================
    NAVBAR
    ===================== */
+
+
+.btnAjuda {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  border: none;
+
+  background: linear-gradient(135deg, #198754, #20c997);
+  color: white;
+
+  font-size: 18px;
+
+  display: flex;              /* 👈 ISSO CENTRALIZA */
+  align-items: center;        /* 👈 vertical */
+  justify-content: center;    /* 👈 horizontal */
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  cursor: pointer;
+
+  z-index: 999;
+
+  transition: all 0.3s ease;
+}
+
+.btnAjuda:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
 .navbar {
   background: #2d5a27;
   padding: 0 2rem;
@@ -59,6 +94,7 @@
   text-decoration: none;
   transition: all 0.15s;
 }
+
 .btnOutline:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: #fff;
@@ -77,6 +113,7 @@
   text-decoration: none;
   transition: all 0.15s;
 }
+
 .btnSolid:hover {
   background: #e8f5e9;
   color: #2d5a27;
@@ -141,6 +178,7 @@
   text-decoration: none;
   transition: all 0.15s;
 }
+
 .btnHeroPrimary:hover {
   background: #e8f5e9;
   color: #2d5a27;
@@ -158,6 +196,7 @@
   text-decoration: none;
   transition: all 0.15s;
 }
+
 .btnHeroSecondary:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: #fff;
@@ -180,6 +219,7 @@
   text-align: center;
   border-right: 1px solid #e5e7eb;
 }
+
 .statItem:last-child {
   border-right: none;
 }
@@ -256,6 +296,7 @@
   text-align: left;
   transition: all 0.2s ease;
 }
+
 .featureCard:hover {
   border-color: #4a7c3f;
   box-shadow: 0 4px 20px rgba(45, 90, 39, 0.1);
@@ -335,6 +376,7 @@
   background: #c5d9c2;
   z-index: 0;
 }
+
 .stepItem:last-child .stepConnector {
   display: none;
 }
@@ -390,6 +432,7 @@
   display: inline-block;
   transition: all 0.15s;
 }
+
 .btnCtaPrimary:hover {
   background: #e8f5e9;
   color: #2d5a27;
@@ -406,27 +449,32 @@
   font-size: 13px;
 }
 
-/* =====================
-   RESPONSIVO
-   ===================== */
+
 @media (max-width: 600px) {
   .navbarSubtitle {
     display: none;
   }
+
   .statsBar {
     flex-direction: column;
   }
+
   .statItem {
     border-right: none;
     border-bottom: 1px solid #e5e7eb;
   }
+
   .statItem:last-child {
     border-bottom: none;
   }
+
   .stepConnector {
     display: none;
   }
+
   .stepsGrid {
     grid-template-columns: 1fr;
   }
+
+
 }
