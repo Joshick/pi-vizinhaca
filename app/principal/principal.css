@@ -4,31 +4,94 @@ body {
 
 /* MENU LATERAL */
 .col-2 {
-    background-color: #455c06;
+    background: linear-gradient(180deg, #455c06, #5f7c0a);
     min-height: 100vh;
     color: white;
-    padding: 0;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: fixed;
+    
 }
 
+/* LOGO */
 .col-2 img {
     border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
 }
 
 .col-2 h1 {
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 10px;
+    font-weight: 600;
 }
 
-/* BOTÃO MENU */
-.text-center button {
-    background-color: #475569;
-    color: white;
-    border-radius: 50px;
+/* LINKS */
+.list-group-item {
+    background: transparent !important;
     border: none;
-    margin-top: 10px;
-    width: 51%;
-    padding: 5px;
+    color: #e6f0c2;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    font-weight: 500;
+}
+
+/* ÍCONES */
+.list-group-item i {
+    margin-right: 8px;
+}
+
+/* HOVER SUAVE */
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+/* ITEM ATIVO */
+.list-group-item.active {
+    background: rgba(255,255,255,0.15) !important;
+    color: #ffffff !important;
+}
+
+/* BOTÕES INFERIORES (Perfil / Sair) */
+.col-2 button {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    margin: 5px;
+    width: 80%;
     transition: 0.3s;
+    font-size: 14px;
+}
+
+/* HOVER BOTÕES */
+.col-2 button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+/* FIXAR PARTE DE BAIXO */
+.col-2 .text-center:last-child {
+    margin-top: auto;
+}
+
+/* MODAL */
+.modal-header {
+    background: #455c06;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background: #5f7c0a;
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    background: #455c06;
 }
 
 .text-center button:hover {
