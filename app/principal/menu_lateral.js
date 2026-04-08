@@ -57,23 +57,34 @@ function Menu_lateral() {
         </div>
       </div>
       {/* MODAL PERFIL USUÁRIO */}
-      <div className="modal fade" id="modalPerfil" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      {/* MODAL PERFIL USUÁRIO */}
+      <div className="modal fade" id="modalPerfil" tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content modal-perfil">
+
+            {/* CABEÇALHO MODAL */}
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Perfil do Usuário</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 className="modal-title">Seu Perfil</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            {/* CORPO MODAL */}
             <div className="modal-body text-center">
-              <img src="https://placehold.co/100"></img>
-              <h5> {usuario.nome} </h5>
-              <p className="text-muted">{usuario.email}</p>
-              <p>{usuario.admin == true ? <p>Administrador do sistema</p> : <p></p>}</p>
+              <i className="bi bi-person-circle" style={{ fontSize: "50px", color: "#455c06" }}></i>
+
+              <h5 className="mt-3">{usuario?.nome}</h5>
+              <p className="text-muted">{usuario?.email}</p>
+
+              {usuario?.admin && (
+                <span>Administrador do sistema</span>
+              )}
             </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" className="btn btn-primary">Editar Perfil</button>
+
+            {/* FOOTER */}
+            <div className="modal-footer justify-content-center">
+              <button className="btn btn-success px-4">Editar Perfil</button>
             </div>
+
           </div>
         </div>
       </div>
