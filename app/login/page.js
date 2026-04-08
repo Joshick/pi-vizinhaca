@@ -1,12 +1,10 @@
-//   <Link href="/principal">  <Link href="/"
-
 'use client'
 
 import { useState } from "react";
 import supabase from "../conexao/supabse";
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
+import "./login.css"
 
 export default function Login() {
 
@@ -17,6 +15,7 @@ export default function Login() {
 
     async function autenticar(e) {
         e.preventDefault()
+
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: senha,
@@ -31,39 +30,47 @@ export default function Login() {
         localStorage.setItem("id_usuario", data.user.id)
 
         router.push("/principal")
-
     }
 
-
     return (
-        <div className="borda">
+        <div className="auth-bg">
 
-            <h1 class="text-center mt-5"> Login de Usuários </h1>
-            <hr />
-            <form class="formLogin text-center">
+            <div className="auth-card">
 
+                <h1 className="auth-title">Login de Usuários</h1>
 
-                <label for="inputEmail" class="col-sm-2 col-form-label">
-                    Digite o e-mail:
-                    <br />
-                    <input class="form-control" id="inputEmail"
-                        required type onChange={e => alteraEmail(e.target.value)} />
-                </label>
-                <br /><br />
+                <form onSubmit={autenticar}>
 
-                <label for="inputSenha" class="col-sm-2 col-form-label">
-                    Digite a senha:
-                    <br />
-                    <input class="form-control" id="inputSenha"
-                        type="password" onChange={e => alteraSenha(e.target.value)} />
-                </label>
-                <br /><br />
+                    <label className="auth-label">Digite o e-mail:</label>
+                    <input
+                        className="auth-input"
+                        placeholder="Seu e-mail"
+                        onChange={e => alteraEmail(e.target.value)}
+                        required
+                    />
 
-                <button onClick={autenticar} class="btn btn-outline-success me-2" type="submit">Entrar</button>
-                <Link href="/" ><button className="btn btn-outline-danger ms-2" type="reset">Cancelar</button></Link>
+                    <label className="auth-label">Digite a senha:</label>
+                    <input
+                        type="password"
+                        className="auth-input"
+                        placeholder="Sua senha"
+                        onChange={e => alteraSenha(e.target.value)}
+                        required
+                    />
 
+                    <button className="auth-btn" type="submit">
+                        Entrar
+                    </button>
 
-            </form>
+                    <Link href="/">
+                        <button type="button" className="auth-btn-outline">
+                            Cancelar
+                        </button>
+                    </Link>
+
+                </form>
+
+            </div>
 
         </div>
     )
