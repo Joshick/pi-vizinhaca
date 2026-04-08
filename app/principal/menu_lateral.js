@@ -80,10 +80,10 @@ function Menu_lateral() {
               )}
             </div>
 
-            {/* FOOTER */}
+            {/* 
             <div className="modal-footer justify-content-center">
               <button className="btn btn-success px-4">Editar Perfil</button>
-            </div>
+            </div> */}
 
           </div>
         </div>
