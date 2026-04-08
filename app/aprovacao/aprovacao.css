@@ -1,0 +1,176 @@
+body {
+  background-color: #f4f7fb;
+}
+
+/* ÁREA PRINCIPAL */
+main.col-10 {
+  min-height: 100vh;
+  background-color: #f4f7fb;
+  padding: 32px;
+}
+
+/* TÍTULO */
+main h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+main h5 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 16px;
+}
+
+/* LINHA SEPARADORA */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #dbe3ea;
+  margin: 32px 0;
+}
+
+/* CAIXAS DAS TABELAS */
+.table-responsive {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+/* TABELA */
+.table {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.table thead th {
+  background-color: #eef3f8;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px solid #dbe3ea;
+  padding: 14px;
+}
+
+.table tbody td {
+  padding: 14px;
+  color: #374151;
+  font-size: 15px;
+  border-color: #edf1f5;
+}
+
+/* EFEITO NAS LINHAS */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fafcfe;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f7ff;
+  transition: 0.2s;
+}
+
+/* BOTÕES */
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-success {
+  background-color: #198754;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #bb2d3b;
+  transform: translateY(-1px);
+}
+
+/* STATUS */
+.status-pendente {
+  display: inline-block;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-aprovado {
+  display: inline-block;
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-reprovado {
+  display: inline-block;
+  background-color: #f8d7da;
+  color: #842029;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 991px) {
+  main.col-10 {
+    padding: 20px;
+  }
+
+  main h2 {
+    font-size: 26px;
+  }
+
+  main h5 {
+    font-size: 18px;
+  }
+
+  .table thead th,
+  .table tbody td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn {
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  main.col-10 {
+    padding: 16px;
+  }
+
+  .table-responsive {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  main h2 {
+    font-size: 22px;
+  }
+
+  main h5 {
+    font-size: 17px;
+  }
+}
