@@ -42,7 +42,7 @@ function Menu_lateral() {
     <div className="col-2">
       {/* LOGO + NOME */}
       <div className="text-center mt-3">
-        <img width={200} src="/img/logoAtt.png" alt="Logo" />
+        <img width={200} src="/img/LogoAtt.png" alt="Logo" />
         <h1></h1>
       </div>
 
