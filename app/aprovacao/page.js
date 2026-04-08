@@ -11,6 +11,8 @@ const supabase = createClient(
 
 export default function aprovacao() {
 
+    if (typeof window === "undefined") return null
+
     const [aprovacao, alteraAprovacao] = useState([])
     const [titulo, alteraTitulo] = useState('')
     const [descricao, alteraDescricao] = useState('')
