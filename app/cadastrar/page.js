@@ -21,7 +21,6 @@ function Cadastro() {
     const [Email, alteraEmail] = useState("")
     const [bairro, alteraBairro] = useState("")
     const [Senha, alteraSenha] = useState("")
-
     const [seleciona, alteraSelecionaBairro] = useState([])
 
     async function salvar(e) {
@@ -50,7 +49,7 @@ function Cadastro() {
         })
 
         if (!data?.user) {
-            alert("Erro no cadastro!")
+            alert("Erro no cadastro! Email ou senhas inválidos.")
             return
         }
 

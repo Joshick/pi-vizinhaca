@@ -22,7 +22,7 @@ export default function Login() {
         })
 
         if (data.user == null) {
-            alert("Dados inválidos...")
+            alert("Dados inválidos. Login ou senha incorretos.")
             return
         }
 
