@@ -30,6 +30,20 @@ export default function Principal() {
     const id_usuario = localStorage.getItem("id_usuario")
     const [usuario, alteraUsuario] = useState([])
 
+    {/* ORDENAR POR CURTIDAS (PRIORIDADE) */}
+    function formatarEOrdenar(data) {
+        if (!data) return [];
+        let ordenado = data.map(sol => {
+            const arr = Array.isArray(sol.curtidas) ? sol.curtidas : (sol.curtidas ? [sol.curtidas] : []);
+            return {
+                ...sol,
+                qtdCurtidas: arr.length,
+                usuarioCurtiu: arr.some(c => c.id_usuario == id_usuario)
+            }
+        });
+        // Ordena para que os com mais curtidas fiquem em primeiro
+        return ordenado.sort((a, b) => b.qtdCurtidas - a.qtdCurtidas);
+    }
 
     {/* PESQUISAR SOLICITAÇÕES */ }
     async function pesquisarSolicitacao(e) {
@@ -37,14 +51,15 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*)
+                id_usuario (*),
+                curtidas (*)
                 `)
             .eq('status', "aprovado")
             .eq('id_bairro', usuario.bairro.id)
             .ilike('titulo', '%' + inputPesquisarSolicitacao + '%')
 
         console.log(data)
-        alteraListaSolicitacoes(data)
+        alteraListaSolicitacoes(formatarEOrdenar(data))
     }
 
     {/* FILTRAR MINHAS SOLICITAÇÕES */ }
@@ -56,11 +71,12 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
             *,
-            id_usuario (*)
+            id_usuario (*),
+            curtidas (*)
             `)
             .eq('id_usuario', id_usuario)
 
-        alteraListaSolicitacoes(data)
+        alteraListaSolicitacoes(formatarEOrdenar(data))
     }
 
     {/* BUSCAR SOLICITAÇÕES */ }
@@ -88,14 +104,15 @@ export default function Principal() {
             .from('solicitacoes')
             .select(`
                 *,
-                id_usuario (*)
+                id_usuario (*),
+                curtidas (*)
                 `)
             .eq('status', "aprovado")
-            .eq('id_bairro', data[0].bairro.id)
+            .eq('id_bairro', data[0]?.bairro?.id)
 
 
         console.log(resposta.error)
-        alteraListaSolicitacoes(resposta.data)
+        alteraListaSolicitacoes(formatarEOrdenar(resposta.data))
 
 
     }
@@ -120,7 +137,9 @@ export default function Principal() {
             return
         }
 
-        alteraListaSolicitacoes(listaSolicitacoes.concat(objeto))
+        // Adiciona localmente apenas para feedback ultra-rápido, porem recarrega embaixo
+        const newList = listaSolicitacoes.concat({...objeto, id_usuario: usuario, curtidas: []})
+        alteraListaSolicitacoes(formatarEOrdenar(newList))
 
         const { error } = await supabase
             .from('solicitacoes')
@@ -193,6 +212,32 @@ export default function Principal() {
         }
     }
 
+    {/* CURTIR SOLICITAÇÃO */ }
+    async function curtir(id_solicitacao) {
+        const { error } = await supabase
+            .from('curtidas')
+            .insert({ id_solicitacoes: id_solicitacao, id_usuario: id_usuario })
+
+        if (error) {
+            console.error("Erro ao curtir:", error)
+            alert("Não foi possível curtir. Verifique se a coluna id_usuario da tabela curtidas está suportando UUID no seu Supabase.")
+        } else {
+            buscar()
+        }
+    }
+
+    {/* DESCURTIR SOLICITAÇÃO */ }
+    async function descurtir(id_solicitacao) {
+        const { error } = await supabase
+            .from('curtidas')
+            .delete()
+            .eq('id_solicitacoes', id_solicitacao)
+            .eq('id_usuario', id_usuario)
+
+        if (error) console.error("Erro ao descurtir:", error)
+        buscar()
+    }
+
     function corBadge(andamento) {
         if (andamento === "Novo") return "bg-primary"
         if (andamento === "Em andamento") return "bg-warning text-dark"
@@ -250,25 +295,31 @@ export default function Principal() {
                                 <div className="col-md-4 mb-3" key={solicitacao.id}>
                                     <div className="card h-100">
                                         <img src={solicitacao.imagem} className="card-img-top" />
-                                        <div className="align-itens-center">
-                                            <strong>@{solicitacao.id_usuario.nome}</strong>
+                                        <div className="align-itens-center px-3 pt-2">
+                                            <strong>@{solicitacao.id_usuario?.nome || "Desconhecido"}</strong>
                                         </div>
                                         <div className="card-body d-flex flex-column">
                                             <h5 className="card-title">{solicitacao.titulo}</h5>
                                             <p className="card-text">{solicitacao.descricao}</p>
-                                            <span className={`badge ${corBadge(solicitacao.andamento)}`}> {solicitacao.andamento || "Novo"} </span>
+                                            <span className={`badge ${corBadge(solicitacao.andamento)} mb-3`}> {solicitacao.andamento || "Novo"} </span>
 
-                                            <hr />
                                             <div className="mt-auto cont">
                                                 <div>
-                                                    <button className="btn btn-success"> <i className="bi bi-hand-thumbs-up-fill"></i> </button>
-                                                    <button className="btn btn-danger ms-2"> <i className="bi bi-hand-thumbs-down"></i> </button>
+                                                    {solicitacao.usuarioCurtiu ? (
+                                                        <button onClick={() => descurtir(solicitacao.id)} className="btn btn-danger"> 
+                                                            <i className="bi bi-hand-thumbs-down-fill"></i> {solicitacao.qtdCurtidas}
+                                                        </button>
+                                                    ) : (
+                                                        <button onClick={() => curtir(solicitacao.id)} className="btn btn-success"> 
+                                                            <i className="bi bi-hand-thumbs-up"></i> {solicitacao.qtdCurtidas}
+                                                        </button>
+                                                    )}
                                                 </div>
                                                 {
                                                     usuario != null && usuario.admin == true ?
-                                                        <div>
-                                                            <button className="btn" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
-                                                            <button onClick={() => editar(solicitacao)} className="btn" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
+                                                        <div className="d-flex">
+                                                            <button onClick={() => editar(solicitacao)} className="btn btn-light me-1 border" data-bs-toggle="modal" data-bs-target="#modalEditar"> <i className="bi bi-pen"></i> </button>
+                                                            <button className="btn btn-light border text-danger" onClick={() => excluir(solicitacao.id)}> <i className="bi bi-trash3"></i> </button>
                                                         </div>
                                                         :
                                                         <div></div>
@@ -291,14 +342,14 @@ export default function Principal() {
                             <div className="card-body" style={{ maxHeight: 500, overflowY: "auto" }}>
                                 {
                                     solicitacoesPendentes.length === 0 ? (
-                                        <p>Nenhuma pendente</p>
+                                        <p className="text-muted p-2 text-center">Nenhuma pendente</p>
                                     )
                                         :
                                         (
                                             solicitacoesPendentes.map((p) => (
                                                 <div key={p.id} className="pendente-item">
                                                     <strong>{p.titulo}</strong>
-                                                    <p>{p.descricao}</p>
+                                                    <p className="mb-2">{p.descricao}</p>
                                                     <span className="badge-pendente"><strong> Pendente </strong></span>
                                                 </div>
                                             ))
@@ -310,55 +361,11 @@ export default function Principal() {
 
                 </div>
 
-                {/* MODAL CRIAR SOLICITAÇÕES */}
-                <div className="modal fade" id="modalCriar" tabIndex="-1">
-                    <div className="modal-dialog modal-dialog-scrollable">
-                        <div className="modal-content">
-
-                            {/* TITULO MODAL */}
-                            <div className="modal-header">
-                                <h5 className="modal-title"> Nova Solicitação </h5>
-                                <button className="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-
-                            {/* CORPO MODAL */}
-                            <div className="modal-body">
-
-                                {/* TITULO */}
-                                <div className="mb-3">
-                                    <h5> {usuario.nome} </h5>
-                                    <label className="form-label"> Título </label>
-                                    <input onChange={e => alteraTitulo(e.target.value)} className="form-control" placeholder="Ex: Buraco na rua" />
-                                </div>
-
-                                {/* DESCRIÇÃO */}
-                                <div className="mb-3">
-                                    <label className="form-label"> Descrição </label>
-                                    <textarea onChange={e => alteraDescricao(e.target.value)} className="form-control" rows="4" placeholder="Descreva o problema..."></textarea>
-                                </div>
-
-                                {/* IMAGEM */}
-                                <div className="mb-3">
-                                    <label className="form-label">Imagem</label>
-                                    <input onChange={e => alteraImagem(e.target.value)} className="form-control" />
-                                </div>
-                            </div>
-
-                            {/* RODAPÉ MODAL */}
-                            <div className="modal-footer">
-                                {/* BOTÃO ENVIAR */}
-                                <button onClick={salvar} className="btn btn-primary" data-bs-dismiss="modal"> Enviar Solicitação </button>
-                                {/* BOTÃO CANCELAR */}
-                                <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+{/* MODAL CRIAR SOLICITAÇÕES REMOVIDO PARA MENU LATERAL */}
 
                 {/* MODAL EDITAR SOLICITAÇÕES */}
                 <div className="modal fade" id="modalEditar" tabIndex="-1">
-                    <div className="modal-dialog modal-dialog-scrollable">
+                    <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                         <div className="modal-content">
 
                             {/* CABEÇALHO MODAL */}
@@ -394,7 +401,19 @@ export default function Principal() {
                                 {/* IMAGEM */}
                                 <div className="mb-3">
                                     <label className="form-label"> Imagem </label>
-                                    <textarea value={imagem} onChange={e => alteraImagem(e.target.value)} className="form-control" rows="4"></textarea>
+                                    <input type="file" accept="image/*" onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => alteraImagem(reader.result);
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }} className="form-control" />
+                                    {imagem && (
+                                        <div className="mt-3 text-center">
+                                            <img src={imagem} alt="Pré-visualização" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }} />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

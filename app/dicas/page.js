@@ -86,7 +86,7 @@ function Card({ dica }) {
         <div className="card-body text-center">
           <i
             className={`bi ${dica.icone}`}
-            style={{ fontSize: "32px", color: "#455c06" }}
+            style={{ fontSize: "32px", color: "#065f46" }}
           ></i>
 
           <h5 className="card-title mt-3">{dica.titulo}</h5>
@@ -103,7 +103,7 @@ export default function Dicas() {
       <Menu_lateral />
 
       <div className="col-10 p-4">
-        <h2 className="mb-4" style={{ color: "#455c06" }}>
+        <h2 className="mb-4" style={{ color: "#065f46" }}>
           Dicas para um bairro melhor
         </h2>
 
@@ -115,7 +115,7 @@ export default function Dicas() {
 
         <div
           className="mt-5 p-4 rounded text-white text-center"
-          style={{ background: "#455c06" }}
+          style={{ background: "#065f46" }}
         >
           <h5>Juntos fazemos a diferença</h5>
           <p className="mb-0">Cada pequena ação melhora nossa comunidade.</p>

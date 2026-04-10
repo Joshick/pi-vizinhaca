@@ -59,6 +59,7 @@ function Cadastro() {
             cpf: Cpf,
             data_nascimento,
             bairro,
+            ativo: true
         }
 
         const resposta = await supabase

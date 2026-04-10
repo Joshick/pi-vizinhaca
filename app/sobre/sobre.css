@@ -1,6 +1,6 @@
 /* FUNDO PRINCIPAL */
 .area-sobre {
-    background-color: #edf2e1;
+    background-color: #ecfdf5;
     min-height: 100vh;
 }
 
@@ -8,7 +8,7 @@
 .card-sobre-principal {
     overflow: hidden;
     border-radius: 18px;
-    border: solid 1px #879b51;
+    border: solid 1px #34d399;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
     background: linear-gradient(135deg, #ffffff 0%, #f7faef 100%);
 }
@@ -19,12 +19,12 @@
     height: 100%;
     min-height: 420px;
     object-fit: cover;
-    border-right: solid 1px #879b51;
+    border-right: solid 1px #34d399;
 }
 
 /* ===== TEXTOS ===== */
 .titulo-sobre {
-    color: #455c06;
+    color: #065f46;
     font-size: 38px;
     font-weight: 800;
     line-height: 1.1;
@@ -37,7 +37,7 @@
 }
 
 .titulo-secao {
-    color: #455c06;
+    color: #065f46;
     font-weight: 700;
     margin-bottom: 12px;
 }
@@ -55,7 +55,7 @@
 /* ===== CARDS INFO ===== */
 .card-info-final {
     border-radius: 16px;
-    border: solid 1px #879b51;
+    border: solid 1px #34d399;
     background-color: #ffffff;
 }
 
@@ -64,7 +64,7 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background-color: #d7e6b4;
+    background-color: #a7f3d0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,26 +73,26 @@
 
 /* ===== LINKS ===== */
 .link-nome {
-    color: #455c06;
+    color: #065f46;
     text-decoration: none;
     font-weight: 700;
     transition: all 0.2s ease;
 }
 
 .link-nome:hover {
-    color: #2e3f00;
+    color: #064e3b;
     text-decoration: underline;
 }
 
 .nome-sem-link {
-    color: #455c06;
+    color: #065f46;
     font-weight: 700;
 }
 
 /* ===== CARD EQUIPE ===== */
 .card-equipe-final {
     border-radius: 18px;
-    border: solid 1px #879b51;
+    border: solid 1px #34d399;
     background: #ffffff;
 }
 
@@ -105,7 +105,7 @@
 /* CARD INDIVIDUAL */
 .integrante-card {
     border-radius: 16px;
-    border: solid 1px #879b51;
+    border: solid 1px #34d399;
     background: linear-gradient(180deg, #ffffff 0%, #f7faef 100%);
     transition: all 0.25s ease;
 }
@@ -115,7 +115,7 @@
 .integrante-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-    border-color: #6b8e23;
+    border-color: #059669;
 }
 
 /* FOTO DA EQUIPE (PRONTO PRA LINKEDIN) */
@@ -124,7 +124,7 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #879b51;
+    border: 3px solid #34d399;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
@@ -134,7 +134,7 @@
     height: 72px;
     margin: 0 auto;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6b8e23, #455c06);
+    background: linear-gradient(135deg, #059669, #065f46);
     color: white;
     display: flex;
     align-items: center;
@@ -154,9 +154,9 @@
 /* TAG LINKEDIN */
 .linkedin-tag {
     display: inline-block;
-    background-color: #d7e6b4;
-    color: #2e3f00;
-    border: solid 1px #879b51;
+    background-color: #a7f3d0;
+    color: #064e3b;
+    border: solid 1px #34d399;
     border-radius: 30px;
     padding: 6px 12px;
     font-size: 13px;
@@ -164,7 +164,7 @@
 }
 
 .linkedin-off {
-    background-color: #edf2e1;
+    background-color: #ecfdf5;
     color: #66714e;
 }
 
@@ -180,7 +180,7 @@
     .img-equipe-final {
         min-height: 300px;
         border-right: none;
-        border-bottom: solid 1px #879b51;
+        border-bottom: solid 1px #34d399;
     }
 
     .titulo-sobre {

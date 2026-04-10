@@ -2,6 +2,7 @@
 import supabase from "../conexao/supabse"
 import { useEffect, useState } from "react"
 import Menu_lateral from "../principal/menu_lateral";
+import styles from "./bairros.module.css";
 
 export default function Bairros() {
     
@@ -112,73 +113,70 @@ export default function Bairros() {
 
 
     return (
-
-
         <div>
-            <div className="row">
-                
+            <div className="row m-0">
                 <Menu_lateral/>
 
-                    <main className="col-10 p-4">
-                        <h2>🏠 Bairros</h2>
+                <main className={`col-10 ${styles.pageContainer}`}>
+                    <h2 className={styles.title}>🏠 Bairros</h2>
 
-                        <div >
-                            <p>Cadastrar um novo bairro</p>
-                            
-                            <input value={nomeBairro} onChange={e => alteraNomeBairro(e.target.value)} />
+                    <div className={styles.card}>
+                        <p className={styles.formDescription}>
+                            {editando != null ? "Atualizar bairro selecionado" : "Cadastrar um novo bairro"}
+                        </p>
+                        
+                        <div className={styles.inputGroup}>
+                            <input 
+                                className={styles.inputField} 
+                                value={nomeBairro} 
+                                onChange={e => alteraNomeBairro(e.target.value)} 
+                                placeholder="Digite o nome do bairro..."
+                            />
 
-                            <br />
-
-                            {
-                    editando != null ?
-                        <div>
-                            <button onClick={atualizar} class="ms-2 me-2" >Atualizar</button>
-                            <button onClick={() => cancelaEdicao(false)} >Cancelar</button>
+                            {editando != null ? (
+                                <>
+                                    <button onClick={atualizar} className={styles.btnPrimary}>Atualizar</button>
+                                    <button onClick={() => cancelaEdicao(false)} className={styles.btnSecondary}>Cancelar</button>
+                                </>
+                            ) : (
+                                <button onClick={salvar} className={styles.btnPrimary}>Cadastrar</button>
+                            )}
                         </div>
-                        :
-                        <button onClick={salvar} >Cadastrar</button>
-                }
-                            {/* <button>Cadastrar</button> */}
+                    </div>
 
-                        </div>
-
-                        <table className="table table-striped">
+                    <div className={styles.tableCard}>
+                        <table className={`table table-hover ${styles.customTable}`}>
                             <thead>
                                 <tr>
                                     <th scope="col">Bairros</th>
-                                    <th scope="col">Ações</th>
-
+                                    <th scope="col" style={{ width: "200px", textAlign: "right" }}>Ações</th>
                                 </tr>
                             </thead>
-
-                            
-                {
-
-                    bairros.length == 0 ?
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        :
-                        bairros.map(
-                            item => 
-                            <thead>
-                                <tr>
-                                <td scope="col"><li>{item.bairro}</li></td>
-                                <td scope="col"><button onClick={ ()=> editar(item) } >Editar</button><button onClick={ ()=> excluir(item.id) } class = "ms-1" >Excluir</button></td>
-
-                                </tr>
-                            </thead>
-                        )
-                }
-         
+                            <tbody>
+                                {bairros.length == 0 ? (
+                                    <tr>
+                                        <td colSpan="2">
+                                            <div className={styles.loadingContainer}>
+                                                <div className="spinner-border text-success" role="status"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    bairros.map(item => (
+                                        <tr key={item.id}>
+                                            <td><div className={styles.bairroName}>{item.bairro}</div></td>
+                                            <td style={{ textAlign: "right" }}>
+                                                <button onClick={() => editar(item)} className={styles.btnEdit}>Editar</button>
+                                                <button onClick={() => excluir(item.id)} className={styles.btnDelete}>Excluir</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
                         </table>
-                    </main>
-
-                </div>
-           
+                    </div>
+                </main>
+            </div>
         </div>
-
-
-
     )
 }

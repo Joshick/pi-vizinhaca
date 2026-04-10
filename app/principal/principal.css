@@ -1,24 +1,53 @@
 body {
-    background-color: #edf2e1;
+    background-color: #ecfdf5;
 }
 
 /* MENU LATERAL */
-.col-2 {
-    background: linear-gradient(180deg, #455c06, #5f7c0a);
+.sidebar-fixa {
+    background: linear-gradient(180deg, #065f46, #10b981);
     min-height: 100vh;
     color: white;
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
+    position: sticky !important;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1040;
+    transition: transform 0.3s ease-in-out;
 }
 
+@media (max-width: 991px) {
+    .sidebar-fixa {
+        position: fixed !important;
+        width: 250px;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+    }
+
+    .sidebar-fixa.menu-aberto {
+        transform: translateX(0);
+    }
+
+    .row > .col-10, 
+    .row > main.col-10,
+    .row > .col-9 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+
 /* LOGO */
-.col-2 img {
+.sidebar-fixa img {
     border-radius: 50%;
     border: 2px solid rgba(255,255,255,0.3);
 }
 
-.col-2 h1 {
+.sidebar-fixa h1 {
     font-size: 18px;
     margin-top: 10px;
     font-weight: 600;
@@ -64,42 +93,99 @@ body {
 }
 
 /* BOTÕES INFERIORES (Perfil / Sair) */
-.col-2 > .text-center button {
+.btn-sidebar-action {
     background: rgba(255,255,255,0.1);
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 6px 12px;
-    margin: 5px;
-    width: 80%;
+    padding: 8px 12px;
+    margin: 4px 0;
     transition: 0.3s;
     font-size: 14px;
+    font-weight: 500;
 }
 
 /* HOVER BOTÕES */
-.col-2 > .text-center button:hover {
-    background-color: #334155;
-    transform: scale(1.05);
+.btn-sidebar-action:hover {
+    background-color: #064e3b;
+    transform: scale(1.02);
 }
 
 /* FIXAR PARTE DE BAIXO */
-.col-2 .text-center:last-child {
+.sidebar-fixa .text-center {
     margin-top: auto;
 }
 
-/* MODAL */
+/* MODAL - ESTILO MODERNO */
+.modal-content {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
 .modal-header {
-    background: #455c06;
+    background: linear-gradient(135deg, #065f46, #059669);
     color: white;
+    border-bottom: none;
+    padding: 20px 25px;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.modal-body {
+    padding: 25px;
+    background-color: #fcfdfa;
+}
+
+.modal-body label {
+    font-weight: 500;
+    color: #064e3b;
+}
+
+.modal-body .form-control {
+    border-radius: 8px;
+    border: 1px solid #c8d6a8;
+    padding: 10px 15px;
+    transition: all 0.2s;
+}
+
+.modal-body .form-control:focus {
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.2);
+}
+
+.modal-footer {
+    background-color: #fcfdfa;
+    border-top: 1px solid #eef3df;
+    padding: 15px 25px;
+}
+
+.modal-footer .btn {
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 500;
 }
 
 .modal-footer .btn-primary {
-    background: #5f7c0a;
+    background: linear-gradient(135deg, #059669, #065f46);
     border: none;
 }
 
 .modal-footer .btn-primary:hover {
-    background: #455c06;
+    background: linear-gradient(135deg, #047857, #022c22);
 }
 
 /* CARDS */
@@ -107,11 +193,16 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: 0.3s;
-    border: solid 1px #879b51;
+    border: solid 1px #34d399;
 }
 
 .card:hover {
     transform: translateY(-3px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
 }
 
 /* REMOVE BUG */
@@ -142,9 +233,9 @@ body {
 
 /* BOTÃO MINHAS */
 .btn-minhas {
-    background: linear-gradient(135deg, #6b8e23, #455c06);
+    background: linear-gradient(135deg, #059669, #065f46);
     color: white;
-    border: solid 1px #2e3f00;
+    border: solid 1px #064e3b;
     border-radius: 10px;
     padding: 8px 12px;
     font-weight: 500;
@@ -153,7 +244,7 @@ body {
 }
 
 .btn-minhas:hover {
-    background: linear-gradient(135deg, #5a7a1d, #2f3e04);
+    background: linear-gradient(135deg, #047857, #022c22);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
@@ -167,7 +258,7 @@ body {
 }
 
 .card-pendentes .card-header {
-    background: linear-gradient(135deg, #455c06, #6b8e23);
+    background: linear-gradient(135deg, #065f46, #059669);
     color: white;
     font-size: 16px;
     border-bottom: none;
@@ -179,7 +270,7 @@ body {
 
 /* ITEM PENDENTE */
 .pendente-item {
-    background: #d7e6b4;
+    background: #a7f3d0;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
@@ -192,8 +283,8 @@ body {
 
 /* BADGE PENDENTE */
 .badge-pendente {
-    background-color: #edf2e1;
-    color: #2e3f00;
+    background-color: #ecfdf5;
+    color: #064e3b;
     border-radius: 10px;
     border: solid 1px;
     padding: 4px 8px;
@@ -207,7 +298,7 @@ body {
 }
 
 .modal-perfil .modal-header {
-    background: linear-gradient(135deg, #455c06, #6b8e23);
+    background: linear-gradient(135deg, #065f46, #059669);
     color: white;
 }
 
