@@ -311,7 +311,39 @@ body {
     padding-bottom: 20px;
 }
 
-.modal-perfil button {
-    width: auto !important;
-    border-radius: 10px !important;
+/* BOTÃO MENU MOBILE */
+.btn-menu-toggle {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 22px;
+    background: #059669 !important;
+    color: white !important;
+    border: none;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: fixed !important;
+    top: 15px;
+    left: 15px;
+    z-index: 1051;
 }
+
+.btn-menu-toggle:hover {
+    transform: scale(1.1);
+    background: #047857 !important;
+}
+
+.btn-menu-toggle:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 991px) {
+    /* Ajuste para não sobrepor o conteúdo inicial quando o botão está no topo */
+    .mt-3 h2 {
+        padding-left: 55px;
+        font-size: 1.2rem;
+    }
+}

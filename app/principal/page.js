@@ -10,25 +10,33 @@ import "./principal.css"
 import Menu_lateral from './menu_lateral';
 
 export default function Principal() {
-
-    if (typeof window === "undefined") return null
-
+    const [isClient, setIsClient] = useState(false)
     const [titulo, alteraTitulo] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [status, alteraStatus] = useState("")
     const [imagem, alteraImagem] = useState()
     const [andamento, alteraAndamento] = useState()
-
     const [inputPesquisarSolicitacao, alteraInputPesquisarSolicitacao] = useState()
     const [editandoSolicitacao, alteraEditandoSolicitacao] = useState(null)
     const [minhasSolicitacoes, alteraMinhasSolicitacoes] = useState(false)
-
     const [listaSolicitacoes, alteraListaSolicitacoes] = useState([])
     const params = useParams()
     const [solicitacoesPendentes, alteraSolicitacoesPendentes] = useState([])
-
-    const id_usuario = localStorage.getItem("id_usuario")
     const [usuario, alteraUsuario] = useState([])
+
+    const id_usuario = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    useEffect(() => {
+        if (isClient) {
+            buscar()
+        }
+    }, [isClient])
+
+    if (!isClient) return null
 
     {/* ORDENAR POR CURTIDAS (PRIORIDADE) */}
     function formatarEOrdenar(data) {
@@ -244,10 +252,6 @@ export default function Principal() {
         if (andamento === "Finalizado") return "bg-success"
         return "bg-secondary"
     }
-
-    useEffect(() => {
-        buscar()
-    }, [])
 
     return (
         <div className="row">

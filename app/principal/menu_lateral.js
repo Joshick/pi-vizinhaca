@@ -113,7 +113,7 @@ function Menu_lateral() {
 
   return (
     <>
-      <button className="btn d-lg-none position-fixed top-0 start-0 m-3 shadow" style={{ zIndex: 1050, background: "#059669", color: "white" }} onClick={() => alteraMenuAberto(!menuAberto)}>
+      <button className="btn-menu-toggle d-lg-none" onClick={() => alteraMenuAberto(!menuAberto)}>
         <i className="bi bi-list"></i>
       </button>
 

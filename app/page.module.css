@@ -123,12 +123,29 @@
    HERO
    ===================== */
 .hero {
-  background: linear-gradient(135deg, #2d5a27 0%, #4a7c3f 60%, #5d9c50 100%);
+  background: url('/hero-bg.png') center center / cover no-repeat;
   color: #fff;
   padding: 80px 2rem 88px;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(30, 60, 25, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
 }
 
 .heroBadge {
