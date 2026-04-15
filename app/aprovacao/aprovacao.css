@@ -1,11 +1,11 @@
 body {
-  background-color: #f4f7fb;
+  background-color: #f1f5f0;
 }
 
 /* ÁREA PRINCIPAL */
 main.col-10 {
   min-height: 100vh;
-  background-color: #f4f7fb;
+  background-color: #f1f5f0;
   padding: 32px;
 }
 
@@ -48,11 +48,11 @@ hr {
 }
 
 .table thead th {
-  background-color: #eef3f8;
-  color: #1f2937;
+  background-color: #e8f5e9;
+  color: #2d5a27;
   font-weight: 700;
   font-size: 15px;
-  border-bottom: 2px solid #dbe3ea;
+  border-bottom: 2px solid #c5d9c2;
   padding: 14px;
 }
 

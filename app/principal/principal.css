@@ -1,10 +1,10 @@
 body {
-    background-color: #ecfdf5;
+    background-color: #f1f5f0;
 }
 
 /* MENU LATERAL */
 .sidebar-fixa {
-    background: linear-gradient(180deg, #065f46, #10b981);
+    background: linear-gradient(180deg, #1a3d16, #2d5a27);
     min-height: 100vh;
     color: white;
     padding: 20px 10px;
@@ -107,7 +107,7 @@ body {
 
 /* HOVER BOTÕES */
 .btn-sidebar-action:hover {
-    background-color: #064e3b;
+    background-color: #1a3d16;
     transform: scale(1.02);
 }
 
@@ -125,7 +125,7 @@ body {
 }
 
 .modal-header {
-    background: linear-gradient(135deg, #065f46, #059669);
+    background: linear-gradient(135deg, #1a3d16, #2d5a27);
     color: white;
     border-bottom: none;
     padding: 20px 25px;
@@ -152,7 +152,7 @@ body {
 
 .modal-body label {
     font-weight: 500;
-    color: #064e3b;
+    color: #1a3d16;
 }
 
 .modal-body .form-control {
@@ -163,8 +163,8 @@ body {
 }
 
 .modal-body .form-control:focus {
-    border-color: #059669;
-    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.2);
+    border-color: #2d5a27;
+    box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.2);
 }
 
 .modal-footer {
@@ -180,12 +180,12 @@ body {
 }
 
 .modal-footer .btn-primary {
-    background: linear-gradient(135deg, #059669, #065f46);
+    background: linear-gradient(135deg, #2d5a27, #1a3d16);
     border: none;
 }
 
 .modal-footer .btn-primary:hover {
-    background: linear-gradient(135deg, #047857, #022c22);
+    background: linear-gradient(135deg, #1a3d16, #0d210b);
 }
 
 /* CARDS */
@@ -193,7 +193,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     transition: 0.3s;
-    border: solid 1px #34d399;
+    border: solid 1px #c5d9c2;
 }
 
 .card:hover {
@@ -233,9 +233,9 @@ body {
 
 /* BOTÃO MINHAS */
 .btn-minhas {
-    background: linear-gradient(135deg, #059669, #065f46);
+    background: linear-gradient(135deg, #2d5a27, #1a3d16);
     color: white;
-    border: solid 1px #064e3b;
+    border: solid 1px #1a3d16;
     border-radius: 10px;
     padding: 8px 12px;
     font-weight: 500;
@@ -244,7 +244,7 @@ body {
 }
 
 .btn-minhas:hover {
-    background: linear-gradient(135deg, #047857, #022c22);
+    background: linear-gradient(135deg, #1a3d16, #0d210b);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
@@ -258,7 +258,7 @@ body {
 }
 
 .card-pendentes .card-header {
-    background: linear-gradient(135deg, #065f46, #059669);
+    background: linear-gradient(135deg, #1a3d16, #2d5a27);
     color: white;
     font-size: 16px;
     border-bottom: none;
@@ -270,7 +270,7 @@ body {
 
 /* ITEM PENDENTE */
 .pendente-item {
-    background: #a7f3d0;
+    background: #e8f5e9;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
@@ -283,8 +283,8 @@ body {
 
 /* BADGE PENDENTE */
 .badge-pendente {
-    background-color: #ecfdf5;
-    color: #064e3b;
+    background-color: #f1f5f0;
+    color: #1a3d16;
     border-radius: 10px;
     border: solid 1px;
     padding: 4px 8px;
@@ -298,7 +298,7 @@ body {
 }
 
 .modal-perfil .modal-header {
-    background: linear-gradient(135deg, #065f46, #059669);
+    background: linear-gradient(135deg, #1a3d16, #2d5a27);
     color: white;
 }
 
@@ -320,7 +320,7 @@ body {
     justify-content: center;
     border-radius: 10px;
     font-size: 22px;
-    background: #059669 !important;
+    background: #2d5a27 !important;
     color: white !important;
     border: none;
     box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
@@ -333,7 +333,7 @@ body {
 
 .btn-menu-toggle:hover {
     transform: scale(1.1);
-    background: #047857 !important;
+    background: #1a3d16 !important;
 }
 
 .btn-menu-toggle:active {

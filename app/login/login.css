@@ -1,7 +1,7 @@
 /* FUNDO IGUAL AO SITE */
 .auth-bg {
     min-height: 100vh;
-    background: linear-gradient(135deg, #2f5d2f, #5c8d4d);
+    background: linear-gradient(135deg, #1a3d16, #2d5a27);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
 .auth-title {
     font-size: 26px;
     font-weight: 600;
-    color: #2f5d2f;
+    color: #2d5a27;
     margin-bottom: 20px;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .auth-input:focus {
-    border-color: #5c8d4d;
-    box-shadow: 0 0 5px rgba(92,141,77,0.3);
+    border-color: #2d5a27;
+    box-shadow: 0 0 5px rgba(45,90,39,0.3);
 }
 
 /* BOTÃO PRINCIPAL */
@@ -48,7 +48,7 @@
     padding: 10px;
     border-radius: 10px;
     border: none;
-    background: linear-gradient(135deg, #4caf50, #2f5d2f);
+    background: linear-gradient(135deg, #2d5a27, #1a3d16);
     color: white;
     font-weight: 500;
     margin-bottom: 10px;
@@ -65,14 +65,14 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid #2f5d2f;
+    border: 1px solid #2d5a27;
     background: transparent;
-    color: #2f5d2f;
+    color: #2d5a27;
     transition: 0.3s;
 }
 
 .auth-btn-outline:hover {
-    background: #2f5d2f;
+    background: #2d5a27;
     color: white;
 }
 
