@@ -1,40 +1,95 @@
-# TAREFAS
+# 🏘️ PI Vizinhança
 
-## se der merda de novo
+Sistema web para gestão comunitária, permitindo que moradores registrem e acompanhem problemas urbanos em seus bairros.
 
-git checkout master
-git reset --hard nova-master
-git push origin master --force
+🔗 Acesse o projeto: https://pi-vizinhaca-eight.vercel.app/  
 
-.
+---
 
-----------
+## 📌 Sobre o projeto
 
-*Tela principal:*
-- Usuário comum não deve poder editar nem excluir solicitações, apenas os adminstradores
-- Ao fazer uma solicitação, aparecer separado com uma etiqueta "Aguardando aprovação". Até ser aprovado pode ser possível editar ou excluir
-- Usuários devem poder ver apenas solicitações do seu próprio bairro
-(OPCIONAL) -> uma sessão para ver tudo de todos os bairros
+O **PI Vizinhança** foi desenvolvido como Projeto Integrador, com o objetivo de facilitar a comunicação entre moradores e responsáveis por bairros, permitindo o registro, acompanhamento e resolução de problemas urbanos.
 
+Exemplos:
+- Buracos em ruas  
+- Falta de médicos em UBS  
+- Mato alto  
+- Iluminação pública  
 
-*Painel lateral*
-- Perfil deve puxar informações do usuário logado
-- Filtrar o que o usuário comum pode ver e o que o administrador pode ver
+---
 
-*Página de bairros*
-- Arrumar o cadastro
-- Melhora a interface peloamordedeus
-- Rever a necessidade da exclusão
+## 🚀 Funcionalidades
 
-*Página de Aprovações*:
-- Fazer funcionar
-- Ao aceitar as solicitações pendentes, deve aparecer em todas solicitações
-- Em todas solicitações deve haver um botão "Resolvido/Concluído" para finalizar a solicitação
-*IMPORTANTE*
-- O administrador do sistema deve poder ver tudo
-- O administrador do bairro deve poder ver e aprovar apenas as solicitações do bairro que é responsável
+- Cadastro e login de usuários  
+- Criação de solicitações  
+- Sistema de aprovação por responsáveis  
+- Controle de status (em andamento, resolvido, não resolvido)  
+- Organização por bairros  
+- Painel administrativo  
 
-*Página de usuários*
-- Fazer funcionar
-- Ter certeza que é possível tornar um usuário comum um administrador do bairro
+---
 
+## 🛠️ Tecnologias utilizadas
+
+- React  
+- JavaScript  
+- Supabase  
+- HTML / CSS / Bootstrap  
+- Git e GitHub  
+
+---
+
+## 👥 Equipe e responsabilidades
+
+Projeto desenvolvido em equipe por:
+
+### 👨‍💻 José Hickelme Lopes
+- Página de Usuários (Gerenciamento de Usuários)  
+- Página de Aprovações  
+- Página "Sobre Nós"  
+
+---
+
+### 👨‍💻 Leonardo Naka
+- Página Inicial  
+- Gerenciamento de Bairros  
+- Sistema de Curtidas  
+
+---
+
+### 👩‍💻 Bárbara Heliodara
+- Página de Login  
+- Página de Cadastro  
+- Página de Ajuda  
+
+---
+
+### 👩‍💻 Rayssa Silveira
+- Página Home (Gerenciamento de Solicitações)  
+- Criação de Solicitações  
+- Dicas do Bairro  
+
+---
+
+## 🧠 Aprendizados
+
+Durante o desenvolvimento deste projeto, o grupo adquiriu experiência com:
+
+- Desenvolvimento de aplicações web  
+- Integração com banco de dados (Supabase)  
+- Estruturação de aplicações com React  
+- Trabalho em equipe  
+- Versionamento com Git  
+
+---
+
+## 💡 Melhorias futuras
+
+- Sistema de votação para evitar duplicidade  
+- Upload de imagens nas solicitações  
+- Notificações para usuários  
+- Melhorias na interface (UI/UX)  
+
+---
+
+ 
